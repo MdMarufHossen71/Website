@@ -8,7 +8,6 @@ window.addEventListener('scroll', function() {
         header.style.boxShadow = 'none';
     }
 });
-
 // Wait for the window to load before initializing AOS
 window.addEventListener('load', () => {
   AOS.init({
