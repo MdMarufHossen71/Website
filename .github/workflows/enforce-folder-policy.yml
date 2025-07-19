@@ -1,5 +1,5 @@
 # Workflow-এর নাম
-name: 'Enforce Folder Policy'
+name: 'Enforce Folder Policy for Collaborators'
 
 # কখন এই Workflow চলবে?
 on:
@@ -16,47 +16,51 @@ jobs:
   check-changes:
     runs-on: ubuntu-latest
     steps:
-      # ধাপ ১: কোডটি চেকআউট করা
-      - uses: actions/checkout@v3
-        # পুশের ক্ষেত্রে সম্পূর্ণ হিস্ট্রি দরকার, তাই fetch-depth: 0
+      # ধাপ ১: ব্যবহারকারীর নাম পরীক্ষা করা
+      # যদি ব্যবহারকারী রিপোজিটরির মালিক হন, তাহলে কোনো পরীক্ষা ছাড়াই সফলভাবে শেষ হবে
+      - name: Bypass check for repository owner
+        if: github.actor == github.repository_owner
+        run: |
+          echo "✅ Skipping policy check because the user (${{ github.actor }}) is the repository owner."
+          exit 0
+
+      # ধাপ ২: কোডটি চেকআউট করা (শুধুমাত্র যদি ব্যবহারকারী মালিক না হন)
+      - name: Checkout code for non-owner
+        if: github.actor != github.repository_owner
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      # ধাপ ২: পরিবর্তিত ফাইলগুলোর তালিকা বের করা
-      - name: Get changed files
+      # ধাপ ৩: পরিবর্তিত ফাইলগুলোর তালিকা বের করা (শুধুমাত্র যদি ব্যবহারকারী মালিক না হন)
+      - name: Get changed files for non-owner
+        if: github.actor != github.repository_owner
         id: changed-files
         run: |
-          # ইভেন্টটি 'push' নাকি 'pull_request' তা পরীক্ষা করা হচ্ছে
           if [[ "${{ github.event_name }}" == "push" ]]; then
-            # পুশের ক্ষেত্রে, শেষ দুটি কমিটের মধ্যে পরিবর্তনগুলো দেখা হচ্ছে
-            echo "Event is a push. Comparing last two commits."
             FILES=$(git diff --name-only HEAD~1 HEAD)
           else
-            # পুল রিকোয়েস্টের ক্ষেত্রে, বেস এবং হেড ব্রাঞ্চের মধ্যে পরিবর্তন দেখা হচ্ছে
-            echo "Event is a pull_request. Comparing base and head branches."
             FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
           fi
-          
           echo "changed_files<<EOF" >> $GITHUB_OUTPUT
           echo "$FILES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-      # ধাপ ৩: ফাইলগুলো অনুমোদিত ফোল্ডারে আছে কিনা তা পরীক্ষা করা
-      - name: Check if changes are only in the 'blogs' folder
+      # ধাপ ৪: ফাইলগুলো অনুমোদিত ফোল্ডারে আছে কিনা তা পরীক্ষা করা (শুধুমাত্র যদি ব্যবহারকারী মালিক না হন)
+      - name: Enforce policy for non-owner
+        if: github.actor != github.repository_owner
         run: |
+          echo "User (${{ github.actor }}) is not the owner. Enforcing folder policy."
           echo "Files changed:"
           echo "${{ steps.changed-files.outputs.changed_files }}"
           
-          # যদি কোনো ফাইল পরিবর্তন না হয়ে থাকে (যেমন: খালি কমিট), তাহলে সফলভাবে শেষ হবে
           if [[ -z "${{ steps.changed-files.outputs.changed_files }}" ]]; then
             echo "✅ No files changed. Skipping check."
             exit 0
           fi
 
           for file in ${{ steps.changed-files.outputs.changed_files }}; do
-            # যদি কোনো ফাইল 'blogs/' ফোল্ডারের বাইরে থাকে
             if [[ ! "$file" == blogs/* ]]; then
-              echo "❌ ERROR: Changes outside the 'blogs' folder are not allowed."
+              echo "❌ ERROR: Changes outside the 'blogs' folder are not allowed for collaborators."
               echo "File '$file' is not in the allowed folder."
               exit 1
             fi
