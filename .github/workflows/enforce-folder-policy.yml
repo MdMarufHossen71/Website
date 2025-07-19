@@ -1,28 +1,42 @@
 # Workflow-এর নাম
-name: 'Enforce Blog-Only Changes'
+name: 'Enforce Folder Policy'
 
 # কখন এই Workflow চলবে?
-# এটি প্রতিটি পুল রিকোয়েস্ট তৈরি বা আপডেট হওয়ার সময় চলবে
 on:
+  # main ব্রাঞ্চের জন্য পুল রিকোয়েস্ট তৈরি বা আপডেট হলে
   pull_request:
+    branches:
+      - main
+  # main ব্রাঞ্চে সরাসরি পুশ করা হলে
+  push:
     branches:
       - main
 
 jobs:
-  check-changed-files:
+  check-changes:
     runs-on: ubuntu-latest
     steps:
       # ধাপ ১: কোডটি চেকআউট করা
       - uses: actions/checkout@v3
+        # পুশের ক্ষেত্রে সম্পূর্ণ হিস্ট্রি দরকার, তাই fetch-depth: 0
         with:
-          fetch-depth: 0 # সম্পূর্ণ git history লোড করার জন্য
+          fetch-depth: 0
 
-      # ধাপ ২: শুধুমাত্র পরিবর্তিত ফাইলগুলোর তালিকা বের করা
+      # ধাপ ২: পরিবর্তিত ফাইলগুলোর তালিকা বের করা
       - name: Get changed files
         id: changed-files
         run: |
-          # বেস ব্রাঞ্চ (main) এবং বর্তমান ব্রাঞ্চের মধ্যে পরিবর্তিত ফাইলগুলোর তালিকা বের করা হচ্ছে
-          FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+          # ইভেন্টটি 'push' নাকি 'pull_request' তা পরীক্ষা করা হচ্ছে
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            # পুশের ক্ষেত্রে, শেষ দুটি কমিটের মধ্যে পরিবর্তনগুলো দেখা হচ্ছে
+            echo "Event is a push. Comparing last two commits."
+            FILES=$(git diff --name-only HEAD~1 HEAD)
+          else
+            # পুল রিকোয়েস্টের ক্ষেত্রে, বেস এবং হেড ব্রাঞ্চের মধ্যে পরিবর্তন দেখা হচ্ছে
+            echo "Event is a pull_request. Comparing base and head branches."
+            FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+          fi
+          
           echo "changed_files<<EOF" >> $GITHUB_OUTPUT
           echo "$FILES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -30,19 +44,22 @@ jobs:
       # ধাপ ৩: ফাইলগুলো অনুমোদিত ফোল্ডারে আছে কিনা তা পরীক্ষা করা
       - name: Check if changes are only in the 'blogs' folder
         run: |
-          echo "Files changed in this PR:"
+          echo "Files changed:"
           echo "${{ steps.changed-files.outputs.changed_files }}"
           
-          # প্রতিটি পরিবর্তিত ফাইল পরীক্ষা করা হচ্ছে
+          # যদি কোনো ফাইল পরিবর্তন না হয়ে থাকে (যেমন: খালি কমিট), তাহলে সফলভাবে শেষ হবে
+          if [[ -z "${{ steps.changed-files.outputs.changed_files }}" ]]; then
+            echo "✅ No files changed. Skipping check."
+            exit 0
+          fi
+
           for file in ${{ steps.changed-files.outputs.changed_files }}; do
             # যদি কোনো ফাইল 'blogs/' ফোল্ডারের বাইরে থাকে
             if [[ ! "$file" == blogs/* ]]; then
               echo "❌ ERROR: Changes outside the 'blogs' folder are not allowed."
               echo "File '$file' is not in the allowed folder."
-              # একটি এরর কোড দিয়ে প্রসেস বন্ধ করা হচ্ছে, যা Action-টিকে Fail করে দেবে
               exit 1
             fi
           done
           
           echo "✅ SUCCESS: All changes are within the 'blogs' folder."
-
