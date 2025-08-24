@@ -1,0 +1,29 @@
+{
+  "name": "md-maruf-hossen-portfolio",
+  "version": "1.0.0",
+  "description": "Professional portfolio website for Md Maruf Hossen - Digital Marketer & Graphic Designer",
+  "main": "index.html",
+  "scripts": {
+    "dev": "live-server --port=3000 --host=0.0.0.0",
+    "start": "live-server --port=3000 --host=0.0.0.0",
+    "build": "echo 'Static site - no build process needed'",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "portfolio",
+    "digital-marketing",
+    "graphic-design",
+    "web-design",
+    "freelancer"
+  ],
+  "author": "Md Maruf Hossen <mdmarufhossen@duck.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MdMarufHossen71/mdmarufhossen71.site"
+  },
+  "homepage": "https://mdmarufhossen71.site"
+}
