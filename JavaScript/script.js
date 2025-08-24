@@ -37,17 +37,33 @@ navLinks.forEach(link => {
 // Smooth scrolling for navigation links
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-        e.preventDefault();
         const targetId = link.getAttribute('href');
         
         if (targetId.startsWith('#')) {
+            e.preventDefault();
             const targetSection = document.querySelector(targetId);
             if (targetSection) {
                 const offsetTop = targetSection.offsetTop - 80;
                 window.scrollTo({
                     top: offsetTop,
-                    behavior: 'smooth'
+                    behavior: 'smooth',
+                    block: 'start'
                 });
+            }
+        } else if (targetId.includes('#')) {
+            // Handle cross-page navigation with hash
+            const [page, hash] = targetId.split('#');
+            if (window.location.pathname.includes(page) && hash) {
+                e.preventDefault();
+                const targetSection = document.querySelector('#' + hash);
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             }
         }
     });
@@ -331,11 +347,12 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof AOS !== 'undefined') {
         AOS.init({
-            duration: 800,
+            duration: 600,
             easing: 'ease-in-out',
             once: true,
             offset: 100,
-            delay: 100
+            delay: 50,
+            disable: 'mobile'
         });
     }
 });
@@ -369,16 +386,27 @@ const createBackToTopButton = () => {
         cursor: pointer;
         font-size: 1.2rem;
         box-shadow: var(--shadow-lg);
-        transition: var(--transition);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         opacity: 0;
         visibility: hidden;
         z-index: 1000;
     `;
     
+    button.addEventListener('mouseenter', () => {
+        button.style.transform = 'translateY(-3px) scale(1.1)';
+        button.style.boxShadow = '0 15px 30px rgba(99, 102, 241, 0.4)';
+    });
+    
+    button.addEventListener('mouseleave', () => {
+        button.style.transform = 'translateY(0) scale(1)';
+        button.style.boxShadow = 'var(--shadow-lg)';
+    });
+    
     button.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
-            behavior: 'smooth'
+            behavior: 'smooth',
+            block: 'start'
         });
     });
     

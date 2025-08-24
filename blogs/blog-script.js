@@ -127,8 +127,20 @@ document.addEventListener('DOMContentLoaded', function() {
             if (target) {
                 target.scrollIntoView({
                     behavior: 'smooth',
-                    block: 'start'
+                    block: 'start',
+                    inline: 'nearest'
                 });
+            }
+        });
+    });
+    
+    // Enhanced smooth scrolling for cross-page navigation
+    document.querySelectorAll('a[href*="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href.includes('../index.html#')) {
+                // Let the browser handle cross-page navigation
+                return;
             }
         });
     });
@@ -243,10 +255,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize AOS
     if (typeof AOS !== 'undefined') {
         AOS.init({
-            duration: 800,
+            duration: 600,
             easing: 'ease-in-out',
             once: true,
-            offset: 100
+            offset: 100,
+            delay: 50,
+            disable: 'mobile'
         });
     }
 
