@@ -627,14 +627,14 @@
                 </div>
                 
                 <div class="contact-form-container" data-aos="fade-left" data-aos-delay="200">
-                    <form class="contact-form" id="contact-form">
+                    <form class="contact-form" id="contact-form" action="https://formspree.io/f/xdkogpvw" method="POST">
                         <div class="form-group">
-                            <input type="text" id="name" name="name" required>
+                            <input type="text" id="name" name="name" required placeholder=" ">
                             <label for="name">Your Name</label>
                         </div>
                         
                         <div class="form-group">
-                            <input type="email" id="email" name="email" required>
+                            <input type="email" id="email" name="_replyto" required placeholder=" ">
                             <label for="email">Your Email</label>
                         </div>
                         
@@ -651,9 +651,14 @@
                         </div>
                         
                         <div class="form-group">
-                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <textarea id="message" name="message" rows="5" required placeholder=" "></textarea>
                             <label for="message">Project Details</label>
                         </div>
+                        
+                        <!-- Hidden fields for better email formatting -->
+                        <input type="hidden" name="_subject" value="New Contact Form Submission - Portfolio Website">
+                        <input type="hidden" name="_next" value="https://mdmarufhossen71.site/thank-you.html">
+                        <input type="hidden" name="_format" value="plain">
                         
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-paper-plane"></i>

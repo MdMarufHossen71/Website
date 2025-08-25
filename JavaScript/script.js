@@ -157,45 +157,42 @@ window.addEventListener('load', animateSkillBars);
 
 // Contact form handling
 if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const formData = new FormData(contactForm);
+    contactForm.addEventListener('submit', function(e) {
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
         
         // Show loading state
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Sending...</span>';
         submitBtn.disabled = true;
         
-        try {
-            // Simulate form submission (replace with actual form handling)
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            // Show success message
-            submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-            submitBtn.style.background = 'var(--accent-color)';
-            
-            // Reset form
-            contactForm.reset();
-            
-            // Show success notification
-            showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
-            
-        } catch (error) {
-            // Show error message
-            submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error';
-            submitBtn.style.background = '#ef4444';
-            
-            showNotification('Failed to send message. Please try again.', 'error');
-        }
+        // The form will be submitted normally to Formspree
+        // We'll handle success/error on the thank you page or via Formspree's response
         
-        // Reset button after 3 seconds
+        // Reset button state after a delay (in case of errors)
         setTimeout(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-            submitBtn.style.background = '';
-        }, 3000);
+            if (submitBtn.disabled) {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        }, 10000);
+    });
+    
+    // Handle form validation
+    const formInputs = contactForm.querySelectorAll('input, select, textarea');
+    formInputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            if (this.hasAttribute('required') && !this.value.trim()) {
+                this.style.borderColor = '#ef4444';
+            } else {
+                this.style.borderColor = '';
+            }
+        });
+        
+        input.addEventListener('input', function() {
+            if (this.style.borderColor === 'rgb(239, 68, 68)') {
+                this.style.borderColor = '';
+            }
+        });
     });
 }
 
