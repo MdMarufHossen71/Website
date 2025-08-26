@@ -158,6 +158,8 @@ window.addEventListener('load', animateSkillBars);
 // Contact form handling
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent default form submission
+        
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
         
@@ -165,32 +167,79 @@ if (contactForm) {
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Sending...</span>';
         submitBtn.disabled = true;
         
-        // The form will be submitted normally to Formspree
-        // We'll handle success/error on the thank you page or via Formspree's response
+        // Create FormData object to handle file uploads
+        const formData = new FormData(this);
         
-        // Reset button state after a delay (in case of errors)
-        setTimeout(() => {
-            if (submitBtn.disabled) {
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
+        // Submit form to Formspree
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
             }
-        }, 10000);
+        })
+        .then(response => {
+            if (response.ok) {
+                // Success - redirect to thank you page
+                window.location.href = 'thank-you.html';
+            } else {
+                throw new Error('Form submission failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('Sorry, there was an error sending your message. Please try again or email me directly.', 'error');
+            
+            // Reset button state
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        });
     });
     
-    // Handle form validation
-    const formInputs = contactForm.querySelectorAll('input, select, textarea');
+    // File upload validation
+    const fileInput = contactForm.querySelector('input[type="file"]');
+    if (fileInput) {
+        fileInput.addEventListener('change', function() {
+            const files = this.files;
+            const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+            let totalSize = 0;
+            
+            for (let file of files) {
+                totalSize += file.size;
+                if (file.size > maxSize) {
+                    showNotification(`File "${file.name}" is too large. Maximum file size is 10MB.`, 'error');
+                    this.value = ''; // Clear the input
+                    return;
+                }
+            }
+            
+            if (totalSize > maxSize * 3) { // Max 30MB total
+                showNotification('Total file size is too large. Please reduce the number of files or compress them.', 'error');
+                this.value = ''; // Clear the input
+                return;
+            }
+            
+            if (files.length > 0) {
+                const fileNames = Array.from(files).map(file => file.name).join(', ');
+                showNotification(`${files.length} file(s) selected: ${fileNames}`, 'success');
+            }
+        });
+    }
+    
+    // Reset form validation on input change
+    const formInputs = contactForm.querySelectorAll('input:not([type="file"]), select, textarea');
     formInputs.forEach(input => {
-        input.addEventListener('blur', function() {
-            if (this.hasAttribute('required') && !this.value.trim()) {
-                this.style.borderColor = '#ef4444';
-            } else {
+        input.addEventListener('input', function() {
+            if (this.style.borderColor === 'rgb(239, 68, 68)') {
                 this.style.borderColor = '';
             }
         });
         
-        input.addEventListener('input', function() {
-            if (this.style.borderColor === 'rgb(239, 68, 68)') {
-                this.style.borderColor = '';
+        input.addEventListener('blur', function() {
+            if (this.hasAttribute('required') && !this.value.trim()) {
+                this.style.borderColor = '#ef4444';
+            } else {
+                submitBtn.innerHTML = originalText;
             }
         });
     });

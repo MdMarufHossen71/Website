@@ -655,9 +655,16 @@
                             <label for="message">Project Details</label>
                         </div>
                         
+                        <div class="form-group">
+                            <input type="file" id="attachment" name="attachment" multiple accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif,.zip,.rar" placeholder=" ">
+                            <label for="attachment">Attach Files (Optional)</label>
+                            <small style="color: rgba(255, 255, 255, 0.6); font-size: 0.75rem; margin-top: 0.5rem; display: block;">
+                                You can attach project files, briefs, or reference materials (Max 10MB per file)
+                            </small>
+                        </div>
+                        
                         <!-- Hidden fields for better email formatting -->
                         <input type="hidden" name="_subject" value="New Contact Form Submission - Portfolio Website">
-                        <input type="hidden" name="_next" value="https://mdmarufhossen71.site/thank-you.html">
                         <input type="hidden" name="_format" value="plain">
                         
                         <button type="submit" class="btn btn-primary">

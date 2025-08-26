@@ -1132,6 +1132,27 @@ p {
     transition: var(--transition);
 }
 
+.form-group input[type="file"] {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+}
+
+.form-group input[type="file"]::-webkit-file-upload-button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 1rem;
+    font-size: 0.875rem;
+    transition: var(--transition);
+}
+
+.form-group input[type="file"]::-webkit-file-upload-button:hover {
+    background: var(--primary-dark);
+}
+
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
@@ -1155,7 +1176,17 @@ p {
 .form-group select:focus + label,
 .form-group select:not([value=""]) + label,
 .form-group textarea:focus + label,
-.form-group textarea:not(:placeholder-shown) + label {
+.form-group textarea:not(:placeholder-shown) + label,
+.form-group input[type="file"]:not(:placeholder-shown) + label {
+    top: -0.5rem;
+    left: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--primary-color);
+    background: var(--bg-dark);
+    padding: 0 0.5rem;
+}
+
+.form-group input[type="file"] + label {
     top: -0.5rem;
     left: 0.75rem;
     font-size: 0.75rem;
