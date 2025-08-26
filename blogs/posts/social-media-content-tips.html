@@ -30,12 +30,7 @@
                 <a href="../../index.html#contact" class="nav-link">Contact</a>
                 <a href="../blog.html" class="nav-link">Blog</a>
             </div>
-            <div class="language-toggle">
-                <button id="lang-toggle" class="lang-btn">
-                    <i class="fas fa-globe"></i>
-                    <span id="current-lang">EN</span>
-                </button>
-            </div>
+            <div id="google_translate_element" class="google-translate"></div>
             <div class="nav-toggle" id="nav-toggle">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -419,6 +414,17 @@
     </footer>
 
     <!-- Scripts -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,es,fr,de,it,pt,ru,ja,ko,zh,ar,hi,bn,ur,tr,nl,sv,da,no,fi,pl,cs,hu,ro,bg,hr,sk,sl,et,lv,lt,mt,ga,cy,eu,ca,gl,is,mk,sq,sr,bs,me,az,ka,hy,he,fa,th,vi,ms,id,tlswam,zu,xh,st,tn,ts,ve,ss,nr,nso,af',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="../../JavaScript/script.js"></script>
     <script src="../blog-script.js"></script>
