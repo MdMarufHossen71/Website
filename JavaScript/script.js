@@ -198,8 +198,282 @@ if (contactForm) {
     
     // File upload validation
     const fileInput = contactForm.querySelector('input[type="file"]');
+    const fileList = document.getElementById('file-list');
+    let selectedFiles = [];
+    
     if (fileInput) {
         fileInput.addEventListener('change', function() {
+            const files = this.files;
+            const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+            const maxTotalSize = 30 * 1024 * 1024; // 30MB total
+            
+            // Add new files to selected files array
+            for (let file of files) {
+                if (file.size > maxSize) {
+                    showNotification(`File "${file.name}" is too large. Maximum file size is 10MB.`, 'error');
+                    continue;
+                }
+                
+                // Check if file already exists
+                const existingFile = selectedFiles.find(f => f.name === file.name && f.size === file.size);
+                if (!existingFile) {
+                    selectedFiles.push(file);
+                }
+            }
+            
+            // Check total size
+            const totalSize = selectedFiles.reduce((sum, file) => sum + file.size, 0);
+            if (totalSize > maxTotalSize) {
+                showNotification('Total file size exceeds 30MB. Please remove some files.', 'error');
+                return;
+            }
+            
+            updateFileList();
+            updateFileInput();
+        });
+        
+        function updateFileList() {
+            fileList.innerHTML = '';
+            
+            selectedFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                
+                const fileSize = formatFileSize(file.size);
+                const fileIcon = getFileIcon(file.name);
+                
+                fileItem.innerHTML = `
+                    <div class="file-info">
+                        <i class="fas ${fileIcon} file-icon"></i>
+                        <div class="file-details">
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-size">${fileSize}</div>
+                        </div>
+                    </div>
+                    <button type="button" class="file-remove" onclick="removeFile(${index})" title="Remove file">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                fileList.appendChild(fileItem);
+            });
+            
+            if (selectedFiles.length > 0) {
+                const totalSize = selectedFiles.reduce((sum, file) => sum + file.size, 0);
+                const totalSizeFormatted = formatFileSize(totalSize);
+                showNotification(`${selectedFiles.length} file(s) selected (${totalSizeFormatted} total)`, 'success');
+            }
+        }
+        
+        function updateFileInput() {
+            // Create a new DataTransfer object to update the file input
+            const dt = new DataTransfer();
+            selectedFiles.forEach(file => dt.items.add(file));
+            fileInput.files = dt.files;
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        function getFileIcon(filename) {
+            const extension = filename.split('.').pop().toLowerCase();
+            const iconMap = {
+                'pdf': 'fa-file-pdf',
+                'doc': 'fa-file-word',
+                'docx': 'fa-file-word',
+                'txt': 'fa-file-alt',
+                'jpg': 'fa-file-image',
+                'jpeg': 'fa-file-image',
+                'png': 'fa-file-image',
+                'gif': 'fa-file-image',
+                'zip': 'fa-file-archive',
+                'rar': 'fa-file-archive'
+            };
+            return iconMap[extension] || 'fa-file';
+        }
+    }
+    
+    // Global function to remove files (called from HTML)
+    window.removeFile = function(index) {
+        selectedFiles.splice(index, 1);
+        updateFileList();
+        updateFileInput();
+        
+        if (selectedFiles.length === 0) {
+            showNotification('All files removed', 'info');
+        }
+    };
+    
+    // Make functions available globally for the file upload
+    if (fileInput) {
+        const fileList = document.getElementById('file-list');
+        let selectedFiles = [];
+        
+        function updateFileList() {
+            fileList.innerHTML = '';
+            
+            selectedFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                
+                const fileSize = formatFileSize(file.size);
+                const fileIcon = getFileIcon(file.name);
+                
+                fileItem.innerHTML = `
+                    <div class="file-info">
+                        <i class="fas ${fileIcon} file-icon"></i>
+                        <div class="file-details">
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-size">${fileSize}</div>
+                        </div>
+                    </div>
+                    <button type="button" class="file-remove" data-index="${index}" title="Remove file">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                fileList.appendChild(fileItem);
+            });
+            
+            // Add event listeners to remove buttons
+            fileList.querySelectorAll('.file-remove').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    selectedFiles.splice(index, 1);
+                    updateFileList();
+                    updateFileInput();
+                    
+                    if (selectedFiles.length === 0) {
+                        showNotification('All files removed', 'info');
+                    }
+                });
+            });
+            
+            if (selectedFiles.length > 0) {
+                const totalSize = selectedFiles.reduce((sum, file) => sum + file.size, 0);
+                const totalSizeFormatted = formatFileSize(totalSize);
+                showNotification(`${selectedFiles.length} file(s) selected (${totalSizeFormatted} total)`, 'success');
+            }
+        }
+        
+        function updateFileInput() {
+            // Create a new DataTransfer object to update the file input
+            const dt = new DataTransfer();
+            selectedFiles.forEach(file => dt.items.add(file));
+            fileInput.files = dt.files;
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        function getFileIcon(filename) {
+            const extension = filename.split('.').pop().toLowerCase();
+            const iconMap = {
+                'pdf': 'fa-file-pdf',
+                'doc': 'fa-file-word',
+                'docx': 'fa-file-word',
+                'txt': 'fa-file-alt',
+                'jpg': 'fa-file-image',
+                'jpeg': 'fa-file-image',
+                'png': 'fa-file-image',
+                'gif': 'fa-file-image',
+                'zip': 'fa-file-archive',
+                'rar': 'fa-file-archive'
+            };
+            return iconMap[extension] || 'fa-file';
+        }
+        
+        fileInput.addEventListener('change', function() {
+            const files = Array.from(this.files);
+            const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+            const maxTotalSize = 30 * 1024 * 1024; // 30MB total
+            
+            // Add new files to selected files array
+            for (let file of files) {
+                if (file.size > maxSize) {
+                    showNotification(`File "${file.name}" is too large. Maximum file size is 10MB.`, 'error');
+                    continue;
+                }
+                
+                // Check if file already exists
+                const existingFile = selectedFiles.find(f => f.name === file.name && f.size === file.size);
+                if (!existingFile) {
+                    selectedFiles.push(file);
+                }
+            }
+            
+            // Check total size
+            const totalSize = selectedFiles.reduce((sum, file) => sum + file.size, 0);
+            if (totalSize > maxTotalSize) {
+                showNotification('Total file size exceeds 30MB. Please remove some files.', 'error');
+                // Remove the last added files that exceeded the limit
+                while (selectedFiles.reduce((sum, file) => sum + file.size, 0) > maxTotalSize && selectedFiles.length > 0) {
+                    selectedFiles.pop();
+                }
+            }
+            
+            updateFileList();
+            updateFileInput();
+        });
+    }
+    
+    // Remove duplicate file handling code
+    const originalFileInput = contactForm.querySelector('input[type="file"]');
+    if (originalFileInput && !originalFileInput.hasAttribute('data-enhanced')) {
+        originalFileInput.setAttribute('data-enhanced', 'true');
+        
+        originalFileInput.addEventListener('change', function() {
+            const files = Array.from(this.files);
+            const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+            const maxTotalSize = 30 * 1024 * 1024; // 30MB total
+            let totalSize = 0;
+            let validFiles = [];
+            
+            for (let file of files) {
+                if (file.size > maxSize) {
+                    showNotification(`File "${file.name}" is too large. Maximum file size is 10MB.`, 'error');
+                    continue;
+                }
+                validFiles.push(file);
+                totalSize += file.size;
+            }
+            
+            if (totalSize > maxTotalSize) {
+                showNotification('Total file size exceeds 30MB. Please select fewer or smaller files.', 'error');
+                this.value = ''; // Clear the input
+                return;
+            }
+            
+            if (validFiles.length > 0) {
+                const fileNames = validFiles.map(file => file.name).join(', ');
+                const totalSizeFormatted = formatFileSize(totalSize);
+                showNotification(`${validFiles.length} file(s) selected: ${fileNames} (${totalSizeFormatted} total)`, 'success');
+            }
+        });
+        
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+    }
+    
+    // Clean up duplicate code - remove the old file handling
+    const duplicateFileInput = contactForm.querySelector('input[type="file"]:not([data-enhanced])');
+    if (duplicateFileInput) {
+        duplicateFileInput.addEventListener('change', function() {
             const files = this.files;
             const maxSize = 10 * 1024 * 1024; // 10MB in bytes
             let totalSize = 0;

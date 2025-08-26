@@ -36,37 +36,52 @@
     </nav>
 
     <!-- Thank You Section -->
-    <section class="hero" style="min-height: 80vh;">
+    <section class="hero" style="min-height: 100vh; display: flex; align-items: center;">
         <div class="container">
-            <div class="hero-container" style="text-align: center; max-width: 600px; margin: 0 auto;">
+            <div class="hero-container" style="text-align: center; max-width: 800px; margin: 0 auto; padding: 2rem;">
                 <div class="hero-content">
-                    <div class="hero-badge" style="background: var(--accent-color); color: white;">
+                    <div class="hero-badge" style="background: var(--accent-color); color: white; margin-bottom: 2rem;">
                         <i class="fas fa-check-circle"></i>
                         <span>Message Sent Successfully</span>
                     </div>
-                    <h1 class="hero-title" style="font-size: 3rem; margin-bottom: 2rem;">
+                    <h1 class="hero-title" style="font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 2rem; color: var(--text-primary);">
                         Thank You!
                     </h1>
-                    <p class="hero-description" style="font-size: 1.25rem; margin-bottom: 3rem;">
+                    <p class="hero-description" style="font-size: 1.25rem; margin-bottom: 3rem; color: var(--text-secondary); line-height: 1.6;">
                         Your message has been received successfully. I'll review your project details and get back to you within 24 hours.
                     </p>
                     
-                    <div style="background: var(--bg-secondary); padding: 2rem; border-radius: var(--border-radius); margin-bottom: 3rem;">
-                        <h3 style="color: var(--text-primary); margin-bottom: 1rem;">What happens next?</h3>
-                        <ul style="text-align: left; color: var(--text-secondary); line-height: 1.8;">
-                            <li style="margin-bottom: 0.5rem;">
-                                <i class="fas fa-envelope" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
-                                I'll send you a confirmation email within 2 hours
-                            </li>
-                            <li style="margin-bottom: 0.5rem;">
-                                <i class="fas fa-phone" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
-                                We'll schedule a call to discuss your project in detail
-                            </li>
-                            <li style="margin-bottom: 0.5rem;">
-                                <i class="fas fa-file-alt" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
-                                You'll receive a detailed proposal within 48 hours
-                            </li>
-                        </ul>
+                    <div class="next-steps-container">
+                        <h3 class="next-steps-title">What happens next?</h3>
+                        <div class="steps-grid">
+                            <div class="step-item">
+                                <div class="step-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h4>Confirmation Email</h4>
+                                    <p>I'll send you a confirmation email within 2 hours</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h4>Project Discussion</h4>
+                                    <p>We'll schedule a call to discuss your project in detail</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h4>Detailed Proposal</h4>
+                                    <p>You'll receive a comprehensive proposal within 48 hours</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="hero-buttons">
@@ -80,7 +95,7 @@
                         </a>
                     </div>
                     
-                    <div style="margin-top: 3rem; padding: 1.5rem; background: rgba(99, 102, 241, 0.1); border-radius: var(--border-radius); border-left: 4px solid var(--primary-color);">
+                    <div class="contact-info-box">
                         <p style="margin: 0; color: var(--text-secondary);">
                             <strong>Need immediate assistance?</strong><br>
                             Email me directly at <a href="mailto:mdmarufhossen@duck.com" style="color: var(--primary-color);">mdmarufhossen@duck.com</a>
@@ -145,11 +160,130 @@
     <!-- Scripts -->
     <script src="JavaScript/script.js"></script>
     
+    <!-- Custom Styles for Thank You Page -->
+    <style>
+        .next-steps-container {
+            background: var(--bg-secondary);
+            padding: 3rem 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .next-steps-title {
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            text-align: left;
+            padding: 1.5rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        
+        .step-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .step-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .step-icon i {
+            color: white;
+            font-size: 1.25rem;
+        }
+        
+        .step-content h4 {
+            color: var(--text-primary);
+            margin: 0 0 0.5rem 0;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        
+        .step-content p {
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        .contact-info-box {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary-color);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .steps-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .step-item {
+                padding: 1.25rem;
+            }
+            
+            .next-steps-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .contact-info-box {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-container {
+                padding: 1rem !important;
+            }
+            
+            .step-item {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+            
+            .step-content {
+                text-align: center;
+            }
+        }
+    </style>
+    
     <!-- Auto redirect after 30 seconds -->
     <script>
         setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 30000);
+            if (confirm('Would you like to return to the homepage?')) {
+                window.location.href = 'index.html';
+            }
+        }, 45000); // Increased to 45 seconds
     </script>
 </body>
 </html>
