@@ -1,30 +1,6 @@
 // Blog JavaScript Functionality
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Language Toggle Functionality
-    const langToggle = document.getElementById('lang-toggle');
-    const currentLangSpan = document.getElementById('current-lang');
-    let currentLanguage = 'en';
-
-    // Initialize language
-    updateLanguage(currentLanguage);
-
-    langToggle.addEventListener('click', function() {
-        currentLanguage = currentLanguage === 'en' ? 'bn' : 'en';
-        updateLanguage(currentLanguage);
-        currentLangSpan.textContent = currentLanguage.toUpperCase();
-    });
-
-    function updateLanguage(lang) {
-        const elements = document.querySelectorAll('[data-en][data-bn]');
-        elements.forEach(element => {
-            const text = element.getAttribute(`data-${lang}`);
-            if (text) {
-                element.textContent = text;
-            }
-        });
-    }
-
     // Category Filtering
     const categoryBtns = document.querySelectorAll('.category-btn');
     const blogCards = document.querySelectorAll('.blog-card');
@@ -75,12 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.style.background = 'var(--accent-color)';
                 
                 // Show success notification
-                showNotification(
-                    currentLanguage === 'en' 
-                        ? 'Successfully subscribed to newsletter!' 
-                        : 'নিউজলেটারে সফলভাবে সাবস্ক্রাইব হয়েছে!', 
-                    'success'
-                );
+                showNotification('Successfully subscribed to newsletter!', 'success');
 
                 // Reset form
                 this.reset();
@@ -106,12 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Simulate loading more posts
             setTimeout(() => {
                 // Here you would typically load more posts from an API
-                showNotification(
-                    currentLanguage === 'en' 
-                        ? 'More posts coming soon!' 
-                        : 'আরো পোস্ট শীঘ্রই আসছে!', 
-                    'info'
-                );
+                showNotification('More posts coming soon!', 'info');
 
                 this.innerHTML = originalText;
                 this.disabled = false;
