@@ -316,17 +316,25 @@ p {
     line-height: 1.1;
     margin-bottom: 1.5rem;
     color: var(--text-primary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: -0.02em;
 }
 
 .typing-text {
     position: relative;
     color: var(--primary-color);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
 }
 
 .typing-text::after {
     content: '|';
     animation: blink 1s infinite;
     color: var(--primary-color);
+    -webkit-text-fill-color: var(--primary-color);
 }
 
 @keyframes blink {
@@ -339,6 +347,8 @@ p {
     color: var(--text-secondary);
     margin-bottom: 2rem;
     line-height: 1.7;
+    max-width: 600px;
+    text-align: left;
 }
 
 .hero-stats {
@@ -357,6 +367,10 @@ p {
     font-weight: 800;
     color: var(--primary-color);
     line-height: 1;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .stat-label {
@@ -369,6 +383,7 @@ p {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    margin-top: 2rem;
 }
 
 .hero-visual {
@@ -382,6 +397,7 @@ p {
     position: relative;
     width: 400px;
     height: 400px;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
 }
 
 .hero-image {
@@ -391,6 +407,7 @@ p {
     border-radius: 50%;
     border: 8px solid white;
     box-shadow: var(--shadow-xl);
+    transition: var(--transition);
 }
 
 .floating-elements {
@@ -413,6 +430,8 @@ p {
     font-weight: 600;
     font-size: 0.875rem;
     animation: float 6s ease-in-out infinite;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .floating-card i {
@@ -424,18 +443,21 @@ p {
     top: 20%;
     left: -20%;
     animation-delay: 0s;
+    background: rgba(255, 255, 255, 0.95);
 }
 
 .card-2 {
     top: 60%;
     right: -20%;
     animation-delay: 2s;
+    background: rgba(255, 255, 255, 0.95);
 }
 
 .card-3 {
     bottom: 20%;
     left: -10%;
     animation-delay: 4s;
+    background: rgba(255, 255, 255, 0.95);
 }
 
 @keyframes float {
@@ -443,6 +465,55 @@ p {
     50% { transform: translateY(-20px); }
 }
 
+/* Enhanced gradient text */
+.gradient-text {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    text-shadow: none;
+}
+
+/* Improved hero section responsiveness */
+@media (max-width: 1024px) {
+    .hero-image-container {
+        width: 350px;
+        height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: clamp(2rem, 6vw, 3rem);
+        text-align: center;
+    }
+    
+    .hero-description {
+        text-align: center;
+        max-width: 100%;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+    
+    .hero-image-container {
+        width: 280px;
+        height: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-image-container {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .floating-card {
+        display: none;
+    }
+}
 /* About Section */
 .about {
     padding: 8rem 0;
