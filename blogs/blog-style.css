@@ -77,14 +77,16 @@ html {
 
 .blog-description {
     font-size: 1.25rem;
-    opacity: 0.9;
+    color: rgba(255, 255, 255, 0.95);
     line-height: 1.6;
     margin: 0;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Blog Categories */
 .blog-categories {
-    padding: 3rem 0;
+    padding: 2rem 0;
     background: var(--bg-secondary);
 }
 
@@ -186,15 +188,15 @@ body {
 
 /* Blog Posts */
 .blog-posts {
-    padding: 4rem 0;
+    padding: 2rem 0 4rem 0;
     background: var(--bg-primary);
 }
 
 .blog-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-    gap: 2rem;
-    margin-bottom: 4rem;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
 }
 
 .blog-card {
@@ -305,7 +307,7 @@ body {
 /* Load More Section */
 .load-more-section {
     text-align: center;
-    padding: 2rem 0;
+    padding: 1rem 0 2rem 0;
 }
 
 .load-more-btn {
@@ -315,7 +317,7 @@ body {
 
 /* Newsletter Section */
 .newsletter-section {
-    padding: 4rem 0;
+    padding: 3rem 0;
     background: var(--bg-dark);
     color: white;
 }
@@ -372,7 +374,7 @@ body {
 
 /* Blog Post Page Styles */
 .blog-post-header {
-    padding: 8rem 0 4rem;
+    padding: 6rem 0 3rem;
     background: var(--bg-secondary);
     text-align: center;
 }
@@ -380,7 +382,7 @@ body {
 .blog-post-container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 4rem 2rem;
+    padding: 2rem;
 }
 
 .blog-post-title-main {
@@ -556,6 +558,7 @@ body {
 @media (max-width: 1024px) {
     .blog-grid {
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 1.25rem;
     }
     
     .newsletter-content {
@@ -572,7 +575,7 @@ body {
 
 @media (max-width: 768px) {
     .blog-header {
-        padding: 6rem 0 3rem;
+        padding: 5rem 0 2rem;
     }
     
     .blog-title {
@@ -586,11 +589,11 @@ body {
     
     .blog-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1.25rem;
     }
     
     .blog-card {
-        margin: 0 1rem;
+        margin: 0 0.5rem;
     }
     
     .blog-post-meta {
@@ -616,7 +619,7 @@ body {
 
 @media (max-width: 480px) {
     .blog-posts {
-        padding: 2rem 0;
+        padding: 1.5rem 0 2rem 0;
     }
     
     .blog-content {
@@ -624,7 +627,7 @@ body {
     }
     
     .blog-post-container {
-        padding: 2rem 1rem;
+        padding: 1.5rem 1rem;
     }
     
     .blog-post-title-main {
@@ -634,6 +637,16 @@ body {
     .category-btn {
         padding: 0.75rem 1.25rem;
         font-size: 0.8rem;
+        margin: 0.25rem;
+    }
+    
+    .blog-categories {
+        padding: 1.5rem 0;
+    }
+    
+    .blog-grid {
+        gap: 1rem;
+        margin-bottom: 2rem;
     }
 }
 

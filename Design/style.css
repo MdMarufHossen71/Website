@@ -351,6 +351,30 @@ p {
     text-align: left;
 }
 
+/* Blog specific hero improvements */
+.blog-header .blog-description {
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.blog-header .blog-title {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    color: white;
+    font-weight: 800;
+}
+
+.blog-header .blog-badge {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
 .hero-stats {
     display: flex;
     gap: 2rem;
