@@ -100,7 +100,7 @@ filterBtns.forEach(btn => {
 // Typing animation for hero section
 const typingText = document.querySelector('.typing-text');
 if (typingText) {
-    const words = ['Graphic Designer', 'Brand Strategist', 'UI/UX Designer', 'Creative Professional', 'Logo Designer', 'Web Designer', 'Print Designer', 'Visual Designer'];
+    const words = ['Graphic Designer', 'Brand Strategist',  'Creative Professional', 'Logo Designer', 'Web Designer', 'Print Designer', 'Visual Designer'];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
