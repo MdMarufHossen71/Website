@@ -1,8 +1,39 @@
 /* Blog Specific Styles */
 
+/* 3D Blog Enhancements */
+.blog-3d-container {
+    transform-style: preserve-3d;
+    perspective: 1200px;
+}
+
+.blog-card-3d {
+    transform-style: preserve-3d;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.blog-card-3d::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-radius: var(--border-radius);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.blog-card-3d:hover::before {
+    opacity: 1;
+}
+
 /* Enhanced smooth scrolling and transitions */
 html {
     scroll-behavior: smooth;
+    perspective: 1000px;
 }
 
 * {
@@ -11,18 +42,19 @@ html {
 
 /* Improved transitions for smoother experience */
 .blog-card, .category-btn, .newsletter-form button, .share-btn {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
 }
 
 /* Enhanced hover effects */
 .blog-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-12px) translateZ(20px) rotateX(5deg) rotateY(3deg);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
 }
 
 .category-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    transform: translateY(-4px) translateZ(15px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4);
 }
 
 /* Blog Header */
@@ -33,6 +65,8 @@ html {
     text-align: center;
     position: relative;
     overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 1200px;
 }
 
 .blog-header::before {
@@ -45,6 +79,12 @@ html {
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="150" fill="url(%23a)"/><circle cx="800" cy="300" r="200" fill="url(%23a)"/><circle cx="400" cy="700" r="180" fill="url(%23a)"/></svg>') no-repeat center center;
     background-size: cover;
     opacity: 0.3;
+    animation: blogHeaderFloat 20s ease-in-out infinite;
+}
+
+@keyframes blogHeaderFloat {
+    0%, 100% { transform: translateZ(0px) scale(1); }
+    50% { transform: translateZ(10px) scale(1.02); }
 }
 
 .blog-header-content {
@@ -52,6 +92,13 @@ html {
     z-index: 2;
     max-width: 800px;
     margin: 0 auto;
+    transform-style: preserve-3d;
+    animation: headerContentFloat 12s ease-in-out infinite;
+}
+
+@keyframes headerContentFloat {
+    0%, 100% { transform: translateZ(0px); }
+    50% { transform: translateZ(15px); }
 }
 
 .blog-badge {
@@ -66,6 +113,14 @@ html {
     margin-bottom: 2rem;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+}
+
+.blog-badge:hover {
+    transform: translateZ(20px) scale(1.1);
+    box-shadow: 0 15px 35px rgba(255, 255, 255, 0.3);
 }
 
 .blog-title {
@@ -73,6 +128,19 @@ html {
     font-weight: 800;
     margin-bottom: 1.5rem;
     line-height: 1.1;
+    transform-style: preserve-3d;
+    animation: blogTitleGlow 8s ease-in-out infinite;
+}
+
+@keyframes blogTitleGlow {
+    0%, 100% { 
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        transform: translateZ(0px);
+    }
+    50% { 
+        text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        transform: translateZ(10px);
+    }
 }
 
 .blog-description {
@@ -82,12 +150,21 @@ html {
     margin: 0;
     font-weight: 500;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transform-style: preserve-3d;
+    animation: descriptionFloat3d 10s ease-in-out infinite;
+}
+
+@keyframes descriptionFloat3d {
+    0%, 100% { transform: translateZ(0px); }
+    50% { transform: translateZ(8px); }
 }
 
 /* Blog Categories */
 .blog-categories {
     padding: 2rem 0;
     background: var(--bg-secondary);
+    transform-style: preserve-3d;
+    perspective: 1000px;
 }
 
 .category-filters {
@@ -95,6 +172,7 @@ html {
     justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
+    transform-style: preserve-3d;
 }
 
 .category-btn {
@@ -108,9 +186,12 @@ html {
     color: var(--text-secondary);
     font-weight: 600;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
     font-size: 0.875rem;
+    transform-style: preserve-3d;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
 }
 
 .category-btn:hover,
@@ -118,8 +199,8 @@ html {
     background: var(--primary-color);
     border-color: var(--primary-color);
     color: white;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-5px) translateZ(15px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4);
 }
 
 .category-btn i {
@@ -190,6 +271,8 @@ body {
 .blog-posts {
     padding: 2rem 0 4rem 0;
     background: var(--bg-primary);
+    transform-style: preserve-3d;
+    perspective: 1200px;
 }
 
 .blog-grid {
@@ -197,37 +280,43 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
     gap: 1.5rem;
     margin-bottom: 3rem;
+    transform-style: preserve-3d;
 }
 
 .blog-card {
     background: white;
     border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid var(--border-color);
+    transform-style: preserve-3d;
+    position: relative;
+    backdrop-filter: blur(10px);
 }
 
 .blog-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-xl);
+    transform: translateY(-12px) translateZ(25px) rotateX(5deg) rotateY(3deg);
+    box-shadow: 0 35px 70px rgba(0, 0, 0, 0.2);
 }
 
 .blog-image {
     position: relative;
     height: 220px;
     overflow: hidden;
+    transform-style: preserve-3d;
 }
 
 .blog-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: var(--transition);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
 }
 
 .blog-card:hover .blog-image img {
-    transform: scale(1.05);
+    transform: scale(1.08) translateZ(10px);
 }
 
 .blog-category-tag {
@@ -240,10 +329,19 @@ body {
     border-radius: 20px;
     font-size: 0.75rem;
     font-weight: 600;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+}
+
+.blog-card:hover .blog-category-tag {
+    transform: translateZ(15px) scale(1.1);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
 }
 
 .blog-content {
     padding: 2rem;
+    transform-style: preserve-3d;
 }
 
 .blog-meta {
@@ -275,11 +373,13 @@ body {
     font-size: 1.25rem;
     font-weight: 700;
     line-height: 1.3;
-    transition: var(--transition);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
 }
 
 .blog-post-title a:hover {
     color: var(--primary-color);
+    text-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
 }
 
 .blog-excerpt {
@@ -302,6 +402,15 @@ body {
     font-size: 0.75rem;
     font-weight: 500;
     border: 1px solid rgba(99, 102, 241, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.tag:hover {
+    transform: translateZ(5px) scale(1.05);
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
 }
 
 /* Load More Section */
@@ -320,6 +429,25 @@ body {
     padding: 3rem 0;
     background: var(--bg-dark);
     color: white;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    position: relative;
+}
+
+.newsletter-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    animation: newsletterBg 15s ease-in-out infinite;
+}
+
+@keyframes newsletterBg {
+    0%, 100% { transform: translateZ(0px) scale(1); }
+    50% { transform: translateZ(5px) scale(1.01); }
 }
 
 .newsletter-content {
@@ -329,12 +457,28 @@ body {
     gap: 2rem;
     max-width: 1000px;
     margin: 0 auto;
+    transform-style: preserve-3d;
+    position: relative;
+    z-index: 2;
 }
 
 .newsletter-text h3 {
     font-size: 1.75rem;
     margin-bottom: 0.5rem;
     color: white;
+    transform-style: preserve-3d;
+    animation: newsletterTitleFloat 8s ease-in-out infinite;
+}
+
+@keyframes newsletterTitleFloat {
+    0%, 100% { 
+        transform: translateZ(0px);
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    50% { 
+        transform: translateZ(10px);
+        text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
 }
 
 .newsletter-text p {
@@ -346,6 +490,7 @@ body {
     display: flex;
     gap: 1rem;
     min-width: 400px;
+    transform-style: preserve-3d;
 }
 
 .newsletter-form input {
@@ -356,6 +501,9 @@ body {
     background: rgba(255, 255, 255, 0.1);
     color: white;
     font-size: 1rem;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    backdrop-filter: blur(10px);
 }
 
 .newsletter-form input::placeholder {
@@ -366,10 +514,18 @@ body {
     outline: none;
     border-color: var(--primary-color);
     background: rgba(255, 255, 255, 0.15);
+    transform: translateZ(10px);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
 }
 
 .newsletter-form button {
     white-space: nowrap;
+    transform-style: preserve-3d;
+}
+
+.newsletter-form button:hover {
+    transform: translateY(-3px) translateZ(15px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4);
 }
 
 /* Blog Post Page Styles */
@@ -574,6 +730,16 @@ body {
 }
 
 @media (max-width: 768px) {
+    .blog-card:hover {
+        transform: translateY(-8px) translateZ(10px) rotateX(3deg);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .category-btn:hover {
+        transform: translateY(-2px) translateZ(8px) scale(1.02);
+        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+    }
+    
     .blog-header {
         padding: 5rem 0 2rem;
     }
@@ -618,6 +784,22 @@ body {
 }
 
 @media (max-width: 480px) {
+    /* Minimal 3D effects on very small screens */
+    .blog-card:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .category-btn:hover {
+        transform: translateY(-1px) scale(1.02);
+    }
+    
+    /* Disable complex animations on small screens */
+    .blog-header::before,
+    .newsletter-section::before {
+        animation: none;
+    }
+    
     .blog-posts {
         padding: 1.5rem 0 2rem 0;
     }
@@ -654,12 +836,13 @@ body {
 .fade-in {
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.6s ease;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
 }
 
 .fade-in.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
 }
 
 /* Loading Animation */
@@ -715,4 +898,25 @@ body {
 
 .search-box button:hover {
     background: var(--primary-dark);
+    transform: translateZ(5px) scale(1.1);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+}
+
+/* Performance Optimizations for 3D */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* GPU Acceleration */
+.blog-card,
+.category-btn,
+.newsletter-form input,
+.newsletter-form button {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
