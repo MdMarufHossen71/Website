@@ -1,6 +1,88 @@
 // Blog JavaScript Functionality
 
+// 3D Blog Enhancements
+class Blog3D {
+    constructor() {
+        this.init();
+        this.setupBlog3DEffects();
+    }
+    
+    init() {
+        this.addBlog3DClasses();
+        this.setupBlogCardInteractions();
+    }
+    
+    addBlog3DClasses() {
+        const blogCards = document.querySelectorAll('.blog-card');
+        blogCards.forEach(card => {
+            card.classList.add('blog-card-3d');
+        });
+        
+        const blogGrid = document.querySelector('.blog-grid');
+        if (blogGrid) {
+            blogGrid.classList.add('blog-3d-container');
+        }
+    }
+    
+    setupBlogCardInteractions() {
+        const blogCards = document.querySelectorAll('.blog-card');
+        
+        blogCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                if (window.innerWidth > 768) {
+                    const image = card.querySelector('.blog-image img');
+                    const categoryTag = card.querySelector('.blog-category-tag');
+                    
+                    if (image) {
+                        image.style.transform = 'scale(1.08) translateZ(15px)';
+                    }
+                    if (categoryTag) {
+                        categoryTag.style.transform = 'translateZ(20px) scale(1.1)';
+                    }
+                }
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                const image = card.querySelector('.blog-image img');
+                const categoryTag = card.querySelector('.blog-category-tag');
+                
+                if (image) {
+                    image.style.transform = '';
+                }
+                if (categoryTag) {
+                    categoryTag.style.transform = '';
+                }
+            });
+        });
+    }
+    
+    setupBlog3DEffects() {
+        // Enhanced category button interactions
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                if (window.innerWidth > 768) {
+                    const icon = btn.querySelector('i');
+                    if (icon) {
+                        icon.style.transform = 'translateZ(10px) rotateY(15deg) scale(1.2)';
+                    }
+                }
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    icon.style.transform = '';
+                }
+            });
+        });
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize 3D Blog effects
+    const blog3D = new Blog3D();
+    
     // Category Filtering
     const categoryBtns = document.querySelectorAll('.category-btn');
     const blogCards = document.querySelectorAll('.blog-card');
@@ -14,16 +96,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const category = this.getAttribute('data-category');
             
-            blogCards.forEach(card => {
+            blogCards.forEach((card, index) => {
                 if (category === 'all' || card.classList.contains(category)) {
                     card.style.display = 'block';
                     setTimeout(() => {
                         card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, 100);
+                        card.style.transform = 'translateY(0) translateZ(0)';
+                    }, 100 + (index * 50));
                 } else {
                     card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
+                    card.style.transform = 'translateY(30px) translateZ(-15px)';
                     setTimeout(() => {
                         card.style.display = 'none';
                     }, 300);
@@ -42,13 +124,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const originalText = submitBtn.innerHTML;
 
             // Show loading state
-            submitBtn.innerHTML = '<div class="loading"></div>';
+            submitBtn.innerHTML = '<div class="loading"></div> <span>Subscribing...</span>';
             submitBtn.disabled = true;
+            submitBtn.style.transform = 'translateZ(10px) scale(0.95)';
 
             // Simulate API call
             setTimeout(() => {
                 submitBtn.innerHTML = '<i class="fas fa-check"></i> <span>Subscribed!</span>';
                 submitBtn.style.background = 'var(--accent-color)';
+                submitBtn.style.transform = 'translateZ(15px) scale(1.05)';
                 
                 // Show success notification
                 showNotification('Successfully subscribed to newsletter!', 'success');
@@ -61,6 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     submitBtn.innerHTML = originalText;
                     submitBtn.disabled = false;
                     submitBtn.style.background = '';
+                    submitBtn.style.transform = '';
                 }, 3000);
             }, 2000);
         });
@@ -71,8 +156,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', function() {
             const originalText = this.innerHTML;
-            this.innerHTML = '<div class="loading"></div> <span>Loading...</span>';
+            this.innerHTML = '<div class="loading"></div> <span>Loading more posts...</span>';
             this.disabled = true;
+            this.style.transform = 'translateZ(10px) scale(0.95)';
 
             // Simulate loading more posts
             setTimeout(() => {
@@ -81,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 this.innerHTML = originalText;
                 this.disabled = false;
+                this.style.transform = '';
             }, 2000);
         });
     }
@@ -215,17 +302,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Observe blog cards for animation
     blogCards.forEach(card => {
         card.classList.add('fade-in');
+        card.style.transform = 'translateY(50px) translateZ(-20px)';
         observer.observe(card);
     });
 
     // Initialize AOS
     if (typeof AOS !== 'undefined') {
         AOS.init({
-            duration: 600,
-            easing: 'ease-in-out',
+            duration: 800,
+            easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
             once: true,
             offset: 100,
-            delay: 50,
+            delay: 100,
             disable: 'mobile'
         });
     }
@@ -255,10 +343,12 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('scroll', () => {
             if (window.scrollY > 100) {
                 navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                navbar.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.15)';
+                navbar.style.transform = 'translateZ(10px)';
             } else {
                 navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-                navbar.style.boxShadow = 'none';
+                navbar.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1)';
+                navbar.style.transform = 'translateZ(0px)';
             }
         });
     }
@@ -286,35 +376,79 @@ function showNotification(message, type = 'info') {
         color: white;
         padding: 1rem 1.5rem;
         border-radius: 12px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
         z-index: 10000;
         display: flex;
         align-items: center;
         gap: 1rem;
         max-width: 400px;
-        animation: slideIn 0.3s ease-out;
+        animation: slideIn3D 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-style: preserve-3d;
+        backdrop-filter: blur(10px);
     `;
+    
+    // Add enhanced animation keyframes
+    if (!document.querySelector('#notification-styles-3d')) {
+        const style = document.createElement('style');
+        style.id = 'notification-styles-3d';
+        style.textContent = `
+            @keyframes slideIn3D {
+                from {
+                    transform: translateX(100%) translateZ(-20px) rotateY(15deg);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0) translateZ(0) rotateY(0deg);
+                    opacity: 1;
+                }
+            }
+            @keyframes slideOut3D {
+                from {
+                    transform: translateX(0) translateZ(0) rotateY(0deg);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%) translateZ(-20px) rotateY(-15deg);
+                    opacity: 0;
+                }
+            }
+            .notification-close {
+                background: none;
+                border: none;
+                color: white;
+                cursor: pointer;
+                padding: 0.25rem;
+                border-radius: 50%;
+                transition: all 0.3s ease;
+            }
+            .notification-close:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: translateZ(5px) scale(1.1);
+            }
+        `;
+        document.head.appendChild(style);
+    }
     
     document.body.appendChild(notification);
     
     const closeBtn = notification.querySelector('.notification-close');
     closeBtn.addEventListener('click', () => {
-        notification.style.animation = 'slideOut 0.3s ease-in';
+        notification.style.animation = 'slideOut3D 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
         setTimeout(() => {
             if (notification.parentNode) {
                 notification.parentNode.removeChild(notification);
             }
-        }, 300);
+        }, 600);
     });
     
     setTimeout(() => {
         if (notification.parentNode) {
-            notification.style.animation = 'slideOut 0.3s ease-in';
+            notification.style.animation = 'slideOut3D 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
             setTimeout(() => {
                 if (notification.parentNode) {
                     notification.parentNode.removeChild(notification);
                 }
-            }, 300);
+            }, 600);
         }
     }, 5000);
 }
@@ -340,11 +474,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Console message
 console.log(`
-📝 Blog System Loaded Successfully!
+📝 3D Blog System Loaded Successfully!
+✨ Enhanced with modern 3D effects and smooth animations
 🌐 Multi-language support: English & Bengali
 📱 Responsive design optimized
 🎨 Modern UI with smooth animations
 📊 Analytics ready for tracking
+🚀 GPU-accelerated for optimal performance
 
 Built with ❤️ by Md Maruf Hossen
 `);
