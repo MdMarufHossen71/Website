@@ -151,21 +151,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Navbar scroll effect
 window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    
     if (window.scrollY > 100) {
+        navbar.style.background = 'rgba(255, 255, 255, 0.99)';
+        navbar.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.2)';
+        navbar.style.transform = 'translateZ(15px)';
+        navbar.style.borderBottom = '1px solid rgba(0, 0, 0, 0.1)';
+    } else {
         navbar.style.background = 'rgba(255, 255, 255, 0.98)';
         navbar.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.15)';
-        navbar.style.transform = 'translateZ(10px)';
-    } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1)';
         navbar.style.transform = 'translateZ(0px)';
+        navbar.style.borderBottom = '1px solid var(--border-color)';
     }
+    
+    // Enhanced parallax for floating cards
+    const floatingElements = document.querySelectorAll('.floating-card');
+    floatingElements.forEach((element, index) => {
+        const speed = 0.1 + (index * 0.05);
+        const yPos = -(scrolled * speed);
+        const rotateY = scrolled * 0.01;
+        const translateZ = 15 + (index * 5);
+        
+        if (window.innerWidth > 768) {
+            element.style.transform = `translateY(${yPos}px) rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
+        }
+    });
 });
 
 // Mobile menu toggle
 navToggle.addEventListener('click', () => {
     navMenu.classList.toggle('active');
     navToggle.classList.toggle('active');
+    
+    // Prevent body scroll when menu is open
+    if (navMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
 });
 
 // Close mobile menu when clicking on a link
@@ -173,7 +197,17 @@ navLinks.forEach(link => {
     link.addEventListener('click', () => {
         navMenu.classList.remove('active');
         navToggle.classList.remove('active');
+        document.body.style.overflow = '';
     });
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!navbar.contains(e.target) && navMenu.classList.contains('active')) {
+        navMenu.classList.remove('active');
+        navToggle.classList.remove('active');
+        document.body.style.overflow = '';
+    }
 });
 
 // Smooth scrolling for navigation links
@@ -185,7 +219,7 @@ navLinks.forEach(link => {
             e.preventDefault();
             const targetSection = document.querySelector(targetId);
             if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80;
+                const offsetTop = targetSection.offsetTop - 90;
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth',
@@ -199,7 +233,7 @@ navLinks.forEach(link => {
                 e.preventDefault();
                 const targetSection = document.querySelector('#' + hash);
                 if (targetSection) {
-                    const offsetTop = targetSection.offsetTop - 80;
+                    const offsetTop = targetSection.offsetTop - 90;
                     window.scrollTo({
                         top: offsetTop,
                         behavior: 'smooth',
@@ -209,6 +243,47 @@ navLinks.forEach(link => {
             }
         }
     });
+});
+
+// Enhanced floating card interactions
+document.addEventListener('DOMContentLoaded', () => {
+    const floatingCards = document.querySelectorAll('.floating-card');
+    
+    floatingCards.forEach((card, index) => {
+        // Add staggered animation delay
+        card.style.animationDelay = `${index * 2.5}s`;
+        
+        // Enhanced hover effects
+        card.addEventListener('mouseenter', () => {
+            if (window.innerWidth > 768) {
+                card.style.animationPlayState = 'paused';
+                card.style.transform = 'translateZ(40px) scale(1.1) rotateY(10deg)';
+                card.style.boxShadow = '0 35px 70px rgba(0, 0, 0, 0.3)';
+            }
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            if (window.innerWidth > 768) {
+                card.style.animationPlayState = 'running';
+                card.style.transform = '';
+                card.style.boxShadow = '';
+            }
+        });
+    });
+    
+    // Optimize floating cards for mobile
+    const optimizeForMobile = () => {
+        if (window.innerWidth <= 768) {
+            floatingCards.forEach(card => {
+                card.style.display = 'flex';
+                card.style.position = 'absolute';
+                card.style.zIndex = '10';
+            });
+        }
+    };
+    
+    optimizeForMobile();
+    window.addEventListener('resize', optimizeForMobile);
 });
 
 // Portfolio filtering
@@ -487,27 +562,31 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
-// Parallax effect for hero section
-window.addEventListener('scroll', () => {
+// Enhanced 3D parallax effect for hero section
+let ticking = false;
+
+function updateParallax() {
     const scrolled = window.pageYOffset;
-    const parallaxElements = document.querySelectorAll('.floating-card');
-    
-    parallaxElements.forEach((element, index) => {
-        const speed = 0.3 + (index * 0.1);
-        const yPos = -(scrolled * speed);
-        const rotateY = scrolled * 0.02;
-        const translateZ = 10 + (index * 5);
-        element.style.transform = `translateY(${yPos}px) rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
-    });
     
     // 3D parallax for hero image
     const heroImage = document.querySelector('.hero-image-container');
     if (heroImage && window.innerWidth > 768) {
-        const rotateY = scrolled * 0.05;
-        const translateZ = Math.min(scrolled * 0.1, 30);
+        const rotateY = Math.min(scrolled * 0.03, 15);
+        const translateZ = Math.min(scrolled * 0.08, 25);
         heroImage.style.transform = `rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
     }
-});
+    
+    ticking = false;
+}
+
+function requestParallaxUpdate() {
+    if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+    }
+}
+
+window.addEventListener('scroll', requestParallaxUpdate);
 
 // Intersection Observer for animations
 const observerOptions = {
@@ -678,11 +757,76 @@ const createBackToTopButton = () => {
 // Initialize back to top button
 createBackToTopButton();
 
+// Enhanced 3D optimization for better performance
+const optimize3DPerformance = () => {
+    const isLowPerformance = navigator.hardwareConcurrency < 4 || 
+                            navigator.deviceMemory < 4 || 
+                            /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isLowPerformance) {
+        // Reduce 3D effects for low-performance devices
+        document.documentElement.style.setProperty('--transition-3d', 'all 0.3s ease');
+        document.documentElement.style.setProperty('--depth-1', '3px');
+        document.documentElement.style.setProperty('--depth-2', '6px');
+        document.documentElement.style.setProperty('--depth-3', '9px');
+        document.documentElement.style.setProperty('--depth-4', '12px');
+        
+        // Disable complex animations
+        const complexAnimations = document.querySelectorAll('.floating-card');
+        complexAnimations.forEach(el => {
+            el.style.animation = 'none';
+        });
+    }
+};
+
+// Initialize performance optimization
+document.addEventListener('DOMContentLoaded', optimize3DPerformance);
+
+// Improved floating card visibility and interaction
+const enhanceFloatingCards = () => {
+    const cards = document.querySelectorAll('.floating-card');
+    
+    cards.forEach((card, index) => {
+        // Ensure cards are visible on all devices
+        card.style.display = 'flex';
+        card.style.visibility = 'visible';
+        card.style.opacity = '1';
+        
+        // Add enhanced 3D effects
+        card.addEventListener('mouseenter', () => {
+            if (window.innerWidth > 768) {
+                card.style.zIndex = '20';
+                card.style.transform = 'translateZ(50px) scale(1.15) rotateY(15deg)';
+                card.style.boxShadow = '0 40px 80px rgba(0, 0, 0, 0.3)';
+            }
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            if (window.innerWidth > 768) {
+                card.style.zIndex = '10';
+                card.style.transform = '';
+                card.style.boxShadow = '';
+            }
+        });
+        
+        // Mobile optimization
+        if (window.innerWidth <= 768) {
+            card.style.animation = 'floatingCardMobile 6s ease-in-out infinite';
+            card.style.animationDelay = `${index * 2}s`;
+        }
+    });
+};
+
+// Initialize floating card enhancements
+document.addEventListener('DOMContentLoaded', enhanceFloatingCards);
+window.addEventListener('resize', enhanceFloatingCards);
+
 // Performance monitoring and optimization
 const performanceOptimizer = {
     init() {
         this.monitorFPS();
         this.optimizeAnimations();
+        this.setupIntersectionObserver();
     },
     
     monitorFPS() {
@@ -714,6 +858,12 @@ const performanceOptimizer = {
         animations.forEach(el => {
             el.style.animationDuration = '0.1s';
         });
+        
+        // Disable floating card animations
+        const floatingCards = document.querySelectorAll('.floating-card');
+        floatingCards.forEach(card => {
+            card.style.animation = 'none';
+        });
     },
     
     optimizeAnimations() {
@@ -730,6 +880,22 @@ const performanceOptimizer = {
         
         const animatedElements = document.querySelectorAll('[class*="float"], [class*="glow"]');
         animatedElements.forEach(el => animationObserver.observe(el));
+    },
+    
+    setupIntersectionObserver() {
+        // Optimize 3D effects based on visibility
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                } else {
+                    entry.target.classList.remove('in-view');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        const elements3D = document.querySelectorAll('.card-3d, .floating-card, .hero-image-container');
+        elements3D.forEach(el => observer.observe(el));
     }
 };
 
