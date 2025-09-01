@@ -1,88 +1,6 @@
 // Blog JavaScript Functionality
 
-// 3D Blog Enhancements
-class Blog3D {
-    constructor() {
-        this.init();
-        this.setupBlog3DEffects();
-    }
-    
-    init() {
-        this.addBlog3DClasses();
-        this.setupBlogCardInteractions();
-    }
-    
-    addBlog3DClasses() {
-        const blogCards = document.querySelectorAll('.blog-card');
-        blogCards.forEach(card => {
-            card.classList.add('blog-card-3d');
-        });
-        
-        const blogGrid = document.querySelector('.blog-grid');
-        if (blogGrid) {
-            blogGrid.classList.add('blog-3d-container');
-        }
-    }
-    
-    setupBlogCardInteractions() {
-        const blogCards = document.querySelectorAll('.blog-card');
-        
-        blogCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                if (window.innerWidth > 768) {
-                    const image = card.querySelector('.blog-image img');
-                    const categoryTag = card.querySelector('.blog-category-tag');
-                    
-                    if (image) {
-                        image.style.transform = 'scale(1.08) translateZ(15px)';
-                    }
-                    if (categoryTag) {
-                        categoryTag.style.transform = 'translateZ(20px) scale(1.1)';
-                    }
-                }
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                const image = card.querySelector('.blog-image img');
-                const categoryTag = card.querySelector('.blog-category-tag');
-                
-                if (image) {
-                    image.style.transform = '';
-                }
-                if (categoryTag) {
-                    categoryTag.style.transform = '';
-                }
-            });
-        });
-    }
-    
-    setupBlog3DEffects() {
-        // Enhanced category button interactions
-        const categoryBtns = document.querySelectorAll('.category-btn');
-        categoryBtns.forEach(btn => {
-            btn.addEventListener('mouseenter', () => {
-                if (window.innerWidth > 768) {
-                    const icon = btn.querySelector('i');
-                    if (icon) {
-                        icon.style.transform = 'translateZ(10px) rotateY(15deg) scale(1.2)';
-                    }
-                }
-            });
-            
-            btn.addEventListener('mouseleave', () => {
-                const icon = btn.querySelector('i');
-                if (icon) {
-                    icon.style.transform = '';
-                }
-            });
-        });
-    }
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize 3D Blog effects
-    const blog3D = new Blog3D();
-    
     // Category Filtering
     const categoryBtns = document.querySelectorAll('.category-btn');
     const blogCards = document.querySelectorAll('.blog-card');
@@ -101,11 +19,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     card.style.display = 'block';
                     setTimeout(() => {
                         card.style.opacity = '1';
-                        card.style.transform = 'translateY(0) translateZ(0)';
+                        card.style.transform = 'translateY(0)';
                     }, 100 + (index * 50));
                 } else {
                     card.style.opacity = '0';
-                    card.style.transform = 'translateY(30px) translateZ(-15px)';
+                    card.style.transform = 'translateY(30px)';
                     setTimeout(() => {
                         card.style.display = 'none';
                     }, 300);
@@ -126,13 +44,13 @@ document.addEventListener('DOMContentLoaded', function() {
             // Show loading state
             submitBtn.innerHTML = '<div class="loading"></div> <span>Subscribing...</span>';
             submitBtn.disabled = true;
-            submitBtn.style.transform = 'translateZ(10px) scale(0.95)';
+            submitBtn.style.transform = 'scale(0.95)';
 
             // Simulate API call
             setTimeout(() => {
                 submitBtn.innerHTML = '<i class="fas fa-check"></i> <span>Subscribed!</span>';
                 submitBtn.style.background = 'var(--accent-color)';
-                submitBtn.style.transform = 'translateZ(15px) scale(1.05)';
+                submitBtn.style.transform = 'scale(1.05)';
                 
                 // Show success notification
                 showNotification('Successfully subscribed to newsletter!', 'success');
@@ -158,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const originalText = this.innerHTML;
             this.innerHTML = '<div class="loading"></div> <span>Loading more posts...</span>';
             this.disabled = true;
-            this.style.transform = 'translateZ(10px) scale(0.95)';
+            this.style.transform = 'scale(0.95)';
 
             // Simulate loading more posts
             setTimeout(() => {
@@ -302,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Observe blog cards for animation
     blogCards.forEach(card => {
         card.classList.add('fade-in');
-        card.style.transform = 'translateY(50px) translateZ(-20px)';
+        card.style.transform = 'translateY(50px)';
         observer.observe(card);
     });
 
@@ -474,13 +392,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Console message
 console.log(`
-📝 3D Blog System Loaded Successfully!
-✨ Enhanced with modern 3D effects and smooth animations
+📝 Modern Blog System Loaded Successfully!
+✨ Clean design with smooth animations
 🌐 Multi-language support: English & Bengali
 📱 Responsive design optimized
 🎨 Modern UI with smooth animations
 📊 Analytics ready for tracking
-🚀 GPU-accelerated for optimal performance
+🚀 Optimized for performance
 
 Built with ❤️ by Md Maruf Hossen
 `);

@@ -1,139 +1,5 @@
 // Modern Portfolio JavaScript
 
-// 3D Effects and Interactions
-class Portfolio3D {
-    constructor() {
-        this.init();
-        this.setupParallax();
-        this.setupMouseTracking();
-        this.optimizeForDevice();
-    }
-    
-    init() {
-        // Add 3D classes to elements
-        this.add3DClasses();
-        // Setup intersection observer for 3D animations
-        this.setup3DObserver();
-    }
-    
-    add3DClasses() {
-        // Add 3D transform classes to cards
-        const cards = document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .achievement-card, .blog-card');
-        cards.forEach(card => {
-            card.classList.add('card-3d');
-        });
-        
-        // Add 3D container classes
-        const containers = document.querySelectorAll('.services-grid, .portfolio-grid, .testimonials-grid, .blog-grid');
-        containers.forEach(container => {
-            container.classList.add('transform-3d');
-        });
-    }
-    
-    setup3DObserver() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0) translateZ(0)';
-                    
-                    // Add staggered animation delay
-                    const delay = Array.from(entry.target.parentNode.children).indexOf(entry.target) * 100;
-                    entry.target.style.transitionDelay = `${delay}ms`;
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-        
-        // Observe 3D elements
-        const elements = document.querySelectorAll('.card-3d, .skill-item, .experience-card');
-        elements.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(50px) translateZ(-20px)';
-            el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-            observer.observe(el);
-        });
-    }
-    
-    setupParallax() {
-        let ticking = false;
-        
-        const updateParallax = () => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
-            
-            // Parallax for floating elements
-            const floatingElements = document.querySelectorAll('.floating-card');
-            floatingElements.forEach((element, index) => {
-                const speed = 0.3 + (index * 0.1);
-                const yPos = scrolled * speed;
-                const rotateY = scrolled * 0.05;
-                element.style.transform = `translateY(${yPos}px) rotateY(${rotateY}deg) translateZ(${10 + index * 5}px)`;
-            });
-            
-            // Parallax for hero background
-            const heroBackground = document.querySelector('.hero::before');
-            if (heroBackground) {
-                document.querySelector('.hero').style.setProperty('--bg-transform', `translateZ(${rate * 0.1}px)`);
-            }
-            
-            ticking = false;
-        };
-        
-        const requestParallaxUpdate = () => {
-            if (!ticking) {
-                requestAnimationFrame(updateParallax);
-                ticking = true;
-            }
-        };
-        
-        window.addEventListener('scroll', requestParallaxUpdate);
-    }
-    
-    setupMouseTracking() {
-        const cards = document.querySelectorAll('.card-3d');
-        
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                if (window.innerWidth < 768) return; // Disable on mobile
-                
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-            });
-        });
-    }
-    
-    optimizeForDevice() {
-        // Reduce 3D effects on low-performance devices
-        const isLowPerformance = navigator.hardwareConcurrency < 4 || 
-                                navigator.deviceMemory < 4 || 
-                                /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        
-        if (isLowPerformance) {
-            document.documentElement.style.setProperty('--transition-3d', 'all 0.3s ease');
-            document.documentElement.style.setProperty('--depth-1', '3px');
-            document.documentElement.style.setProperty('--depth-2', '6px');
-            document.documentElement.style.setProperty('--depth-3', '9px');
-            document.documentElement.style.setProperty('--depth-4', '12px');
-        }
-    }
-}
-
 // DOM Elements
 const navbar = document.getElementById('navbar');
 const navToggle = document.getElementById('nav-toggle');
@@ -143,40 +9,29 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 const portfolioItems = document.querySelectorAll('.portfolio-item');
 const contactForm = document.getElementById('contact-form');
 
-// Initialize 3D Portfolio
-let portfolio3D;
-document.addEventListener('DOMContentLoaded', () => {
-    portfolio3D = new Portfolio3D();
-});
-
 // Navbar scroll effect
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     
     if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.99)';
-        navbar.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.2)';
-        navbar.style.transform = 'translateZ(15px)';
+        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+        navbar.style.boxShadow = '0 4px 25px rgba(0, 0, 0, 0.15)';
         navbar.style.borderBottom = '1px solid rgba(0, 0, 0, 0.1)';
     } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.15)';
-        navbar.style.transform = 'translateZ(0px)';
+        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
         navbar.style.borderBottom = '1px solid var(--border-color)';
     }
     
-    // Enhanced parallax for floating cards
-    const floatingElements = document.querySelectorAll('.floating-card');
-    floatingElements.forEach((element, index) => {
-        const speed = 0.1 + (index * 0.05);
-        const yPos = -(scrolled * speed);
-        const rotateY = scrolled * 0.01;
-        const translateZ = 15 + (index * 5);
-        
-        if (window.innerWidth > 768) {
-            element.style.transform = `translateY(${yPos}px) rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
+    // Show/hide scroll buttons
+    const scrollButtons = document.querySelector('.scroll-buttons');
+    if (scrollButtons) {
+        if (window.scrollY > 300) {
+            scrollButtons.classList.add('visible');
+        } else {
+            scrollButtons.classList.remove('visible');
         }
-    });
+    }
 });
 
 // Mobile menu toggle
@@ -245,47 +100,6 @@ navLinks.forEach(link => {
     });
 });
 
-// Enhanced floating card interactions
-document.addEventListener('DOMContentLoaded', () => {
-    const floatingCards = document.querySelectorAll('.floating-card');
-    
-    floatingCards.forEach((card, index) => {
-        // Add staggered animation delay
-        card.style.animationDelay = `${index * 2.5}s`;
-        
-        // Enhanced hover effects
-        card.addEventListener('mouseenter', () => {
-            if (window.innerWidth > 768) {
-                card.style.animationPlayState = 'paused';
-                card.style.transform = 'translateZ(40px) scale(1.1) rotateY(10deg)';
-                card.style.boxShadow = '0 35px 70px rgba(0, 0, 0, 0.3)';
-            }
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            if (window.innerWidth > 768) {
-                card.style.animationPlayState = 'running';
-                card.style.transform = '';
-                card.style.boxShadow = '';
-            }
-        });
-    });
-    
-    // Optimize floating cards for mobile
-    const optimizeForMobile = () => {
-        if (window.innerWidth <= 768) {
-            floatingCards.forEach(card => {
-                card.style.display = 'flex';
-                card.style.position = 'absolute';
-                card.style.zIndex = '10';
-            });
-        }
-    };
-    
-    optimizeForMobile();
-    window.addEventListener('resize', optimizeForMobile);
-});
-
 // Portfolio filtering
 filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -301,42 +115,16 @@ filterBtns.forEach(btn => {
                 item.style.display = 'block';
                 setTimeout(() => {
                     item.style.opacity = '1';
-                    item.style.transform = 'scale(1) translateZ(0)';
+                    item.style.transform = 'scale(1)';
                 }, 100 + (index * 50));
             } else {
                 item.style.opacity = '0';
-                item.style.transform = 'scale(0.8) translateZ(-20px)';
+                item.style.transform = 'scale(0.8)';
                 setTimeout(() => {
                     item.style.display = 'none';
                 }, 300);
             }
         });
-    });
-});
-
-// Enhanced 3D button interactions
-const buttons = document.querySelectorAll('.btn');
-buttons.forEach(button => {
-    button.addEventListener('mouseenter', () => {
-        if (window.innerWidth > 768) {
-            button.style.transform = 'translateY(-5px) translateZ(15px) scale(1.05)';
-        }
-    });
-    
-    button.addEventListener('mouseleave', () => {
-        button.style.transform = '';
-    });
-    
-    button.addEventListener('mousedown', () => {
-        if (window.innerWidth > 768) {
-            button.style.transform = 'translateY(-2px) translateZ(8px) scale(1.02)';
-        }
-    });
-    
-    button.addEventListener('mouseup', () => {
-        if (window.innerWidth > 768) {
-            button.style.transform = 'translateY(-5px) translateZ(15px) scale(1.05)';
-        }
     });
 });
 
@@ -398,6 +186,86 @@ const animateSkillBars = () => {
 
 window.addEventListener('scroll', animateSkillBars);
 window.addEventListener('load', animateSkillBars);
+
+// Create scroll buttons
+const createScrollButtons = () => {
+    const scrollButtons = document.createElement('div');
+    scrollButtons.className = 'scroll-buttons';
+    scrollButtons.innerHTML = `
+        <button class="scroll-btn scroll-up" title="Scroll to top">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="scroll-btn scroll-down" title="Scroll down">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+    `;
+    
+    document.body.appendChild(scrollButtons);
+    
+    const scrollUpBtn = scrollButtons.querySelector('.scroll-up');
+    const scrollDownBtn = scrollButtons.querySelector('.scroll-down');
+    
+    scrollUpBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    scrollDownBtn.addEventListener('click', () => {
+        const currentSection = getCurrentSection();
+        const nextSection = getNextSection(currentSection);
+        if (nextSection) {
+            nextSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+    
+    // Update scroll button visibility
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        
+        // Show buttons when not on home section
+        const homeSection = document.getElementById('home');
+        const homeSectionBottom = homeSection ? homeSection.offsetTop + homeSection.offsetHeight : 0;
+        
+        if (scrolled > homeSectionBottom - 200) {
+            scrollButtons.classList.add('visible');
+        } else {
+            scrollButtons.classList.remove('visible');
+        }
+        
+        // Hide down button when at bottom
+        if (scrolled + windowHeight >= documentHeight - 100) {
+            scrollDownBtn.style.display = 'none';
+        } else {
+            scrollDownBtn.style.display = 'flex';
+        }
+    });
+};
+
+// Helper functions for scroll buttons
+const getCurrentSection = () => {
+    const sections = document.querySelectorAll('section[id]');
+    const scrollPosition = window.pageYOffset + 100;
+    
+    for (let i = sections.length - 1; i >= 0; i--) {
+        if (sections[i].offsetTop <= scrollPosition) {
+            return sections[i];
+        }
+    }
+    return sections[0];
+};
+
+const getNextSection = (currentSection) => {
+    const sections = document.querySelectorAll('section[id]');
+    const currentIndex = Array.from(sections).indexOf(currentSection);
+    return sections[currentIndex + 1] || null;
+};
 
 // Contact form handling
 if (contactForm) {
@@ -598,14 +466,7 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0) translateZ(0)';
-            
-            // Add 3D entrance animation
-            if (entry.target.classList.contains('card-3d')) {
-                setTimeout(() => {
-                    entry.target.style.transform = 'translateY(0) translateZ(5px)';
-                }, 300);
-            }
+            entry.target.style.transform = 'translateY(0)';
         }
     });
 }, observerOptions);
@@ -616,50 +477,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
     animateElements.forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(50px) translateZ(-20px)';
+        el.style.transform = 'translateY(50px)';
         el.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
         observer.observe(el);
     });
-});
-
-// Enhanced 3D interactions for service cards
-const serviceCards = document.querySelectorAll('.service-card');
-serviceCards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        if (window.innerWidth > 768) {
-            const icon = card.querySelector('.service-icon');
-            if (icon) {
-                icon.style.transform = 'translateZ(20px) rotateY(15deg) scale(1.1)';
-            }
-        }
-    });
     
-    card.addEventListener('mouseleave', () => {
-        const icon = card.querySelector('.service-icon');
-        if (icon) {
-            icon.style.transform = '';
-        }
-    });
-});
-
-// 3D Portfolio item interactions
-const portfolioItems3D = document.querySelectorAll('.portfolio-item');
-portfolioItems3D.forEach(item => {
-    item.addEventListener('mouseenter', () => {
-        if (window.innerWidth > 768) {
-            const overlay = item.querySelector('.portfolio-overlay');
-            if (overlay) {
-                overlay.style.transform = 'translateZ(10px)';
-            }
-        }
-    });
-    
-    item.addEventListener('mouseleave', () => {
-        const overlay = item.querySelector('.portfolio-overlay');
-        if (overlay) {
-            overlay.style.transform = '';
-        }
-    });
+    // Initialize scroll buttons
+    createScrollButtons();
 });
 
 // Initialize AOS (Animate On Scroll)
@@ -674,234 +498,6 @@ document.addEventListener('DOMContentLoaded', () => {
             disable: 'mobile'
         });
     }
-});
-
-// Preloader (optional)
-window.addEventListener('load', () => {
-    const preloader = document.querySelector('.preloader');
-    if (preloader) {
-        preloader.style.opacity = '0';
-        setTimeout(() => {
-            preloader.style.display = 'none';
-        }, 500);
-    }
-});
-
-// Back to top button
-const createBackToTopButton = () => {
-    const button = document.createElement('button');
-    button.innerHTML = '<i class="fas fa-arrow-up"></i>';
-    button.className = 'back-to-top';
-    button.style.cssText = `
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 50px;
-        height: 50px;
-        background: var(--gradient-primary);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 1.2rem;
-        box-shadow: 0 15px 35px rgba(99, 102, 241, 0.3);
-        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        opacity: 0;
-        visibility: hidden;
-        z-index: 1000;
-        transform-style: preserve-3d;
-        backdrop-filter: blur(10px);
-    `;
-    
-    button.addEventListener('mouseenter', () => {
-        if (window.innerWidth > 768) {
-            button.style.transform = 'translateY(-5px) translateZ(15px) scale(1.15) rotateY(10deg)';
-            button.style.boxShadow = '0 20px 40px rgba(99, 102, 241, 0.5)';
-        } else {
-            button.style.transform = 'translateY(-3px) scale(1.1)';
-        }
-    });
-    
-    button.addEventListener('mouseleave', () => {
-        button.style.transform = '';
-        button.style.boxShadow = '0 15px 35px rgba(99, 102, 241, 0.3)';
-    });
-    
-    button.addEventListener('click', () => {
-        // Add click animation
-        button.style.transform = 'translateY(-2px) translateZ(8px) scale(1.05)';
-        setTimeout(() => {
-            button.style.transform = '';
-        }, 150);
-        
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-            block: 'start'
-        });
-    });
-    
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 500) {
-            button.style.opacity = '1';
-            button.style.visibility = 'visible';
-        } else {
-            button.style.opacity = '0';
-            button.style.visibility = 'hidden';
-        }
-    });
-    
-    document.body.appendChild(button);
-};
-
-// Initialize back to top button
-createBackToTopButton();
-
-// Enhanced 3D optimization for better performance
-const optimize3DPerformance = () => {
-    const isLowPerformance = navigator.hardwareConcurrency < 4 || 
-                            navigator.deviceMemory < 4 || 
-                            /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    if (isLowPerformance) {
-        // Reduce 3D effects for low-performance devices
-        document.documentElement.style.setProperty('--transition-3d', 'all 0.3s ease');
-        document.documentElement.style.setProperty('--depth-1', '3px');
-        document.documentElement.style.setProperty('--depth-2', '6px');
-        document.documentElement.style.setProperty('--depth-3', '9px');
-        document.documentElement.style.setProperty('--depth-4', '12px');
-        
-        // Disable complex animations
-        const complexAnimations = document.querySelectorAll('.floating-card');
-        complexAnimations.forEach(el => {
-            el.style.animation = 'none';
-        });
-    }
-};
-
-// Initialize performance optimization
-document.addEventListener('DOMContentLoaded', optimize3DPerformance);
-
-// Improved floating card visibility and interaction
-const enhanceFloatingCards = () => {
-    const cards = document.querySelectorAll('.floating-card');
-    
-    cards.forEach((card, index) => {
-        // Ensure cards are visible on all devices
-        card.style.display = 'flex';
-        card.style.visibility = 'visible';
-        card.style.opacity = '1';
-        
-        // Add enhanced 3D effects
-        card.addEventListener('mouseenter', () => {
-            if (window.innerWidth > 768) {
-                card.style.zIndex = '20';
-                card.style.transform = 'translateZ(50px) scale(1.15) rotateY(15deg)';
-                card.style.boxShadow = '0 40px 80px rgba(0, 0, 0, 0.3)';
-            }
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            if (window.innerWidth > 768) {
-                card.style.zIndex = '10';
-                card.style.transform = '';
-                card.style.boxShadow = '';
-            }
-        });
-        
-        // Mobile optimization
-        if (window.innerWidth <= 768) {
-            card.style.animation = 'floatingCardMobile 6s ease-in-out infinite';
-            card.style.animationDelay = `${index * 2}s`;
-        }
-    });
-};
-
-// Initialize floating card enhancements
-document.addEventListener('DOMContentLoaded', enhanceFloatingCards);
-window.addEventListener('resize', enhanceFloatingCards);
-
-// Performance monitoring and optimization
-const performanceOptimizer = {
-    init() {
-        this.monitorFPS();
-        this.optimizeAnimations();
-        this.setupIntersectionObserver();
-    },
-    
-    monitorFPS() {
-        let lastTime = performance.now();
-        let frameCount = 0;
-        let fps = 60;
-        
-        const measureFPS = (currentTime) => {
-            frameCount++;
-            if (currentTime - lastTime >= 1000) {
-                fps = frameCount;
-                frameCount = 0;
-                lastTime = currentTime;
-                
-                // Reduce 3D effects if FPS is low
-                if (fps < 30) {
-                    this.reducedMotionMode();
-                }
-            }
-            requestAnimationFrame(measureFPS);
-        };
-        
-        requestAnimationFrame(measureFPS);
-    },
-    
-    reducedMotionMode() {
-        document.documentElement.style.setProperty('--transition-3d', 'all 0.2s ease');
-        const animations = document.querySelectorAll('[style*="animation"]');
-        animations.forEach(el => {
-            el.style.animationDuration = '0.1s';
-        });
-        
-        // Disable floating card animations
-        const floatingCards = document.querySelectorAll('.floating-card');
-        floatingCards.forEach(card => {
-            card.style.animation = 'none';
-        });
-    },
-    
-    optimizeAnimations() {
-        // Use Intersection Observer to only animate visible elements
-        const animationObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
-                } else {
-                    entry.target.style.animationPlayState = 'paused';
-                }
-            });
-        });
-        
-        const animatedElements = document.querySelectorAll('[class*="float"], [class*="glow"]');
-        animatedElements.forEach(el => animationObserver.observe(el));
-    },
-    
-    setupIntersectionObserver() {
-        // Optimize 3D effects based on visibility
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
-                } else {
-                    entry.target.classList.remove('in-view');
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        const elements3D = document.querySelectorAll('.card-3d, .floating-card, .hero-image-container');
-        elements3D.forEach(el => observer.observe(el));
-    }
-};
-
-// Initialize performance optimizer
-document.addEventListener('DOMContentLoaded', () => {
-    performanceOptimizer.init();
 });
 
 // Performance optimization: Lazy loading for images
@@ -921,30 +517,14 @@ lazyImages.forEach(img => imageObserver.observe(img));
 
 // Console message for developers
 console.log(`
-🚀 Welcome to Md Maruf Hossen's 3D Portfolio!
-✨ Enhanced with modern 3D effects and animations
+🚀 Welcome to Md Maruf Hossen's Modern Portfolio!
+✨ Clean, modern design with smooth animations
 📧 Contact: mdmarufhossen@duck.com
 🌐 Website: https://mdmarufhossen71.site
 💼 Available for freelance projects!
-🎨 Optimized for both mobile and desktop
 
-Built with ❤️ using cutting-edge 3D web technologies.
+🎨 Optimized for performance and accessibility
+
+Built with ❤️ using modern web technologies.
 `);
 
-// Error handling for missing elements
-window.addEventListener('error', (e) => {
-    console.warn('Portfolio Error:', e.message);
-});
-
-// Service Worker registration (for PWA features)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-            .then(registration => {
-                console.log('🔧 Service Worker registered successfully');
-            })
-            .catch(registrationError => {
-                console.log('❌ Service Worker registration failed:', registrationError);
-            });
-    });
-}
