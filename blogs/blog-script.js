@@ -258,7 +258,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Navbar scroll effect
     const navbar = document.getElementById('navbar');
     if (navbar) {
+        let lastScrollTop = 0;
+        let scrollTimeout;
+        
         window.addEventListener('scroll', () => {
+            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Background and shadow effects
             if (window.scrollY > 100) {
                 navbar.style.background = 'rgba(255, 255, 255, 0.98)';
                 navbar.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.15)';
@@ -268,6 +274,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 navbar.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1)';
                 navbar.style.transform = 'translateZ(0px)';
             }
+            
+            // Hide/show navbar based on scroll direction
+            if (currentScrollTop > 100) {
+                if (currentScrollTop > lastScrollTop && currentScrollTop > 200) {
+                    // Scrolling down - hide navbar
+                    navbar.classList.add('hidden');
+                    navbar.classList.remove('visible');
+                } else {
+                    // Scrolling up - show navbar
+                    navbar.classList.remove('hidden');
+                    navbar.classList.add('visible');
+                }
+            } else {
+                // Always show navbar when near top
+                navbar.classList.remove('hidden');
+                navbar.classList.add('visible');
+            }
+            
+            // Clear timeout and set new one to show navbar after scroll stops
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                navbar.classList.remove('hidden');
+                navbar.classList.add('visible');
+            }, 150);
+            
+            lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
         });
     }
 });

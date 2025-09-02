@@ -9,10 +9,15 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 const portfolioItems = document.querySelectorAll('.portfolio-item');
 const contactForm = document.getElementById('contact-form');
 
-// Navbar scroll effect
+// Enhanced Navbar scroll effect with hide/show functionality
+let lastScrollTop = 0;
+let scrollTimeout;
+
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
+    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
     
+    // Background and shadow effects
     if (window.scrollY > 100) {
         navbar.style.background = 'rgba(255, 255, 255, 0.98)';
         navbar.style.boxShadow = '0 4px 25px rgba(0, 0, 0, 0.15)';
@@ -22,6 +27,32 @@ window.addEventListener('scroll', () => {
         navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
         navbar.style.borderBottom = '1px solid var(--border-color)';
     }
+    
+    // Hide/show navbar based on scroll direction
+    if (currentScrollTop > 100) { // Only apply hide/show after scrolling past hero
+        if (currentScrollTop > lastScrollTop && currentScrollTop > 200) {
+            // Scrolling down - hide navbar
+            navbar.classList.add('hidden');
+            navbar.classList.remove('visible');
+        } else {
+            // Scrolling up - show navbar
+            navbar.classList.remove('hidden');
+            navbar.classList.add('visible');
+        }
+    } else {
+        // Always show navbar when near top
+        navbar.classList.remove('hidden');
+        navbar.classList.add('visible');
+    }
+    
+    // Clear timeout and set new one to show navbar after scroll stops
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        navbar.classList.remove('hidden');
+        navbar.classList.add('visible');
+    }, 150);
+    
+    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
     
     // Show/hide scroll buttons
     const scrollButtons = document.querySelector('.scroll-buttons');
