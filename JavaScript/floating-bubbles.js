@@ -1,4 +1,4 @@
-class SequentialFloatingBubbles {
+class RobustFloatingBubbles {
     constructor() {
         this.skills = [
             { name: 'React', icon: 'fab fa-react' },
@@ -13,59 +13,65 @@ class SequentialFloatingBubbles {
         ];
 
         this.config = {
-            totalBubbles: 3,
-            displayDuration: 3000,
-            transitionDuration: 500,
-            minDistance: 150,
-            floatSpeed: 12000,
-            floatRange: 20
+            MAX_BUBBLES: 3,
+            BUBBLE_DISPLAY_TIME: 4000,
+            TRANSITION_OUT_DURATION: 500,
+            TRANSITION_IN_DURATION: 500,
+            FLOAT_DURATION: 10000,
+            FLOAT_DISTANCE: 18,
+            MIN_BUBBLE_DISTANCE: 140,
+            BUBBLE_RADIUS: 70
         };
 
-        this.transitionEffects = ['fade', 'scale', 'slide-up', 'slide-down', 'rotate', 'blur'];
+        this.transitionEffects = ['fade', 'scale', 'slide-up', 'slide-down', 'rotate-scale', 'blur-fade'];
 
-        this.positions = [
-            { top: 8, left: -12 },
-            { top: 18, left: -15 },
-            { top: 28, left: -10 },
-            { top: 40, left: -14 },
-            { top: 52, left: -11 },
-            { top: 8, right: -12 },
-            { top: 18, right: -15 },
-            { top: 62, right: -10 },
-            { top: 72, right: -14 },
-            { top: 82, right: -12 },
-            { bottom: 8, left: -6 },
-            { bottom: 18, left: -12 },
-            { bottom: 28, left: -8 }
+        this.desktopPositions = [
+            { top: 10, left: -13, right: null, bottom: null },
+            { top: 22, left: -16, right: null, bottom: null },
+            { top: 35, left: -12, right: null, bottom: null },
+            { top: 48, left: -15, right: null, bottom: null },
+            { top: 60, left: -11, right: null, bottom: null },
+            { top: 10, left: null, right: -13, bottom: null },
+            { top: 22, left: null, right: -16, bottom: null },
+            { top: 65, left: null, right: -12, bottom: null },
+            { top: 75, left: null, right: -15, bottom: null },
+            { top: 85, left: null, right: -13, bottom: null },
+            { top: null, left: -8, right: null, bottom: 10 },
+            { top: null, left: -13, right: null, bottom: 20 },
+            { top: null, left: -9, right: null, bottom: 30 }
         ];
 
         this.mobilePositions = [
-            { top: 5, left: -8 },
-            { top: 15, left: -10 },
-            { top: 25, left: -6 },
-            { top: 5, right: -8 },
-            { top: 65, right: -10 },
-            { top: 75, right: -8 },
-            { top: 85, right: -6 },
-            { bottom: 10, left: -4 },
-            { bottom: 20, left: -6 }
+            { top: 8, left: -9, right: null, bottom: null },
+            { top: 18, left: -11, right: null, bottom: null },
+            { top: 28, left: -7, right: null, bottom: null },
+            { top: 8, left: null, right: -9, bottom: null },
+            { top: 68, left: null, right: -11, bottom: null },
+            { top: 78, left: null, right: -9, bottom: null },
+            { top: 88, left: null, right: -7, bottom: null },
+            { top: null, left: -5, right: null, bottom: 12 },
+            { top: null, left: -8, right: null, bottom: 22 }
         ];
 
-        this.activeBubbles = [];
-        this.usedPositions = [];
-        this.currentSkillIndex = 0;
-        this.isRunning = false;
+        this.state = {
+            activeBubbles: [],
+            isAnimating: false,
+            isRunning: false,
+            currentSkillIndex: 0,
+            occupiedPositions: []
+        };
+
         this.isMobile = window.innerWidth <= 768;
         this.container = document.getElementById('floating-elements');
 
-        this.init();
+        if (this.container) {
+            this.init();
+        }
     }
 
     init() {
-        if (!this.container) return;
-
         this.setupResponsive();
-        this.setupVisibility();
+        this.setupVisibilityControl();
         this.start();
     }
 
@@ -79,18 +85,18 @@ class SequentialFloatingBubbles {
                 if (wasMobile !== this.isMobile) {
                     this.restart();
                 }
-            }, 250);
+            }, 300);
         });
     }
 
-    setupVisibility() {
-        let isVisible = true;
+    setupVisibilityControl() {
+        let pageIsVisible = !document.hidden;
 
         document.addEventListener('visibilitychange', () => {
-            isVisible = !document.hidden;
-            if (isVisible && !this.isRunning) {
+            pageIsVisible = !document.hidden;
+            if (pageIsVisible && !this.state.isRunning) {
                 this.start();
-            } else if (!isVisible && this.isRunning) {
+            } else if (!pageIsVisible && this.state.isRunning) {
                 this.stop();
             }
         });
@@ -99,9 +105,9 @@ class SequentialFloatingBubbles {
         if (heroSection && 'IntersectionObserver' in window) {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting && !this.isRunning && isVisible) {
+                    if (entry.isIntersecting && !this.state.isRunning && pageIsVisible) {
                         this.start();
-                    } else if (!entry.isIntersecting && this.isRunning) {
+                    } else if (!entry.isIntersecting && this.state.isRunning) {
                         this.stop();
                     }
                 });
@@ -112,91 +118,138 @@ class SequentialFloatingBubbles {
     }
 
     async start() {
-        if (this.isRunning) return;
-        this.isRunning = true;
+        if (this.state.isRunning) return;
 
-        for (let i = 0; i < this.config.totalBubbles; i++) {
-            await this.createInitialBubble(i);
+        this.state.isRunning = true;
+        this.state.activeBubbles = [];
+        this.state.occupiedPositions = [];
+
+        for (let i = 0; i < this.config.MAX_BUBBLES; i++) {
+            await this.addInitialBubble();
         }
 
         this.startSequentialLoop();
     }
 
     stop() {
-        this.isRunning = false;
-        this.activeBubbles.forEach(bubble => {
-            if (bubble.element.parentNode) {
-                bubble.element.parentNode.removeChild(bubble.element);
+        this.state.isRunning = false;
+
+        this.state.activeBubbles.forEach(bubbleData => {
+            if (bubbleData.element && bubbleData.element.parentNode) {
+                bubbleData.element.parentNode.removeChild(bubbleData.element);
             }
         });
-        this.activeBubbles = [];
-        this.usedPositions = [];
+
+        this.state.activeBubbles = [];
+        this.state.occupiedPositions = [];
     }
 
     restart() {
         this.stop();
-        setTimeout(() => this.start(), 100);
+        setTimeout(() => this.start(), 200);
     }
 
-    async createInitialBubble(index) {
-        const skill = this.getNextSkill();
-        const position = this.getAvailablePosition();
+    async addInitialBubble() {
+        if (this.state.activeBubbles.length >= this.config.MAX_BUBBLES) {
+            return;
+        }
 
-        const bubble = this.createBubbleElement(skill, position);
-        this.activeBubbles.push({
-            element: bubble,
+        const skill = this.getNextSkill();
+        const position = this.findSafePosition();
+
+        if (!position) {
+            return;
+        }
+
+        const bubbleElement = this.createBubbleElement(skill, position);
+
+        const bubbleData = {
+            element: bubbleElement,
             position: position,
             skill: skill,
-            index: index
-        });
+            id: Date.now() + Math.random()
+        };
 
-        this.container.appendChild(bubble);
+        this.state.activeBubbles.push(bubbleData);
+        this.state.occupiedPositions.push(position);
+
+        this.container.appendChild(bubbleElement);
 
         await this.wait(50);
-        await this.transitionIn(bubble, 'fade');
-        this.applyFloatingAnimation(bubble, position);
+        await this.animateIn(bubbleElement, 'fade');
+        this.startFloating(bubbleElement);
     }
 
     async startSequentialLoop() {
-        while (this.isRunning) {
-            await this.wait(this.config.displayDuration);
+        await this.wait(this.config.BUBBLE_DISPLAY_TIME);
 
-            if (!this.isRunning) break;
+        while (this.state.isRunning) {
+            if (this.state.activeBubbles.length !== this.config.MAX_BUBBLES) {
+                break;
+            }
 
-            for (let i = 0; i < this.config.totalBubbles; i++) {
-                if (!this.isRunning) break;
+            for (let i = 0; i < this.config.MAX_BUBBLES; i++) {
+                if (!this.state.isRunning) break;
 
-                const oldBubble = this.activeBubbles[i];
-                const outEffect = this.getRandomEffect();
+                await this.replaceBubbleAtIndex(i);
 
-                await this.transitionOut(oldBubble.element, outEffect);
-
-                if (oldBubble.element.parentNode) {
-                    oldBubble.element.parentNode.removeChild(oldBubble.element);
-                }
-
-                const skill = this.getNextSkill();
-                const position = this.getAvailablePosition();
-
-                const newBubble = this.createBubbleElement(skill, position);
-                this.activeBubbles[i] = {
-                    element: newBubble,
-                    position: position,
-                    skill: skill,
-                    index: i
-                };
-
-                this.container.appendChild(newBubble);
-
-                await this.wait(50);
-
-                const inEffect = this.getRandomEffect();
-                await this.transitionIn(newBubble, inEffect);
-                this.applyFloatingAnimation(newBubble, position);
-
-                await this.wait(this.config.displayDuration / this.config.totalBubbles);
+                await this.wait(this.config.BUBBLE_DISPLAY_TIME / this.config.MAX_BUBBLES);
             }
         }
+    }
+
+    async replaceBubbleAtIndex(index) {
+        if (index >= this.state.activeBubbles.length) return;
+
+        this.state.isAnimating = true;
+
+        const oldBubbleData = this.state.activeBubbles[index];
+        const outEffect = this.getRandomEffect();
+
+        await this.animateOut(oldBubbleData.element, outEffect);
+
+        if (oldBubbleData.element.parentNode) {
+            oldBubbleData.element.parentNode.removeChild(oldBubbleData.element);
+        }
+
+        const positionIndex = this.state.occupiedPositions.indexOf(oldBubbleData.position);
+        if (positionIndex > -1) {
+            this.state.occupiedPositions.splice(positionIndex, 1);
+        }
+
+        this.state.activeBubbles.splice(index, 1);
+
+        await this.wait(50);
+
+        const skill = this.getNextSkill();
+        const newPosition = this.findSafePosition();
+
+        if (!newPosition) {
+            this.state.isAnimating = false;
+            return;
+        }
+
+        const newBubbleElement = this.createBubbleElement(skill, newPosition);
+
+        const newBubbleData = {
+            element: newBubbleElement,
+            position: newPosition,
+            skill: skill,
+            id: Date.now() + Math.random()
+        };
+
+        this.state.activeBubbles.splice(index, 0, newBubbleData);
+        this.state.occupiedPositions.push(newPosition);
+
+        this.container.appendChild(newBubbleElement);
+
+        await this.wait(50);
+
+        const inEffect = this.getRandomEffect();
+        await this.animateIn(newBubbleElement, inEffect);
+        this.startFloating(newBubbleElement);
+
+        this.state.isAnimating = false;
     }
 
     createBubbleElement(skill, position) {
@@ -211,65 +264,81 @@ class SequentialFloatingBubbles {
         bubble.style.opacity = '0';
         bubble.style.willChange = 'transform, opacity';
         bubble.style.transform = 'translate3d(0, 0, 0)';
+        bubble.style.backfaceVisibility = 'hidden';
+        bubble.style.WebkitBackfaceVisibility = 'hidden';
 
-        if (position.top !== undefined) bubble.style.top = `${position.top}%`;
-        if (position.bottom !== undefined) bubble.style.bottom = `${position.bottom}%`;
-        if (position.left !== undefined) bubble.style.left = `${position.left}%`;
-        if (position.right !== undefined) bubble.style.right = `${position.right}%`;
+        if (position.top !== null) bubble.style.top = `${position.top}%`;
+        if (position.bottom !== null) bubble.style.bottom = `${position.bottom}%`;
+        if (position.left !== null) bubble.style.left = `${position.left}%`;
+        if (position.right !== null) bubble.style.right = `${position.right}%`;
 
         return bubble;
     }
 
-    getNextSkill() {
-        const skill = this.skills[this.currentSkillIndex];
-        this.currentSkillIndex = (this.currentSkillIndex + 1) % this.skills.length;
-        return skill;
-    }
+    findSafePosition() {
+        const positions = this.isMobile ? this.mobilePositions : this.desktopPositions;
 
-    getAvailablePosition() {
-        const positions = this.isMobile ? this.mobilePositions : this.positions;
+        const availablePositions = positions.filter(pos => {
+            if (this.isPositionOccupied(pos)) {
+                return false;
+            }
 
-        const availablePositions = positions.filter((pos, idx) => {
-            if (this.usedPositions.includes(idx)) return false;
-
-            return this.activeBubbles.every(bubble => {
-                return this.checkDistance(pos, bubble.position) >= this.config.minDistance;
+            return this.state.occupiedPositions.every(occupiedPos => {
+                return this.calculateDistance(pos, occupiedPos) >= this.config.MIN_BUBBLE_DISTANCE;
             });
         });
 
-        let selectedIndex;
-        if (availablePositions.length > 0) {
-            const randomPos = availablePositions[Math.floor(Math.random() * availablePositions.length)];
-            selectedIndex = positions.indexOf(randomPos);
-        } else {
-            this.usedPositions = [];
-            selectedIndex = Math.floor(Math.random() * positions.length);
+        if (availablePositions.length === 0) {
+            const fallbackPositions = positions.filter(pos => !this.isPositionOccupied(pos));
+            return fallbackPositions.length > 0 ? fallbackPositions[Math.floor(Math.random() * fallbackPositions.length)] : null;
         }
 
-        this.usedPositions.push(selectedIndex);
-        if (this.usedPositions.length > this.config.totalBubbles) {
-            this.usedPositions.shift();
-        }
-
-        return positions[selectedIndex];
+        return availablePositions[Math.floor(Math.random() * availablePositions.length)];
     }
 
-    checkDistance(pos1, pos2) {
-        const x1 = pos1.left !== undefined ? pos1.left : (pos1.right !== undefined ? 100 - pos1.right : 50);
-        const y1 = pos1.top !== undefined ? pos1.top : (pos1.bottom !== undefined ? 100 - pos1.bottom : 50);
-        const x2 = pos2.left !== undefined ? pos2.left : (pos2.right !== undefined ? 100 - pos2.right : 50);
-        const y2 = pos2.top !== undefined ? pos2.top : (pos2.bottom !== undefined ? 100 - pos2.bottom : 50);
+    isPositionOccupied(position) {
+        return this.state.occupiedPositions.some(occupied =>
+            occupied.top === position.top &&
+            occupied.bottom === position.bottom &&
+            occupied.left === position.left &&
+            occupied.right === position.right
+        );
+    }
+
+    calculateDistance(pos1, pos2) {
+        const x1 = this.getXCoordinate(pos1);
+        const y1 = this.getYCoordinate(pos1);
+        const x2 = this.getXCoordinate(pos2);
+        const y2 = this.getYCoordinate(pos2);
 
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    }
+
+    getXCoordinate(position) {
+        if (position.left !== null) return position.left;
+        if (position.right !== null) return 100 - position.right;
+        return 50;
+    }
+
+    getYCoordinate(position) {
+        if (position.top !== null) return position.top;
+        if (position.bottom !== null) return 100 - position.bottom;
+        return 50;
+    }
+
+    getNextSkill() {
+        const skill = this.skills[this.state.currentSkillIndex];
+        this.state.currentSkillIndex = (this.state.currentSkillIndex + 1) % this.skills.length;
+        return skill;
     }
 
     getRandomEffect() {
         return this.transitionEffects[Math.floor(Math.random() * this.transitionEffects.length)];
     }
 
-    async transitionIn(element, effect) {
+    async animateIn(element, effect) {
         return new Promise(resolve => {
-            element.style.transition = `all ${this.config.transitionDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1)`;
+            element.style.transition = `all ${this.config.TRANSITION_IN_DURATION}ms cubic-bezier(0.34, 1.56, 0.64, 1)`;
 
             switch(effect) {
                 case 'fade':
@@ -277,90 +346,103 @@ class SequentialFloatingBubbles {
                         element.style.opacity = '1';
                     });
                     break;
+
                 case 'scale':
-                    element.style.transform = 'scale(0.3) translate3d(0, 0, 0)';
+                    element.style.transform = 'scale(0.2) translate3d(0, 0, 0)';
                     requestAnimationFrame(() => {
                         element.style.opacity = '1';
                         element.style.transform = 'scale(1) translate3d(0, 0, 0)';
                     });
                     break;
+
                 case 'slide-up':
-                    element.style.transform = 'translateY(50px) translate3d(0, 0, 0)';
+                    element.style.transform = 'translateY(60px) translate3d(0, 0, 0)';
                     requestAnimationFrame(() => {
                         element.style.opacity = '1';
                         element.style.transform = 'translateY(0) translate3d(0, 0, 0)';
                     });
                     break;
+
                 case 'slide-down':
-                    element.style.transform = 'translateY(-50px) translate3d(0, 0, 0)';
+                    element.style.transform = 'translateY(-60px) translate3d(0, 0, 0)';
                     requestAnimationFrame(() => {
                         element.style.opacity = '1';
                         element.style.transform = 'translateY(0) translate3d(0, 0, 0)';
                     });
                     break;
-                case 'rotate':
-                    element.style.transform = 'rotate(180deg) scale(0.3) translate3d(0, 0, 0)';
+
+                case 'rotate-scale':
+                    element.style.transform = 'rotate(180deg) scale(0.2) translate3d(0, 0, 0)';
                     requestAnimationFrame(() => {
                         element.style.opacity = '1';
                         element.style.transform = 'rotate(0deg) scale(1) translate3d(0, 0, 0)';
                     });
                     break;
-                case 'blur':
-                    element.style.filter = 'blur(10px)';
+
+                case 'blur-fade':
+                    element.style.filter = 'blur(12px)';
+                    element.style.transform = 'scale(1.2) translate3d(0, 0, 0)';
                     requestAnimationFrame(() => {
                         element.style.opacity = '1';
                         element.style.filter = 'blur(0)';
+                        element.style.transform = 'scale(1) translate3d(0, 0, 0)';
                     });
                     break;
             }
 
-            setTimeout(resolve, this.config.transitionDuration);
+            setTimeout(resolve, this.config.TRANSITION_IN_DURATION);
         });
     }
 
-    async transitionOut(element, effect) {
+    async animateOut(element, effect) {
         return new Promise(resolve => {
             element.style.animation = 'none';
-            element.style.transition = `all ${this.config.transitionDuration}ms cubic-bezier(0.55, 0.085, 0.68, 0.53)`;
+            element.style.transition = `all ${this.config.TRANSITION_OUT_DURATION}ms cubic-bezier(0.55, 0.085, 0.68, 0.53)`;
 
             requestAnimationFrame(() => {
                 switch(effect) {
                     case 'fade':
                         element.style.opacity = '0';
                         break;
+
                     case 'scale':
                         element.style.opacity = '0';
-                        element.style.transform = 'scale(0.3) translate3d(0, 0, 0)';
+                        element.style.transform = 'scale(0.2) translate3d(0, 0, 0)';
                         break;
+
                     case 'slide-up':
                         element.style.opacity = '0';
-                        element.style.transform = 'translateY(-50px) translate3d(0, 0, 0)';
+                        element.style.transform = 'translateY(-60px) translate3d(0, 0, 0)';
                         break;
+
                     case 'slide-down':
                         element.style.opacity = '0';
-                        element.style.transform = 'translateY(50px) translate3d(0, 0, 0)';
+                        element.style.transform = 'translateY(60px) translate3d(0, 0, 0)';
                         break;
-                    case 'rotate':
+
+                    case 'rotate-scale':
                         element.style.opacity = '0';
-                        element.style.transform = 'rotate(-180deg) scale(0.3) translate3d(0, 0, 0)';
+                        element.style.transform = 'rotate(-180deg) scale(0.2) translate3d(0, 0, 0)';
                         break;
-                    case 'blur':
+
+                    case 'blur-fade':
                         element.style.opacity = '0';
-                        element.style.filter = 'blur(10px)';
+                        element.style.filter = 'blur(12px)';
+                        element.style.transform = 'scale(0.8) translate3d(0, 0, 0)';
                         break;
                 }
             });
 
-            setTimeout(resolve, this.config.transitionDuration);
+            setTimeout(resolve, this.config.TRANSITION_OUT_DURATION);
         });
     }
 
-    applyFloatingAnimation(element, position) {
-        const duration = this.config.floatSpeed + Math.random() * 4000;
-        const distance = this.config.floatRange + Math.random() * 10;
+    startFloating(element) {
+        const duration = this.config.FLOAT_DURATION + Math.random() * 4000;
+        const distance = this.config.FLOAT_DISTANCE + Math.random() * 8;
         const direction = Math.random() > 0.5 ? 1 : -1;
-        const horizontalDrift = (Math.random() - 0.5) * 15;
-        const delay = Math.random() * 0.5;
+        const horizontalDrift = (Math.random() - 0.5) * 12;
+        const delay = Math.random() * 0.8;
 
         const animationId = `float-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
@@ -375,10 +457,14 @@ class SequentialFloatingBubbles {
             }
         `;
 
-        const styleSheet = document.styleSheets[0];
         try {
-            styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
-        } catch(e) {}
+            const styleSheet = document.styleSheets[0];
+            if (styleSheet) {
+                styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+            }
+        } catch(e) {
+            console.warn('Could not insert keyframe rule:', e);
+        }
 
         element.style.animation = `${animationId} ${duration}ms ease-in-out ${delay}s infinite`;
     }
@@ -390,8 +476,8 @@ class SequentialFloatingBubbles {
 
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-        new SequentialFloatingBubbles();
+        new RobustFloatingBubbles();
     });
 } else {
-    new SequentialFloatingBubbles();
+    new RobustFloatingBubbles();
 }
