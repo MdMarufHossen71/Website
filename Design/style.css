@@ -485,64 +485,22 @@ p {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1.5px solid rgba(255, 255, 255, 0.7);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: auto;
     min-width: 120px;
     white-space: nowrap;
     z-index: 5;
     will-change: transform, opacity;
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-.floating-card.active {
-    animation: floatBubble 4s ease-in-out infinite;
-}
-
-.floating-card.fade-in {
-    animation: fadeInBubble 0.8s ease-out forwards;
-}
-
-.floating-card.fade-out {
-    animation: fadeOutBubble 0.8s ease-in forwards;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    transform: translate3d(0, 0, 0);
 }
 
 .floating-card:hover {
-    transform: translateY(-4px) scale(1.05);
+    transform: translateY(-4px) scale(1.05) translate3d(0, 0, 0);
     box-shadow: 0 12px 32px rgba(99, 102, 241, 0.2), 0 4px 12px rgba(99, 102, 241, 0.12), inset 0 1px 0 rgba(255, 255, 255, 1);
     border-color: rgba(99, 102, 241, 0.5);
     background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.98) 100%);
-}
-
-@keyframes floatBubble {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-15px);
-    }
-}
-
-@keyframes fadeInBubble {
-    0% {
-        opacity: 0;
-        transform: translateY(20px) scale(0.9);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0px) scale(1);
-    }
-}
-
-@keyframes fadeOutBubble {
-    0% {
-        opacity: 1;
-        transform: translateY(0px) scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-20px) scale(0.9);
-    }
 }
 
 .floating-card i {
@@ -1772,42 +1730,11 @@ p {
         font-size: 0.75rem;
         padding: 0.7rem 0.85rem;
         min-width: 85px;
-        animation: floatingCardMobile 7s ease-in-out infinite;
         z-index: 5;
     }
 
     .floating-card i {
         font-size: 1rem;
-    }
-
-    .card-1 {
-        top: 10%;
-        left: -10%;
-    }
-
-    .card-2 {
-        top: 70%;
-        right: -10%;
-    }
-
-    .card-3 {
-        bottom: 15%;
-        left: -5%;
-    }
-
-    .card-4,
-    .card-5,
-    .card-6 {
-        display: none;
-    }
-    
-    @keyframes floatingCardMobile {
-        0%, 100% {
-            transform: translateY(0px);
-        }
-        50% {
-            transform: translateY(-12px);
-        }
     }
     
     .hero {
@@ -1937,14 +1864,6 @@ p {
         left: -2%;
     }
 
-    @keyframes floatBubble {
-        0%, 100% {
-            transform: translateY(0px);
-        }
-        50% {
-            transform: translateY(-10px);
-        }
-    }
     
     .section-header {
         margin-bottom: 2rem;
