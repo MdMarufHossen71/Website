@@ -1,4 +1,4 @@
-class FloatingBubbleManager {
+class SequentialFloatingBubbles {
     constructor() {
         this.skills = [
             { name: 'React', icon: 'fab fa-react' },
@@ -13,78 +13,85 @@ class FloatingBubbleManager {
         ];
 
         this.config = {
-            bubblesPerSet: 3,
-            minDisplayDuration: 3000,
+            totalBubbles: 3,
+            displayDuration: 3000,
             transitionDuration: 500,
-            pauseBetweenBubbles: 400,
-            pauseBetweenSets: 200
+            minDistance: 150,
+            floatSpeed: 12000,
+            floatRange: 20
         };
 
-        this.transitionTypes = [
-            'scale-fade',
-            'slide-up',
-            'slide-diagonal',
-            'rotate-fade',
-            'dissolve',
-            'swing-in',
-            'bounce-in',
-            'flip-in'
+        this.transitionEffects = ['fade', 'scale', 'slide-up', 'slide-down', 'rotate', 'blur'];
+
+        this.positions = [
+            { top: 8, left: -12 },
+            { top: 18, left: -15 },
+            { top: 28, left: -10 },
+            { top: 40, left: -14 },
+            { top: 52, left: -11 },
+            { top: 8, right: -12 },
+            { top: 18, right: -15 },
+            { top: 62, right: -10 },
+            { top: 72, right: -14 },
+            { top: 82, right: -12 },
+            { bottom: 8, left: -6 },
+            { bottom: 18, left: -12 },
+            { bottom: 28, left: -8 }
         ];
 
-        this.allPositions = [
-            { top: '5%', left: '-15%', right: 'auto', bottom: 'auto' },
-            { top: '15%', left: '-18%', right: 'auto', bottom: 'auto' },
-            { top: '25%', left: '-12%', right: 'auto', bottom: 'auto' },
-            { top: '35%', left: '-16%', right: 'auto', bottom: 'auto' },
-            { top: '45%', left: '-10%', right: 'auto', bottom: 'auto' },
-            { top: '5%', left: 'auto', right: '-15%', bottom: 'auto' },
-            { top: '15%', left: 'auto', right: '-18%', bottom: 'auto' },
-            { top: '55%', left: 'auto', right: '-12%', bottom: 'auto' },
-            { top: '65%', left: 'auto', right: '-16%', bottom: 'auto' },
-            { top: '75%', left: 'auto', right: '-14%', bottom: 'auto' },
-            { top: 'auto', left: '-8%', right: 'auto', bottom: '5%' },
-            { top: 'auto', left: '-15%', right: 'auto', bottom: '15%' },
-            { top: 'auto', left: '-10%', right: 'auto', bottom: '25%' },
-            { top: 'auto', left: '-12%', right: 'auto', bottom: '35%' }
+        this.mobilePositions = [
+            { top: 5, left: -8 },
+            { top: 15, left: -10 },
+            { top: 25, left: -6 },
+            { top: 5, right: -8 },
+            { top: 65, right: -10 },
+            { top: 75, right: -8 },
+            { top: 85, right: -6 },
+            { bottom: 10, left: -4 },
+            { bottom: 20, left: -6 }
         ];
 
-        this.allMobilePositions = [
-            { top: '5%', left: '-10%', right: 'auto', bottom: 'auto' },
-            { top: '12%', left: '-12%', right: 'auto', bottom: 'auto' },
-            { top: '20%', left: '-8%', right: 'auto', bottom: 'auto' },
-            { top: '5%', left: 'auto', right: '-10%', bottom: 'auto' },
-            { top: '60%', left: 'auto', right: '-12%', bottom: 'auto' },
-            { top: '70%', left: 'auto', right: '-8%', bottom: 'auto' },
-            { top: '80%', left: 'auto', right: '-10%', bottom: 'auto' },
-            { top: 'auto', left: '-5%', right: 'auto', bottom: '10%' },
-            { top: 'auto', left: '-8%', right: 'auto', bottom: '18%' },
-            { top: 'auto', left: '-6%', right: 'auto', bottom: '25%' }
-        ];
-
+        this.activeBubbles = [];
         this.usedPositions = [];
-        this.container = document.getElementById('floating-elements');
-        this.currentIndex = 0;
-        this.currentBubbles = [];
-        this.isAnimating = false;
+        this.currentSkillIndex = 0;
+        this.isRunning = false;
         this.isMobile = window.innerWidth <= 768;
-        this.isInViewport = true;
-        this.isPageVisible = true;
+        this.container = document.getElementById('floating-elements');
 
         this.init();
     }
 
     init() {
         if (!this.container) return;
-        this.setupVisibilityDetection();
-        this.setupResizeHandler();
-        this.startAnimationCycle();
+
+        this.setupResponsive();
+        this.setupVisibility();
+        this.start();
     }
 
-    setupVisibilityDetection() {
+    setupResponsive() {
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                const wasMobile = this.isMobile;
+                this.isMobile = window.innerWidth <= 768;
+                if (wasMobile !== this.isMobile) {
+                    this.restart();
+                }
+            }, 250);
+        });
+    }
+
+    setupVisibility() {
+        let isVisible = true;
+
         document.addEventListener('visibilitychange', () => {
-            this.isPageVisible = !document.hidden;
-            if (this.isPageVisible && this.isInViewport && !this.isAnimating) {
-                this.startAnimationCycle();
+            isVisible = !document.hidden;
+            if (isVisible && !this.isRunning) {
+                this.start();
+            } else if (!isVisible && this.isRunning) {
+                this.stop();
             }
         });
 
@@ -92,9 +99,10 @@ class FloatingBubbleManager {
         if (heroSection && 'IntersectionObserver' in window) {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    this.isInViewport = entry.isIntersecting;
-                    if (this.isInViewport && this.isPageVisible && !this.isAnimating) {
-                        this.startAnimationCycle();
+                    if (entry.isIntersecting && !this.isRunning && isVisible) {
+                        this.start();
+                    } else if (!entry.isIntersecting && this.isRunning) {
+                        this.stop();
                     }
                 });
             }, { threshold: 0.1 });
@@ -103,114 +111,95 @@ class FloatingBubbleManager {
         }
     }
 
-    setupResizeHandler() {
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                const wasMobile = this.isMobile;
-                this.isMobile = window.innerWidth <= 768;
-                if (wasMobile !== this.isMobile) {
-                    this.updateBubblePositions();
-                }
-            }, 250);
-        });
-    }
+    async start() {
+        if (this.isRunning) return;
+        this.isRunning = true;
 
-    updateBubblePositions() {
-        this.currentBubbles.forEach((bubble, index) => {
-            const positions = this.isMobile ? this.mobilePositions : this.positions;
-            const position = positions[index];
-            Object.keys(position).forEach(key => {
-                bubble.style[key] = position[key];
-            });
-        });
-    }
-
-    startAnimationCycle() {
-        if (this.isAnimating || !this.isPageVisible || !this.isInViewport) return;
-        this.showNextSet();
-    }
-
-    async showNextSet() {
-        if (this.isAnimating || !this.isPageVisible || !this.isInViewport) return;
-
-        this.isAnimating = true;
-
-        for (let i = 0; i < this.config.bubblesPerSet; i++) {
-            if (!this.isPageVisible || !this.isInViewport) break;
-
-            const skill = this.getNextSkill();
-            const position = this.getUniquePosition();
-            const transitionType = this.getRandomTransition();
-
-            await this.createBubble(skill, position);
-            await this.transitionInSingle(this.currentBubbles[i], transitionType);
-
-            if (i === this.config.bubblesPerSet - 1) {
-                await this.floatBubbles();
-
-                for (let j = 0; j < this.currentBubbles.length; j++) {
-                    const bubble = this.currentBubbles[j];
-                    const outTransition = this.getRandomTransition();
-                    await this.transitionOutSingle(bubble, outTransition);
-                    await this.wait(this.config.pauseBetweenBubbles);
-                }
-
-                await this.removeBubbles();
-            } else {
-                await this.wait(this.config.pauseBetweenBubbles);
-            }
+        for (let i = 0; i < this.config.totalBubbles; i++) {
+            await this.createInitialBubble(i);
         }
 
-        this.isAnimating = false;
+        this.startSequentialLoop();
+    }
+
+    stop() {
+        this.isRunning = false;
+        this.activeBubbles.forEach(bubble => {
+            if (bubble.element.parentNode) {
+                bubble.element.parentNode.removeChild(bubble.element);
+            }
+        });
+        this.activeBubbles = [];
         this.usedPositions = [];
-
-        await this.wait(this.config.pauseBetweenSets);
-
-        if (this.isPageVisible && this.isInViewport) {
-            this.showNextSet();
-        }
     }
 
-    getNextSkill() {
-        const skill = this.skills[this.currentIndex];
-        this.currentIndex = (this.currentIndex + 1) % this.skills.length;
-        return skill;
+    restart() {
+        this.stop();
+        setTimeout(() => this.start(), 100);
     }
 
-    getUniquePosition() {
-        const allPositions = this.isMobile ? this.allMobilePositions : this.allPositions;
-        const availablePositions = allPositions.filter((pos, index) =>
-            !this.usedPositions.includes(index)
-        );
+    async createInitialBubble(index) {
+        const skill = this.getNextSkill();
+        const position = this.getAvailablePosition();
 
-        if (availablePositions.length === 0) {
-            this.usedPositions = [];
-            return allPositions[Math.floor(Math.random() * allPositions.length)];
-        }
+        const bubble = this.createBubbleElement(skill, position);
+        this.activeBubbles.push({
+            element: bubble,
+            position: position,
+            skill: skill,
+            index: index
+        });
 
-        const positionIndex = Math.floor(Math.random() * allPositions.length);
-        if (!this.usedPositions.includes(positionIndex)) {
-            this.usedPositions.push(positionIndex);
-            return allPositions[positionIndex];
-        }
+        this.container.appendChild(bubble);
 
-        for (let i = 0; i < allPositions.length; i++) {
-            if (!this.usedPositions.includes(i)) {
-                this.usedPositions.push(i);
-                return allPositions[i];
+        await this.wait(50);
+        await this.transitionIn(bubble, 'fade');
+        this.applyFloatingAnimation(bubble, position);
+    }
+
+    async startSequentialLoop() {
+        while (this.isRunning) {
+            await this.wait(this.config.displayDuration);
+
+            if (!this.isRunning) break;
+
+            for (let i = 0; i < this.config.totalBubbles; i++) {
+                if (!this.isRunning) break;
+
+                const oldBubble = this.activeBubbles[i];
+                const outEffect = this.getRandomEffect();
+
+                await this.transitionOut(oldBubble.element, outEffect);
+
+                if (oldBubble.element.parentNode) {
+                    oldBubble.element.parentNode.removeChild(oldBubble.element);
+                }
+
+                const skill = this.getNextSkill();
+                const position = this.getAvailablePosition();
+
+                const newBubble = this.createBubbleElement(skill, position);
+                this.activeBubbles[i] = {
+                    element: newBubble,
+                    position: position,
+                    skill: skill,
+                    index: i
+                };
+
+                this.container.appendChild(newBubble);
+
+                await this.wait(50);
+
+                const inEffect = this.getRandomEffect();
+                await this.transitionIn(newBubble, inEffect);
+                this.applyFloatingAnimation(newBubble, position);
+
+                await this.wait(this.config.displayDuration / this.config.totalBubbles);
             }
         }
-
-        return allPositions[0];
     }
 
-    getRandomTransition() {
-        return this.transitionTypes[Math.floor(Math.random() * this.transitionTypes.length)];
-    }
-
-    async createBubble(skill, position) {
+    createBubbleElement(skill, position) {
         const bubble = document.createElement('div');
         bubble.className = 'floating-card';
         bubble.innerHTML = `
@@ -218,82 +207,109 @@ class FloatingBubbleManager {
             <span>${skill.name}</span>
         `;
 
-        Object.keys(position).forEach(key => {
-            bubble.style[key] = position[key];
-        });
-
+        bubble.style.position = 'absolute';
         bubble.style.opacity = '0';
         bubble.style.willChange = 'transform, opacity';
+        bubble.style.transform = 'translate3d(0, 0, 0)';
 
-        this.container.appendChild(bubble);
-        this.currentBubbles.push(bubble);
+        if (position.top !== undefined) bubble.style.top = `${position.top}%`;
+        if (position.bottom !== undefined) bubble.style.bottom = `${position.bottom}%`;
+        if (position.left !== undefined) bubble.style.left = `${position.left}%`;
+        if (position.right !== undefined) bubble.style.right = `${position.right}%`;
 
-        this.container.offsetHeight;
+        return bubble;
     }
 
-    async transitionInSingle(bubble, type) {
-        return new Promise(resolve => {
-            bubble.style.transition = `all ${this.config.transitionDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1)`;
+    getNextSkill() {
+        const skill = this.skills[this.currentSkillIndex];
+        this.currentSkillIndex = (this.currentSkillIndex + 1) % this.skills.length;
+        return skill;
+    }
 
-            switch(type) {
-                case 'scale-fade':
-                    bubble.style.transform = 'scale(0.5) translateY(20px)';
+    getAvailablePosition() {
+        const positions = this.isMobile ? this.mobilePositions : this.positions;
+
+        const availablePositions = positions.filter((pos, idx) => {
+            if (this.usedPositions.includes(idx)) return false;
+
+            return this.activeBubbles.every(bubble => {
+                return this.checkDistance(pos, bubble.position) >= this.config.minDistance;
+            });
+        });
+
+        let selectedIndex;
+        if (availablePositions.length > 0) {
+            const randomPos = availablePositions[Math.floor(Math.random() * availablePositions.length)];
+            selectedIndex = positions.indexOf(randomPos);
+        } else {
+            this.usedPositions = [];
+            selectedIndex = Math.floor(Math.random() * positions.length);
+        }
+
+        this.usedPositions.push(selectedIndex);
+        if (this.usedPositions.length > this.config.totalBubbles) {
+            this.usedPositions.shift();
+        }
+
+        return positions[selectedIndex];
+    }
+
+    checkDistance(pos1, pos2) {
+        const x1 = pos1.left !== undefined ? pos1.left : (pos1.right !== undefined ? 100 - pos1.right : 50);
+        const y1 = pos1.top !== undefined ? pos1.top : (pos1.bottom !== undefined ? 100 - pos1.bottom : 50);
+        const x2 = pos2.left !== undefined ? pos2.left : (pos2.right !== undefined ? 100 - pos2.right : 50);
+        const y2 = pos2.top !== undefined ? pos2.top : (pos2.bottom !== undefined ? 100 - pos2.bottom : 50);
+
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    }
+
+    getRandomEffect() {
+        return this.transitionEffects[Math.floor(Math.random() * this.transitionEffects.length)];
+    }
+
+    async transitionIn(element, effect) {
+        return new Promise(resolve => {
+            element.style.transition = `all ${this.config.transitionDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1)`;
+
+            switch(effect) {
+                case 'fade':
                     requestAnimationFrame(() => {
-                        bubble.style.opacity = '1';
-                        bubble.style.transform = 'scale(1) translateY(0)';
+                        element.style.opacity = '1';
+                    });
+                    break;
+                case 'scale':
+                    element.style.transform = 'scale(0.3) translate3d(0, 0, 0)';
+                    requestAnimationFrame(() => {
+                        element.style.opacity = '1';
+                        element.style.transform = 'scale(1) translate3d(0, 0, 0)';
                     });
                     break;
                 case 'slide-up':
-                    bubble.style.transform = 'translateY(80px)';
+                    element.style.transform = 'translateY(50px) translate3d(0, 0, 0)';
                     requestAnimationFrame(() => {
-                        bubble.style.opacity = '1';
-                        bubble.style.transform = 'translateY(0)';
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0) translate3d(0, 0, 0)';
                     });
                     break;
-                case 'slide-diagonal':
-                    bubble.style.transform = 'translate(60px, 60px)';
+                case 'slide-down':
+                    element.style.transform = 'translateY(-50px) translate3d(0, 0, 0)';
                     requestAnimationFrame(() => {
-                        bubble.style.opacity = '1';
-                        bubble.style.transform = 'translate(0, 0)';
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0) translate3d(0, 0, 0)';
                     });
                     break;
-                case 'rotate-fade':
-                    bubble.style.transform = 'rotate(180deg) scale(0.3)';
+                case 'rotate':
+                    element.style.transform = 'rotate(180deg) scale(0.3) translate3d(0, 0, 0)';
                     requestAnimationFrame(() => {
-                        bubble.style.opacity = '1';
-                        bubble.style.transform = 'rotate(0deg) scale(1)';
+                        element.style.opacity = '1';
+                        element.style.transform = 'rotate(0deg) scale(1) translate3d(0, 0, 0)';
                     });
                     break;
-                case 'dissolve':
-                    bubble.style.filter = 'blur(10px)';
-                    bubble.style.transform = 'scale(1.3)';
+                case 'blur':
+                    element.style.filter = 'blur(10px)';
                     requestAnimationFrame(() => {
-                        bubble.style.opacity = '1';
-                        bubble.style.filter = 'blur(0)';
-                        bubble.style.transform = 'scale(1)';
-                    });
-                    break;
-                case 'swing-in':
-                    bubble.style.transform = 'rotate(-45deg) scale(0.5)';
-                    bubble.style.transformOrigin = 'top center';
-                    requestAnimationFrame(() => {
-                        bubble.style.opacity = '1';
-                        bubble.style.transform = 'rotate(0deg) scale(1)';
-                    });
-                    break;
-                case 'bounce-in':
-                    bubble.style.transform = 'scale(0.3) translateY(-100px)';
-                    requestAnimationFrame(() => {
-                        bubble.style.opacity = '1';
-                        bubble.style.transition = `all ${this.config.transitionDuration}ms cubic-bezier(0.68, -0.55, 0.265, 1.55)`;
-                        bubble.style.transform = 'scale(1) translateY(0)';
-                    });
-                    break;
-                case 'flip-in':
-                    bubble.style.transform = 'rotateY(90deg) scale(0.5)';
-                    requestAnimationFrame(() => {
-                        bubble.style.opacity = '1';
-                        bubble.style.transform = 'rotateY(0deg) scale(1)';
+                        element.style.opacity = '1';
+                        element.style.filter = 'blur(0)';
                     });
                     break;
             }
@@ -302,81 +318,35 @@ class FloatingBubbleManager {
         });
     }
 
-    async floatBubbles() {
-        this.currentBubbles.forEach((bubble, index) => {
-            const floatDelay = index * 0.3;
-            const floatDuration = 8 + Math.random() * 4;
-            const floatDistance = 15 + Math.random() * 10;
-            const floatDirection = Math.random() > 0.5 ? 1 : -1;
-            const horizontalDrift = (Math.random() - 0.5) * 8;
-
-            bubble.style.animation = `
-                gentleFloat-${index} ${floatDuration}s ease-in-out ${floatDelay}s infinite,
-                horizontalDrift-${index} ${floatDuration * 1.5}s ease-in-out ${floatDelay}s infinite
-            `;
-
-            const styleSheet = document.styleSheets[0];
-            const floatKeyframes = `
-                @keyframes gentleFloat-${index} {
-                    0%, 100% { transform: translateY(0px); }
-                    50% { transform: translateY(${floatDirection * floatDistance}px); }
-                }
-            `;
-            const driftKeyframes = `
-                @keyframes horizontalDrift-${index} {
-                    0%, 100% { transform: translateX(0px); }
-                    50% { transform: translateX(${horizontalDrift}px); }
-                }
-            `;
-
-            try {
-                styleSheet.insertRule(floatKeyframes, styleSheet.cssRules.length);
-                styleSheet.insertRule(driftKeyframes, styleSheet.cssRules.length);
-            } catch(e) {}
-        });
-
-        await this.wait(this.config.minDisplayDuration);
-    }
-
-    async transitionOutSingle(bubble, type) {
+    async transitionOut(element, effect) {
         return new Promise(resolve => {
-            bubble.style.animation = 'none';
-            bubble.style.transition = `all ${this.config.transitionDuration}ms cubic-bezier(0.55, 0.085, 0.68, 0.53)`;
+            element.style.animation = 'none';
+            element.style.transition = `all ${this.config.transitionDuration}ms cubic-bezier(0.55, 0.085, 0.68, 0.53)`;
 
             requestAnimationFrame(() => {
-                switch(type) {
-                    case 'scale-fade':
-                        bubble.style.opacity = '0';
-                        bubble.style.transform = 'scale(0.3) translateY(-30px)';
+                switch(effect) {
+                    case 'fade':
+                        element.style.opacity = '0';
+                        break;
+                    case 'scale':
+                        element.style.opacity = '0';
+                        element.style.transform = 'scale(0.3) translate3d(0, 0, 0)';
                         break;
                     case 'slide-up':
-                        bubble.style.opacity = '0';
-                        bubble.style.transform = 'translateY(-100px)';
+                        element.style.opacity = '0';
+                        element.style.transform = 'translateY(-50px) translate3d(0, 0, 0)';
                         break;
-                    case 'slide-diagonal':
-                        bubble.style.opacity = '0';
-                        bubble.style.transform = 'translate(-70px, -70px)';
+                    case 'slide-down':
+                        element.style.opacity = '0';
+                        element.style.transform = 'translateY(50px) translate3d(0, 0, 0)';
                         break;
-                    case 'rotate-fade':
-                        bubble.style.opacity = '0';
-                        bubble.style.transform = 'rotate(-180deg) scale(0.2)';
+                    case 'rotate':
+                        element.style.opacity = '0';
+                        element.style.transform = 'rotate(-180deg) scale(0.3) translate3d(0, 0, 0)';
                         break;
-                    case 'dissolve':
-                        bubble.style.opacity = '0';
-                        bubble.style.filter = 'blur(12px)';
-                        bubble.style.transform = 'scale(0.7)';
-                        break;
-                    case 'swing-in':
-                        bubble.style.opacity = '0';
-                        bubble.style.transform = 'rotate(45deg) scale(0.3)';
-                        break;
-                    case 'bounce-in':
-                        bubble.style.opacity = '0';
-                        bubble.style.transform = 'scale(0.2) translateY(100px)';
-                        break;
-                    case 'flip-in':
-                        bubble.style.opacity = '0';
-                        bubble.style.transform = 'rotateY(-90deg) scale(0.5)';
+                    case 'blur':
+                        element.style.opacity = '0';
+                        element.style.filter = 'blur(10px)';
                         break;
                 }
             });
@@ -385,13 +355,32 @@ class FloatingBubbleManager {
         });
     }
 
-    async removeBubbles() {
-        this.currentBubbles.forEach(bubble => {
-            if (bubble.parentNode) {
-                bubble.parentNode.removeChild(bubble);
+    applyFloatingAnimation(element, position) {
+        const duration = this.config.floatSpeed + Math.random() * 4000;
+        const distance = this.config.floatRange + Math.random() * 10;
+        const direction = Math.random() > 0.5 ? 1 : -1;
+        const horizontalDrift = (Math.random() - 0.5) * 15;
+        const delay = Math.random() * 0.5;
+
+        const animationId = `float-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
+        const keyframes = `
+            @keyframes ${animationId} {
+                0%, 100% {
+                    transform: translate3d(0, 0, 0);
+                }
+                50% {
+                    transform: translate3d(${horizontalDrift}px, ${direction * distance}px, 0);
+                }
             }
-        });
-        this.currentBubbles = [];
+        `;
+
+        const styleSheet = document.styleSheets[0];
+        try {
+            styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+        } catch(e) {}
+
+        element.style.animation = `${animationId} ${duration}ms ease-in-out ${delay}s infinite`;
     }
 
     wait(ms) {
@@ -401,8 +390,8 @@ class FloatingBubbleManager {
 
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-        new FloatingBubbleManager();
+        new SequentialFloatingBubbles();
     });
 } else {
-    new FloatingBubbleManager();
+    new SequentialFloatingBubbles();
 }
