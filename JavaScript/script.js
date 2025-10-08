@@ -466,15 +466,25 @@ let ticking = false;
 
 function updateParallax() {
     const scrolled = window.pageYOffset;
-    
-    // 3D parallax for hero image
-    const heroImage = document.querySelector('.hero-image-container');
-    if (heroImage && window.innerWidth > 768) {
-        const rotateY = Math.min(scrolled * 0.03, 15);
-        const translateZ = Math.min(scrolled * 0.08, 25);
-        heroImage.style.transform = `rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
+    const heroSection = document.querySelector('.hero');
+
+    // Only apply parallax within hero section
+    if (heroSection) {
+        const heroRect = heroSection.getBoundingClientRect();
+        const isInHeroSection = heroRect.top < window.innerHeight && heroRect.bottom > 0;
+
+        // 3D parallax for hero image
+        const heroImage = document.querySelector('.hero-image-container');
+        if (heroImage && window.innerWidth > 768 && isInHeroSection) {
+            const scrollPercent = Math.max(0, Math.min(1, -heroRect.top / heroRect.height));
+            const rotateY = scrollPercent * 10;
+            const translateZ = scrollPercent * 15;
+            heroImage.style.transform = `rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
+        } else if (heroImage) {
+            heroImage.style.transform = 'rotateY(0deg) translateZ(0px)';
+        }
     }
-    
+
     ticking = false;
 }
 
@@ -526,7 +536,7 @@ document.addEventListener('DOMContentLoaded', () => {
             once: true,
             offset: 100,
             delay: 100,
-            disable: 'mobile'
+            disable: false
         });
     }
 });
