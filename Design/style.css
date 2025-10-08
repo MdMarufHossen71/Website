@@ -482,7 +482,6 @@ p {
     gap: 0.65rem;
     font-weight: 600;
     font-size: 0.85rem;
-    animation: floatingCard 8s ease-in-out infinite;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1.5px solid rgba(255, 255, 255, 0.7);
@@ -491,23 +490,58 @@ p {
     min-width: 120px;
     white-space: nowrap;
     z-index: 5;
-    will-change: transform;
+    will-change: transform, opacity;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.floating-card.active {
+    animation: floatBubble 4s ease-in-out infinite;
+}
+
+.floating-card.fade-in {
+    animation: fadeInBubble 0.8s ease-out forwards;
+}
+
+.floating-card.fade-out {
+    animation: fadeOutBubble 0.8s ease-in forwards;
 }
 
 .floating-card:hover {
     transform: translateY(-4px) scale(1.05);
     box-shadow: 0 12px 32px rgba(99, 102, 241, 0.2), 0 4px 12px rgba(99, 102, 241, 0.12), inset 0 1px 0 rgba(255, 255, 255, 1);
-    animation-play-state: paused;
     border-color: rgba(99, 102, 241, 0.5);
     background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.98) 100%);
 }
 
-@keyframes floatingCard {
+@keyframes floatBubble {
     0%, 100% {
         transform: translateY(0px);
     }
     50% {
         transform: translateY(-15px);
+    }
+}
+
+@keyframes fadeInBubble {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+}
+
+@keyframes fadeOutBubble {
+    0% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.9);
     }
 }
 
@@ -523,40 +557,19 @@ p {
     font-size: 0.85rem;
 }
 
-.card-1 {
+.bubble-position-1 {
     top: 15%;
     left: -15%;
-    animation-delay: 0s;
 }
 
-.card-2 {
+.bubble-position-2 {
     top: 65%;
     right: -15%;
-    animation-delay: 2.7s;
 }
 
-.card-3 {
+.bubble-position-3 {
     bottom: 25%;
     left: -8%;
-    animation-delay: 5.4s;
-}
-
-.card-4 {
-    top: 35%;
-    right: -20%;
-    animation-delay: 1.35s;
-}
-
-.card-5 {
-    bottom: 45%;
-    left: -18%;
-    animation-delay: 4.05s;
-}
-
-.card-6 {
-    top: 8%;
-    right: -12%;
-    animation-delay: 6.75s;
 }
 
 .gradient-text {
@@ -1865,42 +1878,40 @@ p {
     .navbar {
         min-height: 70px;
     }
-    
+
     .nav-container {
         padding: 0.5rem 0.75rem;
         justify-content: space-between;
     }
-    
+
     .nav-logo {
         font-size: 1.25rem;
         margin-right: 0;
     }
-    
+
     .nav-menu {
         top: 70px;
         padding: 1.5rem;
     }
-    
+
     .container {
         padding: 0 1rem;
     }
-    
+
     .hero-title {
         font-size: 2rem;
     }
-    
+
     .hero-image-container {
         width: 250px;
         height: 250px;
     }
-    
+
+    /* Extra small mobile bubbles */
     .floating-card {
-        display: flex;
         font-size: 0.7rem;
         padding: 0.6rem 0.75rem;
         min-width: 70px;
-        animation: floatingCardMobile 7s ease-in-out infinite;
-        z-index: 5;
     }
 
     .floating-card i {
@@ -1911,25 +1922,28 @@ p {
         font-size: 0.65rem;
     }
 
-    .card-1 {
+    .bubble-position-1 {
         top: 8%;
         left: -8%;
     }
 
-    .card-2 {
+    .bubble-position-2 {
         top: 75%;
         right: -8%;
     }
 
-    .card-3 {
+    .bubble-position-3 {
         bottom: 12%;
         left: -2%;
     }
 
-    .card-4,
-    .card-5,
-    .card-6 {
-        display: none;
+    @keyframes floatBubble {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
     }
     
     .section-header {
