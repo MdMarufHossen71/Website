@@ -1252,6 +1252,7 @@ p {
     display: flex;
     gap: 0.75rem;
     flex-wrap: wrap;
+    max-width: 600px;
 }
 
 .social-links a {
@@ -1266,6 +1267,17 @@ p {
     text-decoration: none;
     transition: var(--transition);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+}
+
+.social-links a.social-link-primary {
+    background: rgba(99, 102, 241, 0.15);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.social-links a.social-link-work {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.3);
 }
 
 .social-links a:hover {
@@ -1273,6 +1285,25 @@ p {
     border-color: var(--primary-color);
     transform: translateY(-3px) scale(1.1);
     box-shadow: var(--shadow-lg);
+}
+
+.social-links a.social-link-primary:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.social-links a.social-link-work:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.social-links a .custom-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.social-links a i {
+    font-size: 1.1rem;
 }
 
 .contact-form-container {
