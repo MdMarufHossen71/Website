@@ -14,43 +14,39 @@ class RobustFloatingBubbles {
 
         this.config = {
             MAX_BUBBLES: 3,
-            BUBBLE_DISPLAY_TIME: 4000,
-            TRANSITION_OUT_DURATION: 500,
-            TRANSITION_IN_DURATION: 500,
-            FLOAT_DURATION: 10000,
-            FLOAT_DISTANCE: 18,
-            MIN_BUBBLE_DISTANCE: 140,
+            BUBBLE_DISPLAY_TIME: 5000,
+            TRANSITION_OUT_DURATION: 400,
+            TRANSITION_IN_DURATION: 400,
+            FLOAT_DURATION: 8000,
+            FLOAT_DISTANCE: 12,
+            MIN_BUBBLE_DISTANCE: 200,
             BUBBLE_RADIUS: 70
         };
 
         this.transitionEffects = ['fade', 'scale', 'slide-up', 'slide-down', 'rotate-scale', 'blur-fade'];
 
         this.desktopPositions = [
-            { top: 10, left: -13, right: null, bottom: null },
-            { top: 22, left: -16, right: null, bottom: null },
-            { top: 35, left: -12, right: null, bottom: null },
-            { top: 48, left: -15, right: null, bottom: null },
-            { top: 60, left: -11, right: null, bottom: null },
-            { top: 10, left: null, right: -13, bottom: null },
-            { top: 22, left: null, right: -16, bottom: null },
-            { top: 65, left: null, right: -12, bottom: null },
-            { top: 75, left: null, right: -15, bottom: null },
-            { top: 85, left: null, right: -13, bottom: null },
-            { top: null, left: -8, right: null, bottom: 10 },
-            { top: null, left: -13, right: null, bottom: 20 },
-            { top: null, left: -9, right: null, bottom: 30 }
+            { top: 8, left: -15, right: null, bottom: null },
+            { top: 25, left: -18, right: null, bottom: null },
+            { top: 42, left: -14, right: null, bottom: null },
+            { top: 60, left: -17, right: null, bottom: null },
+            { top: 8, left: null, right: -15, bottom: null },
+            { top: 25, left: null, right: -18, bottom: null },
+            { top: 70, left: null, right: -14, bottom: null },
+            { top: 85, left: null, right: -17, bottom: null },
+            { top: null, left: -10, right: null, bottom: 8 },
+            { top: null, left: -15, right: null, bottom: 20 }
         ];
 
         this.mobilePositions = [
-            { top: 8, left: -9, right: null, bottom: null },
-            { top: 18, left: -11, right: null, bottom: null },
-            { top: 28, left: -7, right: null, bottom: null },
-            { top: 8, left: null, right: -9, bottom: null },
-            { top: 68, left: null, right: -11, bottom: null },
-            { top: 78, left: null, right: -9, bottom: null },
-            { top: 88, left: null, right: -7, bottom: null },
-            { top: null, left: -5, right: null, bottom: 12 },
-            { top: null, left: -8, right: null, bottom: 22 }
+            { top: 5, left: -12, right: null, bottom: null },
+            { top: 22, left: -14, right: null, bottom: null },
+            { top: 40, left: -10, right: null, bottom: null },
+            { top: 5, left: null, right: -12, bottom: null },
+            { top: 72, left: null, right: -14, bottom: null },
+            { top: 88, left: null, right: -10, bottom: null },
+            { top: null, left: -8, right: null, bottom: 10 },
+            { top: null, left: -12, right: null, bottom: 22 }
         ];
 
         this.state = {
@@ -438,11 +434,11 @@ class RobustFloatingBubbles {
     }
 
     startFloating(element) {
-        const duration = this.config.FLOAT_DURATION + Math.random() * 4000;
-        const distance = this.config.FLOAT_DISTANCE + Math.random() * 8;
+        const duration = this.config.FLOAT_DURATION + Math.random() * 2000;
+        const distance = this.config.FLOAT_DISTANCE + Math.random() * 5;
         const direction = Math.random() > 0.5 ? 1 : -1;
-        const horizontalDrift = (Math.random() - 0.5) * 12;
-        const delay = Math.random() * 0.8;
+        const horizontalDrift = (Math.random() - 0.5) * 6;
+        const delay = Math.random() * 0.5;
 
         const animationId = `float-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
