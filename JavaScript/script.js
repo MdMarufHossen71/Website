@@ -9,33 +9,32 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 const portfolioItems = document.querySelectorAll('.portfolio-item');
 const contactForm = document.getElementById('contact-form');
 
-// Enhanced Navbar scroll effect with hide/show functionality
+// Smart Auto-Hide Header functionality
 let lastScrollTop = 0;
 let scrollTimeout;
+let isScrolling = false;
 
 window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
     const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
-    // Background and shadow effects
-    if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 4px 25px rgba(0, 0, 0, 0.15)';
-        navbar.style.borderBottom = '1px solid rgba(0, 0, 0, 0.1)';
+
+    // Mark that user is scrolling
+    isScrolling = true;
+
+    // Add scrolled class for shadow effect
+    if (currentScrollTop > 50) {
+        navbar.classList.add('scrolled');
     } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-        navbar.style.borderBottom = '1px solid var(--border-color)';
+        navbar.classList.remove('scrolled');
     }
-    
-    // Hide/show navbar based on scroll direction
-    if (currentScrollTop > 100) { // Only apply hide/show after scrolling past hero
+
+    // Smart hide/show logic
+    if (currentScrollTop > 100) {
         if (currentScrollTop > lastScrollTop && currentScrollTop > 200) {
-            // Scrolling down - hide navbar
+            // Scrolling DOWN - hide navbar immediately
             navbar.classList.add('hidden');
             navbar.classList.remove('visible');
         } else {
-            // Scrolling up - show navbar
+            // Scrolling UP - show navbar immediately
             navbar.classList.remove('hidden');
             navbar.classList.add('visible');
         }
@@ -44,35 +43,46 @@ window.addEventListener('scroll', () => {
         navbar.classList.remove('hidden');
         navbar.classList.add('visible');
     }
-    
-    // Clear timeout and set new one to show navbar after scroll stops
+
+    // Clear previous timeout
     clearTimeout(scrollTimeout);
+
+    // Set timeout to show navbar after user stops scrolling (700ms delay)
     scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+        // Reveal navbar after scroll stops
         navbar.classList.remove('hidden');
         navbar.classList.add('visible');
-    }, 150);
-    
+    }, 700);
+
     lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-    
+
     // Show/hide scroll buttons
     const scrollButtons = document.querySelector('.scroll-buttons');
     if (scrollButtons) {
-        if (window.scrollY > 300) {
+        if (currentScrollTop > 300) {
             scrollButtons.classList.add('visible');
         } else {
             scrollButtons.classList.remove('visible');
         }
     }
+
+    // Update active nav link based on scroll position
+    updateActiveNavLink();
 });
 
 // Mobile menu toggle
-navToggle.addEventListener('click', () => {
+navToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
     navMenu.classList.toggle('active');
     navToggle.classList.toggle('active');
-    
+
     // Prevent body scroll when menu is open
     if (navMenu.classList.contains('active')) {
         document.body.style.overflow = 'hidden';
+        // Always show navbar when menu is open
+        navbar.classList.remove('hidden');
+        navbar.classList.add('visible');
     } else {
         document.body.style.overflow = '';
     }
@@ -89,12 +99,33 @@ navLinks.forEach(link => {
 
 // Close mobile menu when clicking outside
 document.addEventListener('click', (e) => {
-    if (!navbar.contains(e.target) && navMenu.classList.contains('active')) {
+    if (navMenu.classList.contains('active') && !navToggle.contains(e.target) && !navMenu.contains(e.target)) {
         navMenu.classList.remove('active');
         navToggle.classList.remove('active');
         document.body.style.overflow = '';
     }
 });
+
+// Function to update active nav link based on scroll position
+function updateActiveNavLink() {
+    const sections = document.querySelectorAll('section[id]');
+    const scrollPosition = window.pageYOffset + 150;
+
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${sectionId}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    });
+}
 
 // Smooth scrolling for navigation links
 navLinks.forEach(link => {
