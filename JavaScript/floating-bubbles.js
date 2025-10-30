@@ -20,7 +20,8 @@ class RobustFloatingBubbles {
             FLOAT_DURATION: 8000,
             FLOAT_DISTANCE: 12,
             MIN_BUBBLE_DISTANCE: 200,
-            BUBBLE_RADIUS: 70
+            BUBBLE_RADIUS: 70,
+            MIN_PHOTO_DISTANCE: 220
         };
 
         this.transitionEffects = ['fade', 'scale', 'slide-up', 'slide-down', 'rotate-scale', 'blur-fade'];
@@ -273,9 +274,15 @@ class RobustFloatingBubbles {
 
     findSafePosition() {
         const positions = this.isMobile ? this.mobilePositions : this.desktopPositions;
+        const photoCenter = { top: 50, left: 50 };
 
         const availablePositions = positions.filter(pos => {
             if (this.isPositionOccupied(pos)) {
+                return false;
+            }
+
+            const distanceFromPhoto = this.calculateDistance(pos, photoCenter);
+            if (distanceFromPhoto < this.config.MIN_PHOTO_DISTANCE) {
                 return false;
             }
 
@@ -285,7 +292,13 @@ class RobustFloatingBubbles {
         });
 
         if (availablePositions.length === 0) {
-            const fallbackPositions = positions.filter(pos => !this.isPositionOccupied(pos));
+            const fallbackPositions = positions.filter(pos => {
+                if (this.isPositionOccupied(pos)) {
+                    return false;
+                }
+                const distanceFromPhoto = this.calculateDistance(pos, photoCenter);
+                return distanceFromPhoto >= this.config.MIN_PHOTO_DISTANCE;
+            });
             return fallbackPositions.length > 0 ? fallbackPositions[Math.floor(Math.random() * fallbackPositions.length)] : null;
         }
 
