@@ -3,13 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog - Md Maruf Hossen</title>
+    <title>Digital Marketing Blog | Expert Tips & Strategies by Md Maruf Hossen</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../Design/style.css">
-    <script src="../JavaScript/script.js"></script>
+    <link rel="stylesheet" href="blog-style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     
-
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Digital Marketing Blog by Md Maruf Hossen - Expert insights on social media marketing, SEO strategies, graphic design tips, freelancing guide, and creative strategies for business growth in Bangladesh and worldwide.">
+    <meta name="keywords" content="digital marketing blog Bangladesh, social media marketing tips, SEO strategies, graphic design tutorials, freelancing guide, content marketing, brand identity design, web design tips, marketing strategies">
+    <meta name="author" content="Md Maruf Hossen">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://mdmarufhossen71.site/blogs/blog.html">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Digital Marketing Blog | Expert Tips & Strategies by Md Maruf Hossen">
+    <meta property="og:description" content="Expert insights on digital marketing, social media strategies, graphic design, and freelancing tips from professional marketer in Bangladesh">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mdmarufhossen71.site/blogs/blog.html">
+    <meta property="og:site_name" content="Md Maruf Hossen Digital Marketing Blog">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Digital Marketing Blog | Expert Tips by Md Maruf Hossen">
+    <meta name="twitter:description" content="Expert digital marketing insights, social media strategies, and design tips from Bangladesh">
+    
+    <!-- Structured Data for Blog -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "Md Maruf Hossen Digital Marketing Blog",
+      "description": "Expert insights on digital marketing, social media strategies, graphic design, and freelancing tips",
+      "url": "https://mdmarufhossen71.site/blogs/blog.html",
+      "author": {
+        "@type": "Person",
+        "name": "Md Maruf Hossen",
+        "url": "https://mdmarufhossen71.site"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Md Maruf Hossen"
+      },
+      "inLanguage": "en-US",
+      "keywords": "digital marketing, social media marketing, graphic design, freelancing, SEO, content marketing"
+    }
+    </script>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <span class="logo-text">Maruf</span>
+                <span class="logo-dot">.</span>
+            </a>
+            <div class="nav-menu" id="nav-menu">
+                <a href="../index.html#home" class="nav-link">Home</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <a href="../index.html#services" class="nav-link">Services</a>
+                <a href="../index.html#portfolio" class="nav-link">Portfolio</a>
+                <a href="../index.html#experience" class="nav-link">Experience</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+                <a href="../blogs/blog.html" class="nav-link active">Blog</a>
+            </div>
+            <div id="google_translate_element" class="google-translate"></div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Header -->
+    <section class="blog-header">
+        <div class="container">
+            <div class="blog-header-content" data-aos="fade-up">
+                <div class="blog-badge">
+                    <i class="fas fa-blog"></i>
+                    <span>Latest Insights</span>
+                </div>
+                <h1 class="blog-title">
+                    Digital Marketing & Design Blog
+                </h1>
+                <p class="blog-description">
+                    Discover expert digital marketing tips, proven strategies, and practical freelancing advice to boost your success. Learn graphic design skills, marketing growth hacks, and professional insights from an experienced digital marketer.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Categories -->
+    <section class="blog-categories">
+        <div class="container">
+            <div class="category-filters" data-aos="fade-up">
+                <button class="category-btn active" data-category="all">
+                    <i class="fas fa-th-large"></i>
+                    <span>All Posts</span>
+                </button>
+                <button class="category-btn" data-category="digital-marketing">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>Digital Marketing</span>
+                </button>
+                <button class="category-btn" data-category="graphic-design">
+                    <i class="fas fa-palette"></i>
+                    <span>Graphic Design</span>
+                </button>
+                <button class="category-btn" data-category="freelancing">
+                    <i class="fas fa-laptop-code"></i>
+                    <span>Freelancing</span>
+                </button>
+                <button class="category-btn" data-category="tips-tricks">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Tips & Tricks</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Posts -->
+    <section class="blog-posts">
+        <div class="container">
+            <div class="blog-grid">
+                
+                <!-- Post 1: Digital Marketing Strategy -->
+                <article class="blog-card digital-marketing" data-aos="fade-up" data-aos-delay="100">
+                    <div class="blog-image">
+                        <img src="https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Digital Marketing Strategy">
+                        <div class="blog-category-tag">Digital Marketing</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>January 15, 2025</span>
+                            </span>
+                            <span class="blog-read-time">
+                                <i class="fas fa-clock"></i>
+                                <span>5 min read</span>
+                            </span>
+                        </div>
+                        <h3 class="blog-post-title">
+                            <a href="posts/digital-marketing-strategy-2025.html">
+                                Digital Marketing Strategy for Small Businesses in 2025 - Complete Guide
+                            </a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            Discover the most effective digital marketing strategies that small businesses in Bangladesh and worldwide can implement to grow their online presence, increase social media engagement, and boost sales in 2025.
+                        </p>
+                        <div class="blog-tags">
+                            <span class="tag">Social Media Marketing</span>
+                            <span class="tag">SEO</span>
+                            <span class="tag">Content Marketing</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 2: Graphic Design Tips -->
+                <article class="blog-card graphic-design" data-aos="fade-up" data-aos-delay="200">
+                    <div class="blog-image">
+                        <img src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Graphic Design Tips">
+                        <div class="blog-category-tag">Graphic Design</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>January 12, 2025</span>
+                            </span>
+                            <span class="blog-read-time">
+                                <i class="fas fa-clock"></i>
+                                <span>7 min read</span>
+                            </span>
+                        </div>
+                        <h3 class="blog-post-title">
+                            <a href="posts/logo-design-principles.html">
+                                10 Essential Logo Design Principles Every Professional Designer Should Master
+                            </a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            Learn the fundamental principles of creating memorable and effective logos that represent brands perfectly, stand the test of time, and drive brand recognition for businesses.
+                        </p>
+                        <div class="blog-tags">
+                            <span class="tag">Professional Logo Design</span>
+                            <span class="tag">Brand Identity</span>
+                            <span class="tag">Typography</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 3: Freelancing Success -->
+                <article class="blog-card freelancing" data-aos="fade-up" data-aos-delay="300">
+                    <div class="blog-image">
+                        <img src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Freelancing Success">
+                        <div class="blog-category-tag">Freelancing</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>January 10, 2025</span>
+                            </span>
+                            <span class="blog-read-time">
+                                <i class="fas fa-clock"></i>
+                                <span>6 min read</span>
+                            </span>
+                        </div>
+                        <h3 class="blog-post-title">
+                            <a href="posts/freelancing-success-guide.html">
+                                From Zero to Hero: Complete Freelancing Success Guide for Digital Marketers
+                            </a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            A comprehensive guide for beginners to start their freelancing journey and build a successful career in digital marketing and graphic design, with real-world tips from Bangladesh.
+                        </p>
+                        <div class="blog-tags">
+                            <span class="tag">Freelancing Career</span>
+                            <span class="tag">Digital Marketing Business</span>
+                            <span class="tag">Success</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 4: Social Media Tips -->
+                <article class="blog-card tips-tricks" data-aos="fade-up" data-aos-delay="400">
+                    <div class="blog-image">
+                        <img src="https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Social Media Tips">
+                        <div class="blog-category-tag">Tips & Tricks</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>January 8, 2025</span>
+                            </span>
+                            <span class="blog-read-time">
+                                <i class="fas fa-clock"></i>
+                                <span>4 min read</span>
+                            </span>
+                        </div>
+                        <h3 class="blog-post-title">
+                            <a href="posts/social-media-content-tips.html">
+                                15 Proven Tips to Create Viral Social Media Content That Drives Engagement
+                            </a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            Master the art of creating engaging social media content that gets shared, liked, and drives real engagement and conversions for your brand or clients across all platforms.
+                        </p>
+                        <div class="blog-tags">
+                            <span class="tag">Social Media Marketing</span>
+                            <span class="tag">Content Creation</span>
+                            <span class="tag">Viral Marketing</span>
+                        </div>
+                    </div>
+                </article>
 
     <!-- আপনার মূল ওয়েবসাইটের নেভিগেশন বার (Header) -->
     <header class="modern-header">
@@ -64,7 +313,339 @@
 
     <footer>
         <p>&copy; 2024 Md Maruf Hossen. All Rights Reserved.</p>
+                <!-- Post 5: Color Theory -->
+                <article class="blog-card graphic-design" data-aos="fade-up" data-aos-delay="500">
+                    <div class="blog-image">
+                        <img src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Color Theory">
+                        <div class="blog-category-tag">Graphic Design</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>January 5, 2025</span>
+                            </span>
+                            <span class="blog-read-time">
+                                <i class="fas fa-clock"></i>
+                                <span>8 min read</span>
+                            </span>
+                        </div>
+                        <h3 class="blog-post-title">
+                            <a href="posts/color-theory-guide.html">
+                                The Ultimate Professional Guide to Color Theory in Graphic Design
+                            </a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            Understand how colors work together psychologically and learn to create harmonious color palettes that evoke the right emotions and drive conversions in your professional designs.
+                        </p>
+                        <div class="blog-tags">
+                            <span class="tag">Professional Color Theory</span>
+                            <span class="tag">Design Psychology</span>
+                            <span class="tag">Visual Design</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 6: Email Marketing -->
+                <article class="blog-card digital-marketing" data-aos="fade-up" data-aos-delay="600">
+                    <div class="blog-image">
+                        <img src="https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Email Marketing">
+                        <div class="blog-category-tag">Digital Marketing</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>January 3, 2025</span>
+                            </span>
+                            <span class="blog-read-time">
+                                <i class="fas fa-clock"></i>
+                                <span>6 min read</span>
+                            </span>
+                        </div>
+                        <h3 class="blog-post-title">
+                            <a href="posts/email-marketing-mastery.html">
+                                Email Marketing Mastery: Convert Subscribers into Paying Customers
+                            </a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            Learn advanced email marketing strategies and automation techniques to build relationships with your audience and turn subscribers into loyal paying customers with high ROI.
+                        </p>
+                        <div class="blog-tags">
+                            <span class="tag">Email Marketing</span>
+                            <span class="tag">Conversion Optimization</span>
+                            <span class="tag">Customer Retention</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 7: Building First Portfolio -->
+                <article class="blog-card freelancing" data-aos="fade-up" data-aos-delay="700">
+                    <div class="blog-image">
+                        <img src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Building First Freelance Portfolio">
+                        <div class="blog-category-tag">Freelancing</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>January 18, 2025</span>
+                            </span>
+                            <span class="blog-read-time">
+                                <i class="fas fa-clock"></i>
+                                <span>8 min read</span>
+                            </span>
+                        </div>
+                        <h3 class="blog-post-title">
+                            <a href="posts/building-first-freelance-portfolio.html">
+                                The Ultimate Guide to Building Your First Freelance Portfolio
+                            </a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            Complete step-by-step guide to building your first freelance portfolio from scratch. Learn how to start freelancing without client work using personal projects and mock designs.
+                        </p>
+                        <div class="blog-tags">
+                            <span class="tag">Freelance Portfolio</span>
+                            <span class="tag">How to Start Freelancing</span>
+                            <span class="tag">Portfolio Building</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 8: Digital Marketing Portfolio Essentials -->
+                <article class="blog-card digital-marketing" data-aos="fade-up" data-aos-delay="800">
+                    <div class="blog-image">
+                        <img src="https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Digital Marketing Portfolio Essentials">
+                        <div class="blog-category-tag">Digital Marketing</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>January 17, 2025</span>
+                            </span>
+                            <span class="blog-read-time">
+                                <i class="fas fa-clock"></i>
+                                <span>7 min read</span>
+                            </span>
+                        </div>
+                        <h3 class="blog-post-title">
+                            <a href="posts/digital-marketing-portfolio-essentials.html">
+                                5 Essential Items Every Digital Marketing Portfolio Needs
+                            </a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            Discover the 5 essential components every digital marketing portfolio needs to attract high-paying clients. Learn from a freelance digital marketer with proven results.
+                        </p>
+                        <div class="blog-tags">
+                            <span class="tag">Digital Marketing Portfolio</span>
+                            <span class="tag">SEO Services</span>
+                            <span class="tag">Content Marketing</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 9: Graphic Design Case Study -->
+                <article class="blog-card graphic-design" data-aos="fade-up" data-aos-delay="900">
+                    <div class="blog-image">
+                        <img src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Graphic Design Case Study">
+                        <div class="blog-category-tag">Graphic Design</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>January 16, 2025</span>
+                            </span>
+                            <span class="blog-read-time">
+                                <i class="fas fa-clock"></i>
+                                <span>9 min read</span>
+                            </span>
+                        </div>
+                        <h3 class="blog-post-title">
+                            <a href="posts/graphic-design-project-case-study.html">
+                                From Concept to Creation: A Graphic Design Project Case Study
+                            </a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            Detailed case study of a recent graphic design project. See the complete creative process from client brief to final design delivery with real results.
+                        </p>
+                        <div class="blog-tags">
+                            <span class="tag">Graphic Design Case Study</span>
+                            <span class="tag">Logo Design Process</span>
+                            <span class="tag">Branding Project</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 10: Attract High-Paying Clients -->
+                <article class="blog-card freelancing" data-aos="fade-up" data-aos-delay="1000">
+                    <div class="blog-image">
+                        <img src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Attract High-Paying Clients">
+                        <div class="blog-category-tag">Freelancing</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>January 14, 2025</span>
+                            </span>
+                            <span class="blog-read-time">
+                                <i class="fas fa-clock"></i>
+                                <span>8 min read</span>
+                            </span>
+                        </div>
+                        <h3 class="blog-post-title">
+                            <a href="posts/attract-high-paying-clients-portfolio.html">
+                                How to Use Your Portfolio to Attract High-Paying Clients
+                            </a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            Learn advanced strategies to optimize your portfolio for attracting high-paying clients. Discover how to position yourself as a premium service provider.
+                        </p>
+                        <div class="blog-tags">
+                            <span class="tag">High-Paying Clients</span>
+                            <span class="tag">Premium Freelancing</span>
+                            <span class="tag">Portfolio Optimization</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 11: Personal Journey -->
+                <article class="blog-card freelancing" data-aos="fade-up" data-aos-delay="1100">
+                    <div class="blog-image">
+                        <img src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Freelancing Journey">
+                        <div class="blog-category-tag">Personal Story</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>January 13, 2025</span>
+                            </span>
+                            <span class="blog-read-time">
+                                <i class="fas fa-clock"></i>
+                                <span>10 min read</span>
+                            </span>
+                        </div>
+                        <h3 class="blog-post-title">
+                            <a href="posts/my-freelancing-journey-lessons.html">
+                                My Journey as a Freelancer: Lessons Learned and Milestones Achieved
+                            </a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            Personal story of building a successful freelance career in digital marketing and graphic design. Real challenges, successes, and lessons learned from 6+ months of freelancing.
+                        </p>
+                        <div class="blog-tags">
+                            <span class="tag">Maruf Freelancer Journey</span>
+                            <span class="tag">Freelance Success Story</span>
+                            <span class="tag">Personal Experience</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more-section" data-aos="fade-up">
+                <button class="btn btn-primary load-more-btn">
+                    <i class="fas fa-plus"></i>
+                    <span>Load More Posts</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Subscription -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content" data-aos="fade-up">
+                <div class="newsletter-text">
+                    <h3>
+                        Stay Updated with Latest Digital Marketing Insights
+                    </h3>
+                    <p>
+                        Get weekly digital marketing tips, SEO strategies, and design insights delivered to your inbox
+                    </p>
+                </div>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email for marketing tips" required>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Subscribe to Blog
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="../index.html" class="footer-logo">
+                        <span class="logo-text">Maruf</span>
+                        <span class="logo-dot">.</span>
+                    </a>
+                    <p>
+                        Professional Digital Marketer & Graphic Designer in Bangladesh sharing expert insights and proven strategies for business growth and creative success.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="../index.html#home">Home</a></li>
+                            <li><a href="../index.html#about">About</a></li>
+                            <li><a href="../index.html#services">Services</a></li>
+                            <li><a href="../index.html#portfolio">Portfolio</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Blog Categories</h4>
+                        <ul>
+                            <li><a href="#">Digital Marketing</a></li>
+                            <li><a href="#">Graphic Design</a></li>
+                            <li><a href="#">Freelancing</a></li>
+                            <li><a href="#">Tips & Tricks</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Connect & Learn</h4>
+                        <ul>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                            <li><a href="mailto:mdmarufhossen@duck.com">Email</a></li>
+                            <li><a href="https://www.facebook.com/mdmarufhossen999" target="_blank">Facebook</a></li>
+                            <li><a href="https://www.linkedin.com/in/mdmarufhossen71" target="_blank">LinkedIn</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Md Maruf Hossen. All rights reserved.</p>
+                <p>Designed & Developed with <i class="fas fa-heart"></i> by Maruf</p>
+            </div>
+        </div>
     </footer>
 
+    <!-- Scripts -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,es,fr,de,it,pt,ru,ja,ko,zh,ar,hi,bn,ur,tr,nl,sv,da,no,fi,pl,cs,hu,ro,bg,hr,sk,sl,et,lv,lt,mt,ga,cy,eu,ca,gl,is,mk,sq,sr,bs,me,az,ka,hy,he,fa,th,vi,ms,id,tl,sw,am,zu,xh,st,tn,ts,ve,ss,nr,nso,af',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="../JavaScript/script.js"></script>
+    <script src="blog-script.js"></script>
 </body>
 </html>
