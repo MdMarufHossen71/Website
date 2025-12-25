@@ -398,8 +398,7 @@ p {
 }
 
 /* --- Hero Section with Animated Blobs --- */
-#hero {
-    height: 100vh;
+
 .nav-menu {
     display: flex;
     gap: 2rem;
