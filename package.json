@@ -1,29 +1,24 @@
 {
   "name": "md-maruf-hossen-portfolio",
+  "private": true,
   "version": "1.0.0",
-  "description": "Professional portfolio website for Md Maruf Hossen - Digital Marketer & Graphic Designer",
-  "main": "index.html",
+  "type": "module",
   "scripts": {
-    "dev": "live-server --port=3000 --host=0.0.0.0",
-    "start": "live-server --port=3000 --host=0.0.0.0",
-    "build": "echo 'Static site - no build process needed'",
-    "test": "echo \"No tests specified\" && exit 0"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "keywords": [
-    "portfolio",
-    "digital-marketing",
-    "graphic-design",
-    "web-design",
-    "freelancer"
-  ],
-  "author": "Md Maruf Hossen <mdmarufhossen@duck.com>",
-  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.1",
+    "react-helmet-async": "^2.0.4"
+  },
   "devDependencies": {
-    "live-server": "^1.2.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/MdMarufHossen71/mdmarufhossen71.site"
-  },
-  "homepage": "https://mdmarufhossen71.site"
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.11"
+  }
 }
