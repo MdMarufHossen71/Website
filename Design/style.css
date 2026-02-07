@@ -1,7 +1,4 @@
 /* Modern Portfolio CSS */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-
 /* CSS Variables */
 :root {
     --primary-color: #6366f1;
@@ -44,6 +41,30 @@ body {
     background-color: var(--bg-primary);
     overflow-x: hidden;
     scroll-behavior: smooth;
+}
+
+
+.skip-link {
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    transform: translateY(-120%);
+    background: var(--bg-dark);
+    color: #fff;
+    padding: 0.75rem 1rem;
+    border-radius: 0 0 8px 8px;
+    z-index: 2000;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 3px;
 }
 
 /* Typography */
@@ -261,7 +282,7 @@ p {
 
 .nav-link {
     text-decoration: none;
-    color: var(--text-secondary);
+    color: #4b5563;
     font-weight: 500;
     transition: var(--transition);
     position: relative;
@@ -303,6 +324,10 @@ p {
     padding: 0.5rem;
     background: transparent;
     border: none;
+}
+
+.nav-toggle:focus-visible {
+    border-radius: 0.5rem;
 }
 
 .bar {

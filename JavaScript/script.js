@@ -69,40 +69,46 @@ window.addEventListener('scroll', () => {
 
     // Update active nav link based on scroll position
     updateActiveNavLink();
-});
+}, { passive: true });
 
 // Mobile menu toggle
-navToggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    navMenu.classList.toggle('active');
-    navToggle.classList.toggle('active');
+function setMenuState(isOpen) {
+    navMenu.classList.toggle('active', isOpen);
+    navToggle.classList.toggle('active', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
 
-    // Prevent body scroll when menu is open
-    if (navMenu.classList.contains('active')) {
+    if (isOpen) {
         document.body.style.overflow = 'hidden';
-        // Always show navbar when menu is open
         navbar.classList.remove('hidden');
         navbar.classList.add('visible');
     } else {
         document.body.style.overflow = '';
     }
+}
+
+navToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setMenuState(!navMenu.classList.contains('active'));
 });
 
 // Close mobile menu when clicking on a link
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        navToggle.classList.remove('active');
-        document.body.style.overflow = '';
+        setMenuState(false);
     });
 });
 
 // Close mobile menu when clicking outside
 document.addEventListener('click', (e) => {
     if (navMenu.classList.contains('active') && !navToggle.contains(e.target) && !navMenu.contains(e.target)) {
-        navMenu.classList.remove('active');
-        navToggle.classList.remove('active');
-        document.body.style.overflow = '';
+        setMenuState(false);
+    }
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+        setMenuState(false);
+        navToggle.focus();
     }
 });
 
@@ -172,7 +178,7 @@ filterBtns.forEach(btn => {
         
         const filterValue = btn.getAttribute('data-filter');
         
-        portfolioItems.forEach(item => {
+        portfolioItems.forEach((item, index) => {
             if (filterValue === 'all' || item.classList.contains(filterValue)) {
                 item.style.display = 'block';
                 setTimeout(() => {
