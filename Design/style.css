@@ -1549,9 +1549,14 @@ p {
 
 .footer-content {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: minmax(260px, 1.1fr) minmax(0, 2fr);
+    align-items: start;
     gap: 3rem;
     margin-bottom: 2rem;
+}
+
+.footer-brand {
+    max-width: 420px;
 }
 
 .footer-brand p {
@@ -1562,8 +1567,12 @@ p {
 
 .footer-links {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+    gap: 1.5rem;
+}
+
+.footer-column {
+    min-width: 0;
 }
 
 .footer-column h4 {
@@ -1779,6 +1788,20 @@ p {
     .achievements-grid {
         grid-template-columns: 1fr 1fr;
     }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2.25rem;
+    }
+
+    .footer-brand {
+        max-width: 100%;
+    }
+
+    .footer-links {
+        grid-template-columns: repeat(2, minmax(180px, 1fr));
+        gap: 1.25rem 2rem;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1934,12 +1957,11 @@ p {
     }
     
     .footer-content {
-        grid-template-columns: 1fr;
         text-align: center;
     }
-    
+
     .footer-links {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     
     .footer-bottom {
@@ -1960,6 +1982,11 @@ p {
 }
 
 @media (max-width: 480px) {
+
+    .footer-links {
+        grid-template-columns: 1fr;
+    }
+
     .navbar {
         min-height: 68px;
     }
