@@ -1,13 +1,4 @@
 User-agent: *
 Allow: /
 
-# Keep primary sections crawlable
-Allow: /Design/
-Allow: /JavaScript/
-Allow: /blogs/
-
-# Optional private paths
-Disallow: /admin/
-
-# XML sitemap location
 Sitemap: https://mdmarufhossen71.site/sitemap.xml
