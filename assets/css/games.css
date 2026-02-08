@@ -1,0 +1,54 @@
+:root {
+  --bg: #070b14;
+  --panel: #11192b;
+  --panel-2: #15233b;
+  --text: #eaf1ff;
+  --muted: #adc2e5;
+  --brand: #60a5fa;
+  --danger: #ef4444;
+  --border: #243958;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at top, #0f1930 0%, #070b14 58%);
+}
+.site-shell { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+.page-header,.page-footer { border-bottom: 1px solid var(--border); background: rgba(7,11,20,.9); }
+.page-footer { border-top: 1px solid var(--border); border-bottom: 0; margin-top: 2rem; }
+.topbar { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:.9rem 0; }
+.topbar nav { display:flex; gap:1rem; flex-wrap:wrap; }
+.topbar a { text-decoration:none; color:var(--muted); }
+.topbar a:hover,.topbar a[aria-current='page'] { color:var(--text); }
+.hero { padding:2rem 0 1rem; }
+.hero h1 { margin:0; font-size:clamp(1.5rem,4vw,2.3rem); }
+.hero p { color:var(--muted); max-width:66ch; }
+.cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1rem; }
+.card,.game-shell { background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:1rem; }
+.card h2 { margin:.3rem 0 .55rem; font-size:1.15rem; }
+.card p { color:var(--muted); min-height:3rem; margin-top:0; }
+.btn { background:var(--brand); color:#051024; border:0; border-radius:10px; padding:.62rem .9rem; font-weight:700; cursor:pointer; }
+.btn.secondary { background:#243958; color:var(--text); }
+.btn.danger { background:var(--danger); color:#fff; }
+
+.game-shell { margin-top:1rem; }
+.game-ui { display:grid; gap:1rem; grid-template-columns:1fr; }
+canvas {
+  width: 100%;
+  max-width: 460px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  touch-action: none;
+}
+.hud { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.5rem; margin-bottom:.7rem; }
+.hud div { border:1px solid var(--border); background:#0b1324; border-radius:10px; padding:.55rem; }
+.controls { display:flex; flex-wrap:wrap; gap:.5rem; }
+.helper { color:var(--muted); font-size:.92rem; }
+.footer-inner { padding: 1.1rem 0; color: var(--muted); font-size: .9rem; }
+
+@media (min-width: 900px){
+  .game-ui { grid-template-columns: minmax(0,500px) minmax(0,1fr); align-items:start; }
+}

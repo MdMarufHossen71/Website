@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Text Counter Tool | Words, Characters, Reading Time</title>
+  <meta name="description" content="Free text counter tool to calculate words, characters, lines, and estimated reading time. Works on desktop and mobile with instant updates.">
+  <link rel="canonical" href="https://mdmarufhossen71.site/tools/apps/text-counter.html">
+  <meta name="robots" content="index,follow">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../../assets/css/tools.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Text Counter",
+    "url": "https://mdmarufhossen71.site/tools/apps/text-counter.html",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+  }
+  </script>
+</head>
+<body>
+  <header class="page-header">
+    <div class="site-shell topbar">
+      <strong>Maruf Tools</strong>
+      <nav aria-label="Primary">
+        <a href="../../index.html">Home</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../games/">Games</a>
+        <a href="../index.html" aria-current="page">Tools</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section class="hero">
+      <h1>Text Counter</h1>
+      <p>Get instant counts for words, characters, lines, and reading time. Useful for captions, ad copy, and article drafts.</p>
+    </section>
+
+    <section class="tool-layout" aria-label="Text counter workspace">
+      <article class="tool-app">
+        <label for="text-input">Paste or type your text</label>
+        <textarea id="text-input" data-text-input placeholder="Write your content here..."></textarea>
+        <div style="margin-top: .8rem; display:flex; gap:.5rem; flex-wrap:wrap;">
+          <button type="button" class="btn" data-reset>Clear text</button>
+          <a class="btn" href="../index.html">More tools</a>
+        </div>
+      </article>
+      <aside class="tool-app" aria-live="polite">
+        <p class="helper">Live metrics update as you type.</p>
+        <div class="stats">
+          <div class="stat">Characters<b data-count-chars>0</b></div>
+          <div class="stat">No Spaces<b data-count-chars-no-space>0</b></div>
+          <div class="stat">Words<b data-count-words>0</b></div>
+          <div class="stat">Lines<b data-count-lines>0</b></div>
+          <div class="stat">Reading Time<b data-count-read-time>0 min</b></div>
+        </div>
+        <p class="helper success">All processing is local in your browser.</p>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <div class="site-shell footer-inner">© <span id="year"></span> Md Maruf Hossen.</div>
+  </footer>
+
+  <script defer src="../../assets/js/tools.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
