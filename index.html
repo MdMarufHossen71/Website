@@ -154,28 +154,37 @@
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Navigation -->
-    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <header class="site-header" role="banner">
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Primary navigation">
         <div class="nav-container">
             <a href="#home" class="nav-logo" aria-label="Md Maruf Hossen - Home">
-                <span class="logo-text">Maruf</span>
-                <span class="logo-dot">.</span>
+                <span class="logo-text-wrap">
+                    <span class="logo-text">Maruf</span>
+                    <span class="logo-dot">.</span>
+                </span>
+                <span class="logo-subtitle">Digital Marketer</span>
             </a>
-            <div class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#services" class="nav-link">Services</a>
-                <a href="#portfolio" class="nav-link">Portfolio</a>
-                <a href="#experience" class="nav-link">Experience</a>
-                <a href="#contact" class="nav-link">Contact</a>
-                <a href="blogs/blog.html" class="nav-link" aria-label="Visit Digital Marketing Blog">Blog</a>
+            <div class="nav-menu" id="nav-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation menu">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link active" aria-current="page">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                    <li><a href="#experience" class="nav-link">Experience</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li><a href="blogs/blog.html" class="nav-link" aria-label="Visit Digital Marketing Blog">Blog</a></li>
+                </ul>
             </div>
-            <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
+            <div class="nav-actions">
+                <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
         </div>
     </nav>
+    </header>
 
     <main id="main-content">
     <!-- Hero Section -->
