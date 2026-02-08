@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Reflex Tap Game | Browser Mini Game</title>
+  <meta name="description" content="Play Reflex Tap, a lightweight browser game with touch, mouse, and keyboard controls. Pause and restart anytime.">
+  <link rel="canonical" href="https://mdmarufhossen71.site/games/play/reflex-tap.html">
+  <meta name="robots" content="index,follow">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../../assets/css/games.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Game",
+    "name": "Reflex Tap",
+    "url": "https://mdmarufhossen71.site/games/play/reflex-tap.html",
+    "description": "Tap targets quickly for 30 seconds.",
+    "genre": ["Arcade", "Reaction"],
+    "gamePlatform": "Web Browser",
+    "operatingSystem": "Any"
+  }
+  </script>
+</head>
+<body>
+  <header class="page-header">
+    <div class="site-shell topbar">
+      <strong>Maruf Games</strong>
+      <nav aria-label="Primary">
+        <a href="../../index.html">Home</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../tools/">Tools</a>
+        <a href="../index.html" aria-current="page">Games</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-shell" data-game="reflex-tap">
+    <section class="hero">
+      <h1>Reflex Tap</h1>
+      <p>Hit each target before time runs out. Controls: tap/click target, or press <kbd>Space</kbd>/<kbd>Enter</kbd> to trigger the current target.</p>
+    </section>
+
+    <section class="game-shell">
+      <div class="hud" aria-live="polite">
+        <div>Score <strong data-score>0</strong></div>
+        <div>Best <strong data-best>0</strong></div>
+        <div>Time <strong data-time>30s</strong></div>
+      </div>
+
+      <div class="game-ui">
+        <canvas width="360" height="360" aria-label="Reflex Tap game board"></canvas>
+        <div>
+          <p data-status class="helper">Press start to begin. Game engine is lazily initialized when this section is in view.</p>
+          <div class="controls">
+            <button type="button" class="btn" data-start>Start</button>
+            <button type="button" class="btn secondary" data-pause>Pause</button>
+            <button type="button" class="btn danger" data-restart>Restart</button>
+          </div>
+          <p class="helper">Performance note: animation stops when the tab is hidden to avoid background CPU usage.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <div class="site-shell footer-inner">© <span id="year"></span> Md Maruf Hossen.</div>
+  </footer>
+
+  <script defer src="../../assets/js/games.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
