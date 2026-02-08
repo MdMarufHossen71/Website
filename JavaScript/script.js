@@ -15,6 +15,8 @@ let scrollTimeout;
 let isScrolling = false;
 
 window.addEventListener('scroll', () => {
+    if (!navbar) return;
+
     const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
     // Mark that user is scrolling
@@ -73,43 +75,47 @@ window.addEventListener('scroll', () => {
 
 // Mobile menu toggle
 function setMenuState(isOpen) {
+    if (!navMenu || !navToggle) return;
+
     navMenu.classList.toggle('active', isOpen);
     navToggle.classList.toggle('active', isOpen);
     navToggle.setAttribute('aria-expanded', String(isOpen));
 
     if (isOpen) {
         document.body.style.overflow = 'hidden';
-        navbar.classList.remove('hidden');
-        navbar.classList.add('visible');
+        navbar?.classList.remove('hidden');
+        navbar?.classList.add('visible');
     } else {
         document.body.style.overflow = '';
     }
 }
 
-navToggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    setMenuState(!navMenu.classList.contains('active'));
-});
+if (navToggle && navMenu) {
+    navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setMenuState(!navMenu.classList.contains('active'));
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (navMenu.classList.contains('active') && !navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+            setMenuState(false);
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+            setMenuState(false);
+            navToggle.focus();
+        }
+    });
+}
 
 // Close mobile menu when clicking on a link
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
         setMenuState(false);
     });
-});
-
-// Close mobile menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (navMenu.classList.contains('active') && !navToggle.contains(e.target) && !navMenu.contains(e.target)) {
-        setMenuState(false);
-    }
-});
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-        setMenuState(false);
-        navToggle.focus();
-    }
 });
 
 // Function to update active nav link based on scroll position
@@ -125,13 +131,17 @@ function updateActiveNavLink() {
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
             navLinks.forEach(link => {
                 link.classList.remove('active');
+                link.removeAttribute('aria-current');
                 if (link.getAttribute('href') === `#${sectionId}`) {
                     link.classList.add('active');
+                    link.setAttribute('aria-current', 'page');
                 }
             });
         }
     });
 }
+
+updateActiveNavLink();
 
 // Smooth scrolling for navigation links
 navLinks.forEach(link => {
