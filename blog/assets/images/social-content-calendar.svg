@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Social media content calendar illustration">
+  <defs>
+    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#14b8a6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g3)"/>
+  <rect x="180" y="90" width="840" height="450" rx="28" fill="#f0fdfa" opacity="0.2"/>
+  <rect x="220" y="150" width="760" height="330" rx="20" fill="#ffffff" opacity="0.9"/>
+  <g fill="#99f6e4">
+    <rect x="260" y="200" width="150" height="70" rx="12"/>
+    <rect x="430" y="200" width="150" height="70" rx="12"/>
+    <rect x="600" y="200" width="150" height="70" rx="12"/>
+    <rect x="770" y="200" width="150" height="70" rx="12"/>
+    <rect x="260" y="290" width="320" height="140" rx="12"/>
+    <rect x="600" y="290" width="320" height="140" rx="12"/>
+  </g>
+  <text x="120" y="570" fill="#e6fffa" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700">A High-Performance Social Content Calendar</text>
+</svg>

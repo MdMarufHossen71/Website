@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Brand storytelling visual">
+  <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4c1d95"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g2)"/>
+  <path d="M100 470 C300 320, 450 540, 680 410 C850 320, 970 420, 1120 300" stroke="#c4b5fd" stroke-width="16" fill="none"/>
+  <rect x="150" y="100" width="900" height="380" rx="28" fill="#fff" opacity="0.14"/>
+  <rect x="220" y="180" width="250" height="220" rx="20" fill="#f5f3ff"/>
+  <rect x="510" y="200" width="420" height="22" rx="11" fill="#ede9fe"/>
+  <rect x="510" y="250" width="360" height="18" rx="9" fill="#ddd6fe"/>
+  <rect x="510" y="290" width="390" height="18" rx="9" fill="#ddd6fe"/>
+  <text x="120" y="570" fill="#ede9fe" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700">Brand Storytelling That Builds Trust</text>
+</svg>
