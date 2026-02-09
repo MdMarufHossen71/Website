@@ -5,14 +5,12 @@
 <link rel="canonical" href="https://mdmarufhossen71.site/tools/apps/image-compressor.html"><meta name="robots" content="index,follow">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"><link rel="stylesheet" href="../../assets/css/tools.css">
 </head><body>
-<div id="header"><noscript><header class="page-header"><div class="site-shell topbar"><a href="/index.html" class="brand">Maruf<span>.</span></a><nav aria-label="Primary navigation" class="shared-nav"><a href="/index.html">Home</a><a href="/blog/">Blog</a><a href="/tools/">Tools</a><a href="/games/">Games</a></nav></div></header></noscript></div>
+<header class="page-header"><div class="site-shell topbar"><strong>Maruf Tools</strong><nav aria-label="Primary"><a href="../../index.html">Home</a><a href="../../games/">Games</a><a href="../index.html" aria-current="page">Tools</a></nav></div></header>
 <main class="site-shell" data-tool="compressor"><section class="hero"><h1>Image Compressor</h1><p>Reduce image size in-browser with no data sent to any server.</p></section><section class="tool-layout"><article class="tool-app">
 <label for="image-input">Select image (JPG/PNG/WebP)</label><input id="image-input" data-image-input type="file" accept="image/*">
 <label for="image-quality">Quality <span data-quality-label>70</span>%</label><input id="image-quality" data-image-quality type="range" min="20" max="95" value="70">
 <button class="btn" data-compress>Compress image</button><p class="helper" data-image-result>Choose a file to begin.</p><a class="btn" data-image-download hidden>Download compressed image</a>
 </article></section></main>
-<div id="footer"><noscript><footer class="page-footer"><div class="site-shell footer-inner">© Md Maruf Hossen</div></footer></noscript></div>
-<script defer src="../../assets/js/tools.js"></script>
-
-<script src="/js/include.js"></script>
+<footer class="page-footer"><div class="site-shell footer-inner">© <span id="year"></span> Md Maruf Hossen.</div></footer>
+<script defer src="../../assets/js/tools.js"></script><script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body></html>
