@@ -1,5 +1,5 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-const SUPABASE_URL='https://YOUR_PROJECT.supabase.co';const SUPABASE_ANON_KEY='YOUR_ANON_KEY';
+const SUPABASE_URL='https://bugqnwbvjtbzyetooynz.supabase.co';const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ1Z3Fud2J2anRienlldG9veW56Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1OTA5MDcsImV4cCI6MjA4NjE2NjkwN30.hS56Go0-2J8EM4CrKzKjiQ7MKPlvuwsA2F8cgC5s-MY';
 const roomInput=document.getElementById('room'),statusEl=document.getElementById('status'),boardEl=document.getElementById('board');let client,roomCode='',player='X',state=['','','','','','','','',''];
 function draw(){boardEl.innerHTML='';state.forEach((v,i)=>{const b=document.createElement('button');b.className='cell';b.textContent=v;b.onclick=()=>play(i);boardEl.appendChild(b);});}
 function win(st){const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];for(const [a,b,c] of w)if(st[a]&&st[a]===st[b]&&st[a]===st[c])return st[a];return st.every(Boolean)?'Draw':null;}
