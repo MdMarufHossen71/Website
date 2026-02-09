@@ -14,7 +14,7 @@ We take the security of this project very seriously. If you discover a security 
 
 Please **do not** create a public GitHub issue. Instead, please report the vulnerability by sending an email to:
 
-**mdmarufhossen@duck.com**
+**official@mdmarufhossen71.site**
 
 In your report, please include:
 - A clear description of the vulnerability.

@@ -277,7 +277,7 @@ The website is fully responsive and optimized for:
 ## 📧 Contact & Collaboration
 
 ### **Professional Contact**
-- **Email:** [maruf.112005@gmail.com](mailto:maruf.112005@gmail.com)
+- **Email:** [official@mdmarufhossen71.site](mailto:official@mdmarufhossen71.site)
 - **Phone:** +880 160 609 6409
 - **Location:** Gazipur, Dhaka, Bangladesh
 
@@ -371,7 +371,7 @@ I'm available for freelance projects and long-term partnerships. Whether you nee
 *Professional Digital Marketer & Graphic Designer from Bangladesh*
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-Visit%20Website-blue?style=for-the-badge)](https://mdmarufhossen71.site)
-[![Email](https://img.shields.io/badge/Email-Contact%20Me-red?style=for-the-badge)](mailto:maruf.112005@gmail.com)
+[![Email](https://img.shields.io/badge/Email-Contact%20Me-red?style=for-the-badge)](mailto:official@mdmarufhossen71.site)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge)](https://www.linkedin.com/in/mdmarufhossen71)
 
 </div>
