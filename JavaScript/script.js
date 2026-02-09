@@ -627,7 +627,7 @@ lazyImages.forEach(img => imageObserver.observe(img));
 console.log(`
 🚀 Welcome to Md Maruf Hossen's Modern Portfolio!
 ✨ Clean, modern design with smooth animations
-📧 Contact: mdmarufhossen@duck.com
+📧 Contact: official@mdmarufhossen71.site
 🌐 Website: https://mdmarufhossen71.site
 💼 Available for freelance projects!
 
