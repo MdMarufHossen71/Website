@@ -5,15 +5,13 @@
 <link rel="canonical" href="https://mdmarufhossen71.site/tools/apps/unit-converter.html"><meta name="robots" content="index,follow">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"><link rel="stylesheet" href="../../assets/css/tools.css">
 </head><body>
-<div id="header"><noscript><header class="page-header"><div class="site-shell topbar"><a href="/index.html" class="brand">Maruf<span>.</span></a><nav aria-label="Primary navigation" class="shared-nav"><a href="/index.html">Home</a><a href="/blog/">Blog</a><a href="/tools/">Tools</a><a href="/games/">Games</a></nav></div></header></noscript></div>
+<header class="page-header"><div class="site-shell topbar"><strong>Maruf Tools</strong><nav aria-label="Primary"><a href="../../index.html">Home</a><a href="../../games/">Games</a><a href="../index.html" aria-current="page">Tools</a></nav></div></header>
 <main class="site-shell" data-tool="converter"><section class="hero"><h1>Unit Converter</h1><p>Switch categories and convert values instantly.</p></section><section class="tool-layout"><article class="tool-app">
 <label for="convert-type">Category</label><select id="convert-type" data-convert-type><option value="length">Length</option><option value="weight">Weight</option><option value="speed">Speed</option></select>
 <div class="split"><div><label for="convert-from">From</label><select id="convert-from" data-convert-from></select></div><div><label for="convert-to">To</label><select id="convert-to" data-convert-to></select></div></div>
 <label for="convert-input">Input value</label><input id="convert-input" data-convert-input type="number" step="any" value="1">
 <p class="helper">Result: <strong data-convert-output>1</strong></p>
 </article></section></main>
-<div id="footer"><noscript><footer class="page-footer"><div class="site-shell footer-inner">© Md Maruf Hossen</div></footer></noscript></div>
-<script defer src="../../assets/js/tools.js"></script>
-
-<script src="/js/include.js"></script>
+<footer class="page-footer"><div class="site-shell footer-inner">© <span id="year"></span> Md Maruf Hossen.</div></footer>
+<script defer src="../../assets/js/tools.js"></script><script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body></html>
