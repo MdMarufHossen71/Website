@@ -1,0 +1,10 @@
+.tg-header,.tg-footer{background:#0f172a;color:#e2e8f0}
+.tg-shell{max-width:1100px;margin:0 auto;padding:0 1rem}
+.tg-topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 0}
+.tg-brand{font-weight:800;color:#fff;text-decoration:none}
+.tg-nav{display:flex;flex-wrap:wrap;gap:.5rem}
+.tg-nav a{color:#cbd5e1;text-decoration:none;padding:.45rem .7rem;border-radius:999px;border:1px solid transparent}
+.tg-nav a:hover,.tg-nav a[data-active="true"]{color:#fff;border-color:#475569;background:#1e293b}
+.tg-footer{margin-top:2rem;border-top:1px solid #334155}
+.tg-footer-inner{padding:1rem 0;font-size:.95rem}
+@media (max-width:640px){.tg-topbar{flex-direction:column;align-items:flex-start}}
