@@ -4,7 +4,8 @@
 const navbar = document.getElementById('navbar');
 const navToggle = document.getElementById('nav-toggle');
 const navMenu = document.getElementById('nav-menu');
-const navLinks = document.querySelectorAll('.nav-link');
+const navLinks = document.querySelectorAll('a.nav-link');
+const navDropdownToggles = document.querySelectorAll('.nav-dropdown-toggle');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const portfolioItems = document.querySelectorAll('.portfolio-item');
 const contactForm = document.getElementById('contact-form');
@@ -89,6 +90,25 @@ function setMenuState(isOpen) {
         document.body.style.overflow = '';
     }
 }
+
+
+// Navigation dropdown toggle (mobile + keyboard)
+navDropdownToggles.forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const item = toggle.closest('.nav-dropdown');
+        const isOpen = item?.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+    });
+});
+
+document.addEventListener('click', () => {
+    document.querySelectorAll('.nav-dropdown.open').forEach((item) => {
+        item.classList.remove('open');
+        const button = item.querySelector('.nav-dropdown-toggle');
+        if (button) button.setAttribute('aria-expanded', 'false');
+    });
+});
 
 if (navToggle && navMenu) {
     navToggle.addEventListener('click', (e) => {
