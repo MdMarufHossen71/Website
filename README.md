@@ -360,7 +360,7 @@ I'm available for freelance projects and long-term partnerships. Whether you nee
 - 💻 **Web Design** and development
 - 📄 **Print Design** and marketing materials
 
-**Let's discuss your project:** [maruf.112005@gmail.com](mailto:maruf.112005@gmail.com)
+**Let's discuss your project:** [official@mdmarufhossen71.site](mailto:official@mdmarufhossen71.site)
 
 ---
 
