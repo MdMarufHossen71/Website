@@ -1,0 +1,101 @@
+:root {
+  --bg: #070f1d;
+  --bg-soft: #0d1830;
+  --panel: rgba(17, 26, 44, 0.88);
+  --panel-border: #2b3e61;
+  --text: #e8f0ff;
+  --muted: #a8bbdf;
+  --brand: #4f8cff;
+  --brand-strong: #3b76ec;
+  --success: #22c55e;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(1200px 500px at 20% -10%, rgba(79, 140, 255, 0.25), transparent 70%),
+    radial-gradient(900px 500px at 90% -30%, rgba(59, 130, 246, 0.2), transparent 60%),
+    linear-gradient(180deg, #050b17 0%, var(--bg) 45%, #050b17 100%);
+  min-height: 100vh;
+}
+main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  letter-spacing: -0.02em;
+}
+.lead {
+  margin: 0.55rem 0 1rem;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 72ch;
+}
+.quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+}
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 1rem;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+}
+.row {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.btn {
+  background: linear-gradient(180deg, var(--brand), var(--brand-strong));
+  border: 1px solid #6ca2ff;
+  color: #fff;
+  padding: 0.6rem 0.95rem;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+.btn:hover { filter: brightness(1.06); }
+.btn.alt {
+  background: #1a2a4b;
+  border-color: #365080;
+}
+input, select {
+  background: #152240;
+  border: 1px solid #334f7f;
+  color: var(--text);
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+canvas {
+  max-width: 100%;
+  border: 1px solid #335082;
+  border-radius: 12px;
+  background: #0e172c;
+}
+.muted, #msg { color: var(--muted); }
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #2f4b79;
+  border-radius: 999px;
+  color: #bdd3ff;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.65rem;
+  background: rgba(79, 140, 255, 0.12);
+}
