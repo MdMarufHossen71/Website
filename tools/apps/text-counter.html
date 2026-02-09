@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="../../assets/css/tools.css">
 </head>
 <body>
-<header class="page-header"><div class="site-shell topbar"><strong>Maruf Tools</strong><nav aria-label="Primary"><a href="../../index.html">Home</a><a href="../../games/">Games</a><a href="../index.html" aria-current="page">Tools</a></nav></div></header>
+<div id="header"><noscript><header class="page-header"><div class="site-shell topbar"><a href="/index.html" class="brand">Maruf<span>.</span></a><nav aria-label="Primary navigation" class="shared-nav"><a href="/index.html">Home</a><a href="/blog/">Blog</a><a href="/tools/">Tools</a><a href="/games/">Games</a></nav></div></header></noscript></div>
 <main class="site-shell" data-tool="text-counter">
 <section class="hero"><h1>Text Counter</h1><p>Measure text for posts, ads, captions, and long-form writing.</p></section>
 <section class="tool-layout" aria-label="Text counter workspace">
@@ -19,7 +19,9 @@
 <aside class="tool-app" aria-live="polite"><div class="stats"><div class="stat">Characters<b data-count-chars>0</b></div><div class="stat">No Spaces<b data-count-chars-no-space>0</b></div><div class="stat">Words<b data-count-words>0</b></div><div class="stat">Lines<b data-count-lines>0</b></div><div class="stat">Reading Time<b data-count-read-time>0 min</b></div></div><p class="helper success">All processing runs locally in your browser.</p></aside>
 </section>
 </main>
-<footer class="page-footer"><div class="site-shell footer-inner">© <span id="year"></span> Md Maruf Hossen.</div></footer>
-<script defer src="../../assets/js/tools.js"></script><script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<div id="footer"><noscript><footer class="page-footer"><div class="site-shell footer-inner">© Md Maruf Hossen</div></footer></noscript></div>
+<script defer src="../../assets/js/tools.js"></script>
+
+<script src="/js/include.js"></script>
 </body>
 </html>
