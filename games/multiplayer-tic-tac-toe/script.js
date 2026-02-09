@@ -1,0 +1,11 @@
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+const SUPABASE_URL='https://YOUR_PROJECT.supabase.co';const SUPABASE_ANON_KEY='YOUR_ANON_KEY';
+const roomInput=document.getElementById('room'),statusEl=document.getElementById('status'),boardEl=document.getElementById('board');let client,roomCode='',player='X',state=['','','','','','','','',''];
+function draw(){boardEl.innerHTML='';state.forEach((v,i)=>{const b=document.createElement('button');b.className='cell';b.textContent=v;b.onclick=()=>play(i);boardEl.appendChild(b);});}
+function win(st){const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];for(const [a,b,c] of w)if(st[a]&&st[a]===st[b]&&st[a]===st[c])return st[a];return st.every(Boolean)?'Draw':null;}
+async function push(){await client.from('ttt_rooms').upsert({code:roomCode,state,turn:player==='X'?'O':'X'});} 
+async function play(i){const r=await client.from('ttt_rooms').select('*').eq('code',roomCode).single();if(r.error)return;const row=r.data;if(row.turn!==player||state[i])return;state[i]=player;const w=win(state);statusEl.textContent=w?`Result: ${w}`:`Turn: ${player==='X'?'O':'X'}`;await push();}
+async function setup(code,isCreate){if(SUPABASE_URL.includes('YOUR_PROJECT')){statusEl.textContent='Please configure Supabase credentials in script.js';return;}client=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);roomCode=code||Math.random().toString(36).slice(2,8).toUpperCase();roomInput.value=roomCode;if(isCreate){await client.from('ttt_rooms').upsert({code:roomCode,state:Array(9).fill(''),turn:'X'});player='X';}else player='O';
+client.channel('room-'+roomCode).on('postgres_changes',{event:'*',schema:'public',table:'ttt_rooms',filter:`code=eq.${roomCode}`},payload=>{state=payload.new.state;draw();const w=win(state);statusEl.textContent=w?`Result: ${w}`:`Turn: ${payload.new.turn}`;}).subscribe();
+const r=await client.from('ttt_rooms').select('*').eq('code',roomCode).single();if(!r.error){state=r.data.state;draw();statusEl.textContent='Connected. You are '+player;}}
+document.getElementById('create').onclick=()=>setup(document.getElementById('room').value.trim(),true);document.getElementById('join').onclick=()=>setup(document.getElementById('room').value.trim(),false);draw();

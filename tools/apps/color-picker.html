@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Color Picker & Contrast Checker</title>
+<meta name="description" content="Pick a color, copy HEX and RGB values, and verify text contrast against white and black.">
+<link rel="canonical" href="https://mdmarufhossen71.site/tools/apps/color-picker.html"><meta name="robots" content="index,follow">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"><link rel="stylesheet" href="../../assets/css/tools.css">
+</head><body>
+<header class="page-header"><div class="site-shell topbar"><strong>Maruf Tools</strong><nav aria-label="Primary"><a href="../../index.html">Home</a><a href="../../games/">Games</a><a href="../index.html" aria-current="page">Tools</a></nav></div></header>
+<main class="site-shell" data-tool="color"><section class="hero"><h1>Color Picker</h1><p>Get developer-ready color values and accessibility contrast hints.</p></section><section class="tool-layout"><article class="tool-app">
+<label for="color-input">Choose color</label><input id="color-input" data-color-input type="color" value="#4f8cff">
+<div class="color-preview" data-color-preview aria-label="Selected color preview"></div>
+<div class="split"><div><label>HEX</label><input data-color-hex readonly><button class="btn" data-copy="hex">Copy HEX</button></div><div><label>RGB</label><input data-color-rgb readonly><button class="btn" data-copy="rgb">Copy RGB</button></div></div>
+<p class="helper" data-color-contrast></p></article></section></main>
+<footer class="page-footer"><div class="site-shell footer-inner">© <span id="year"></span> Md Maruf Hossen.</div></footer>
+<script defer src="../../assets/js/tools.js"></script><script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body></html>
