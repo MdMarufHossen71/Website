@@ -1,0 +1,8 @@
+const scoreEl=document.getElementById('score');
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d'),N=24,cell=cv.width/N;let snake,dir,next,food,power,speed,score,timer;
+function spawn(ex=[]){let p;do p={x:Math.floor(Math.random()*N),y:Math.floor(Math.random()*N)};while(ex.some(s=>s.x===p.x&&s.y===p.y));return p;}
+function init(){snake=[{x:10,y:10},{x:9,y:10},{x:8,y:10}];dir={x:1,y:0};next={x:1,y:0};food=spawn(snake);power=spawn([...snake,food]);speed=140;score=0;clearInterval(timer);timer=setInterval(tick,speed);draw();}
+addEventListener('keydown',e=>{const m={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]};if(!m[e.key])return;const [x,y]=m[e.key];if(x===-dir.x&&y===-dir.y)return;next={x,y};});
+function tick(){dir=next;const head={x:(snake[0].x+dir.x+N)%N,y:(snake[0].y+dir.y+N)%N};if(snake.some(s=>s.x===head.x&&s.y===head.y)){init();return;}snake.unshift(head);if(head.x===food.x&&head.y===food.y){score+=10;food=spawn(snake);if(speed>70){speed-=5;clearInterval(timer);timer=setInterval(tick,speed);}}else if(head.x===power.x&&head.y===power.y){score+=25;snake.push({...snake[snake.length-1]});power=spawn([...snake,food]);}else snake.pop();scoreEl.textContent=score;draw();}
+function draw(){ctx.fillStyle='#020617';ctx.fillRect(0,0,cv.width,cv.height);ctx.fillStyle='#ef4444';ctx.fillRect(food.x*cell,food.y*cell,cell-1,cell-1);ctx.fillStyle='#f59e0b';ctx.fillRect(power.x*cell,power.y*cell,cell-1,cell-1);snake.forEach((s,i)=>{ctx.fillStyle=i?'#60a5fa':'#93c5fd';ctx.fillRect(s.x*cell,s.y*cell,cell-1,cell-1);});}
+document.getElementById('restart').onclick=init;init();

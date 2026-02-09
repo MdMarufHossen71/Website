@@ -180,4 +180,50 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://mdmarufhossen71.site/tools/apps/calculator.html</loc>
+    <lastmod>2026-02-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mdmarufhossen71.site/tools/apps/unit-converter.html</loc>
+    <lastmod>2026-02-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mdmarufhossen71.site/tools/apps/color-picker.html</loc>
+    <lastmod>2026-02-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mdmarufhossen71.site/tools/apps/image-compressor.html</loc>
+    <lastmod>2026-02-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mdmarufhossen71.site/games/play/snake.html</loc>
+    <lastmod>2026-02-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mdmarufhossen71.site/games/play/memory-game.html</loc>
+    <lastmod>2026-02-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url><loc>https://mdmarufhossen71.site/games/reaction-time-test/</loc><lastmod>2026-02-09</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mdmarufhossen71.site/games/tic-tac-toe-ai/</loc><lastmod>2026-02-09</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mdmarufhossen71.site/games/sudoku-generator-solver/</loc><lastmod>2026-02-09</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mdmarufhossen71.site/games/projectile-physics/</loc><lastmod>2026-02-09</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mdmarufhossen71.site/games/space-shooter/</loc><lastmod>2026-02-09</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mdmarufhossen71.site/games/memory-matching/</loc><lastmod>2026-02-09</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mdmarufhossen71.site/games/chessboard-logic/</loc><lastmod>2026-02-09</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mdmarufhossen71.site/games/multiplayer-tic-tac-toe/</loc><lastmod>2026-02-09</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mdmarufhossen71.site/games/modern-snake/</loc><lastmod>2026-02-09</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mdmarufhossen71.site/games/match-3-puzzle/</loc><lastmod>2026-02-09</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
 </urlset>

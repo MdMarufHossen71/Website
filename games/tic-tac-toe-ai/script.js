@@ -1,0 +1,10 @@
+const b=document.getElementById('board'),s=document.getElementById('status'),d=document.getElementById('difficulty');let state=['','','','','','','','',''],over=false;
+const wins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+function draw(){b.innerHTML='';state.forEach((v,i)=>{const c=document.createElement('button');c.className='cell';c.textContent=v;c.onclick=()=>move(i);b.appendChild(c);});}
+function check(st=state){for(const w of wins){const[a,b,c]=w;if(st[a]&&st[a]===st[b]&&st[a]===st[c])return {winner:st[a],line:w};}if(st.every(Boolean))return {winner:'draw'};return null;}
+function move(i){if(over||state[i])return;state[i]='X';step();if(!over)aiMove();}
+function step(){draw();const r=check();if(r){over=true;s.textContent=r.winner==='draw'?'Draw':r.winner+' wins';if(r.line){[...b.children].forEach((el,i)=>{if(r.line.includes(i))el.classList.add('win');});}return;}s.textContent='Your turn';}
+function minimax(st,isMax){const r=check(st);if(r)return r.winner==='O'?10:r.winner==='X'?-10:0;let best=isMax?-Infinity:Infinity;for(let i=0;i<9;i++)if(!st[i]){st[i]=isMax?'O':'X';const val=minimax(st,!isMax);st[i]='';best=isMax?Math.max(best,val):Math.min(best,val);}return best;}
+function aiMove(){let choices=[];for(let i=0;i<9;i++)if(!state[i]){state[i]='O';choices.push({i,score:minimax(state,false)});state[i]='';}
+let pick;const level=d.value;if(level==='easy')pick=choices[Math.floor(Math.random()*choices.length)];else if(level==='medium')pick=choices.sort((a,b)=>b.score-a.score)[Math.random()<.65?0:Math.floor(Math.random()*choices.length)];else pick=choices.sort((a,b)=>b.score-a.score)[0];state[pick.i]='O';step();}
+document.getElementById('restart').onclick=()=>{state=['','','','','','','','',''];over=false;s.textContent='Your turn';draw();};draw();s.textContent='Your turn';

@@ -1,0 +1,9 @@
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d'),scoreEl=document.getElementById('score'),stateEl=document.getElementById('state');let keys={},player,enemies,bullets,scoreVal,over;
+function init(){player={x:200,y:590,w:30,h:20,s:6};enemies=[];bullets=[];scoreVal=0;over=false;stateEl.textContent='';loop();}
+addEventListener('keydown',e=>keys[e.key]=true);addEventListener('keyup',e=>keys[e.key]=false);
+function spawn(){if(Math.random()<0.03)enemies.push({x:Math.random()*380,y:-20,w:26,h:18,v:2+Math.random()*1.5});}
+function update(){if(over)return; if(keys.ArrowLeft||keys.a)player.x-=player.s;if(keys.ArrowRight||keys.d)player.x+=player.s;player.x=Math.max(0,Math.min(cv.width-player.w,player.x));if((keys[' ']||keys.Spacebar)&&(!player.last||performance.now()-player.last>220)){bullets.push({x:player.x+player.w/2-2,y:player.y,v:8});player.last=performance.now();}bullets.forEach(b=>b.y-=b.v);enemies.forEach(e=>e.y+=e.v);spawn();
+for(const b of bullets)for(const e of enemies)if(b.x<e.x+e.w&&b.x+4>e.x&&b.y<e.y+e.h&&b.y+10>e.y){e.dead=b.dead=true;scoreVal+=10;}
+enemies=enemies.filter(e=>!e.dead&&e.y<670);bullets=bullets.filter(b=>!b.dead&&b.y>-20);if(enemies.some(e=>e.y+e.h>=player.y&&e.x<player.x+player.w&&e.x+e.w>player.x)){over=true;stateEl.textContent=' - Game Over';}}
+function draw(){ctx.fillStyle='#020617';ctx.fillRect(0,0,cv.width,cv.height);ctx.fillStyle='#60a5fa';ctx.fillRect(player.x,player.y,player.w,player.h);ctx.fillStyle='#f43f5e';enemies.forEach(e=>ctx.fillRect(e.x,e.y,e.w,e.h));ctx.fillStyle='#f8fafc';bullets.forEach(b=>ctx.fillRect(b.x,b.y,4,10));scoreEl.textContent=scoreVal;}
+function loop(){update();draw();requestAnimationFrame(loop);}document.getElementById('restart').onclick=init;init();
