@@ -186,6 +186,10 @@
                 </ul>
             </div>
             <div class="nav-actions">
+                <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle light or dark theme" title="Toggle Light/Dark Theme">
+                    <i class="fas fa-sun sun-icon"></i>
+                    <i class="fas fa-moon moon-icon"></i>
+                </button>
                 <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -675,6 +679,108 @@
         </div>
     </section>
 
+    <!-- ROI Calculator Section -->
+    <section id="roi-calculator" class="roi-calculator" role="region" aria-label="Campaign ROI Calculator">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">Plan Your Growth</span>
+                <h2 class="section-title">Strategic Marketing ROI & Campaign Planner</h2>
+            </div>
+            
+            <div class="calculator-grid" data-aos="fade-up" data-aos-delay="100">
+                <!-- Calculator Inputs -->
+                <div class="calculator-panel">
+                    <h3>Select Your Campaign Parameters</h3>
+                    <p class="calc-intro">Adjust the parameters below to calculate estimated impressions, leads, conversions, and ROI projections for your next campaign with Maruf.</p>
+                    
+                    <div class="calc-group">
+                        <div class="calc-label-row">
+                            <label for="calc-budget">Monthly Growth Budget</label>
+                            <span class="calc-value" id="budget-value">$1,200</span>
+                        </div>
+                        <input type="range" id="calc-budget" min="200" max="10000" step="100" value="1200" aria-valuemin="200" aria-valuemax="10000" aria-valuenow="1200">
+                        <div class="range-limits">
+                            <span>Min: $200</span>
+                            <span>Max: $10,000+</span>
+                        </div>
+                    </div>
+
+                    <div class="calc-group">
+                        <label for="calc-channel">Primary Marketing Channel</label>
+                        <select id="calc-channel">
+                            <option value="digital-marketing" selected>Social Media Marketing & Strategy</option>
+                            <option value="brand-identity">Professional Brand Identity Design</option>
+                            <option value="web-design">SEO Web Design Services</option>
+                            <option value="seo">SEO & SEM Content Campaigns</option>
+                        </select>
+                    </div>
+
+                    <div class="calc-group">
+                        <label for="calc-industry">Your Business Industry</label>
+                        <select id="calc-industry">
+                            <option value="ecommerce" selected>E-commerce / Online Retail</option>
+                            <option value="local-business">Local Business / Restaurant / Service</option>
+                            <option value="tech-startup">Tech Startup / SaaS</option>
+                            <option value="professional-services">B2B / Professional Services</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Calculator Outputs -->
+                <div class="calculator-results">
+                    <h3>Your Performance Projections</h3>
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <span class="result-icon"><i class="fas fa-eye"></i></span>
+                            <div class="result-info">
+                                <span class="result-label">Estimated Reach/Impressions</span>
+                                <span class="result-number" id="result-reach">120,000 - 360,000</span>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <span class="result-icon"><i class="fas fa-mouse-pointer"></i></span>
+                            <div class="result-info">
+                                <span class="result-label">Expected Clicks/Traffic</span>
+                                <span class="result-number" id="result-traffic">3,600 - 10,800</span>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <span class="result-icon"><i class="fas fa-users-cog"></i></span>
+                            <div class="result-info">
+                                <span class="result-label">Estimated Leads/Conversions</span>
+                                <span class="result-number" id="result-leads">180 - 540</span>
+                            </div>
+                        </div>
+
+                        <div class="result-card highlight">
+                            <span class="result-icon"><i class="fas fa-chart-line"></i></span>
+                            <div class="result-info">
+                                <span class="result-label">Estimated Return On Ad Spend</span>
+                                <span class="result-number" id="result-roi">4.2x ROI</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="plan-summary">
+                        <h4><i class="fas fa-clipboard-list"></i> Maruf's Execution Blueprint</h4>
+                        <ul class="blueprint-list" id="blueprint-list">
+                            <li>Custom Social Media Strategy Pillars Setup</li>
+                            <li>6 Professional Graphics designed in Photoshop & Illustrator</li>
+                            <li>Weekly performance audits and keyword target optimizations</li>
+                        </ul>
+                    </div>
+
+                    <button type="button" class="btn btn-primary btn-calc-cta" id="calc-cta">
+                        <i class="fas fa-rocket"></i>
+                        Claim This Customized Plan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
@@ -888,6 +994,19 @@
             </div>
         </div>
     </footer>
+
+    <!-- Portfolio Lightbox Modal -->
+    <div id="portfolio-lightbox" class="portfolio-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Project Details Case Study">
+        <div class="lightbox-overlay" id="lightbox-overlay"></div>
+        <div class="lightbox-container">
+            <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="lightbox-body" id="lightbox-body">
+                <!-- Case study contents dynamically rendered by JavaScript -->
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script defer src="JavaScript/analytics.js"></script>

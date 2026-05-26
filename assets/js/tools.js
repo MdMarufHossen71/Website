@@ -190,9 +190,80 @@
     });
   }
 
+  function initQrGenerator() {
+    const valueInput = document.getElementById('qr-value');
+    const fgColorInput = document.getElementById('qr-fg-color');
+    const fgTextInput = document.getElementById('qr-fg-text');
+    const bgColorInput = document.getElementById('qr-bg-color');
+    const bgTextInput = document.getElementById('qr-bg-text');
+    const sizeSelect = document.getElementById('qr-size');
+    const levelSelect = document.getElementById('qr-level');
+    const paddingSlider = document.getElementById('qr-padding');
+    const paddingValSpan = document.getElementById('qr-padding-val');
+    const canvas = document.getElementById('qr-canvas');
+    const downloadBtn = document.getElementById('qr-download');
+
+    if (!valueInput || !canvas || !downloadBtn) return;
+
+    let qr;
+    try {
+      qr = new QRious({
+        element: canvas
+      });
+    } catch (e) {
+      console.error("QRious library not loaded", e);
+      return;
+    }
+
+    const updateQr = () => {
+      const padding = parseInt(paddingSlider.value, 10);
+      qr.set({
+        value: valueInput.value || 'https://mdmarufhossen71.site',
+        foreground: fgColorInput.value,
+        background: bgColorInput.value,
+        size: parseInt(sizeSelect.value, 10),
+        level: levelSelect.value,
+        padding: padding
+      });
+      paddingValSpan.textContent = `${padding}px`;
+
+      // Let the canvas render update before fetching data URL
+      setTimeout(() => {
+        downloadBtn.href = canvas.toDataURL('image/png');
+        downloadBtn.download = `qr-code-${Date.now()}.png`;
+      }, 50);
+    };
+
+    const syncColor = (colorEl, textEl) => {
+      colorEl.addEventListener('input', () => {
+        textEl.value = colorEl.value.toUpperCase();
+        updateQr();
+      });
+      textEl.addEventListener('input', () => {
+        let val = textEl.value.trim();
+        if (val && !val.startsWith('#')) val = '#' + val;
+        if (/^#[0-9A-F]{6}$/i.test(val)) {
+          colorEl.value = val;
+          updateQr();
+        }
+      });
+    };
+
+    syncColor(fgColorInput, fgTextInput);
+    syncColor(bgColorInput, bgTextInput);
+
+    valueInput.addEventListener('input', updateQr);
+    sizeSelect.addEventListener('change', updateQr);
+    levelSelect.addEventListener('change', updateQr);
+    paddingSlider.addEventListener('input', updateQr);
+
+    updateQr();
+  }
+
   if (tool === 'text-counter') initTextCounter();
   if (tool === 'calculator') initCalculator();
   if (tool === 'converter') initConverter();
   if (tool === 'color') initColorPicker();
   if (tool === 'compressor') initImageCompressor();
+  if (tool === 'qr-generator') initQrGenerator();
 })();

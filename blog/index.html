@@ -46,6 +46,10 @@
           </ul>
         </div>
         <div class="nav-actions">
+          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle light or dark theme" title="Toggle Light/Dark Theme">
+              <i class="fas fa-sun sun-icon"></i>
+              <i class="fas fa-moon moon-icon"></i>
+          </button>
           <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
             <span class="bar"></span><span class="bar"></span><span class="bar"></span>
           </button>
@@ -59,6 +63,21 @@
       <span class="blog-label">Insights</span>
       <h1>Digital Marketing & Brand Growth Blog</h1>
       <p>A complete resource hub covering SEO, digital marketing strategy, portfolio growth, branding, and social media systems.</p>
+      
+      <!-- Interactive Search & Filters -->
+      <div class="blog-controls">
+        <div class="blog-search-box">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" id="blog-search" placeholder="Search guides, tools, case studies..." aria-label="Search articles">
+        </div>
+        <div class="blog-categories" role="tablist" aria-label="Article categories">
+          <button type="button" class="category-tab active" data-category="all" role="tab" aria-selected="true">All Topics</button>
+          <button type="button" class="category-tab" data-category="digital-marketing" role="tab" aria-selected="false">Digital Marketing</button>
+          <button type="button" class="category-tab" data-category="graphic-design" role="tab" aria-selected="false">Graphic Design</button>
+          <button type="button" class="category-tab" data-category="freelancing" role="tab" aria-selected="false">Freelancing</button>
+          <span class="search-telemetry" id="search-telemetry">Showing all articles</span>
+        </div>
+      </div>
     </section>
 
     <section class="blog-container" aria-label="Utilities and games">
@@ -71,6 +90,15 @@
 
     <section class="blog-container" aria-label="Blog articles">
       <div class="blog-grid">
+        <article class="blog-card featured-card">
+          <img src="https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=800" alt="B2B Lead-Gen Portfolio Strategy" loading="lazy">
+          <div class="blog-card-content">
+            <div class="blog-meta"><time datetime="2026-05-27">May 27, 2026</time><span>8 min read</span></div>
+            <h2><a href="posts/portfolio-conversion-leads-strategy.html">How to Turn Your Portfolio into a Lead-Generation Machine: The B2B Playbook</a></h2>
+            <p>Learn tactical conversion strategy, how interactive elements capture B2B client leads, and structural portfolio setups to win high-paying contracts.</p>
+            <a class="read-link" href="posts/portfolio-conversion-leads-strategy.html">Read article →</a>
+          </div>
+        </article>
         <article class="blog-card">
           <img src="assets/images/seo-foundations.svg" alt="বাংলাদেশ ২০২৬ ট্রেন্ড: রমজান, নির্বাচন, সূর্যগ্রহণ ও টেক" loading="lazy">
           <div class="blog-card-content">
@@ -306,6 +334,7 @@
   </footer>
 
   <script defer src="../JavaScript/script.js"></script>
+  <script defer src="assets/js/blog.js"></script>
   <script type="application/ld+json">{
     "@context": "https://schema.org",
     "@type": "Person",

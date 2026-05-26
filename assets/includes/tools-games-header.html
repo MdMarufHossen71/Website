@@ -1,11 +1,41 @@
-<header class="tg-header">
-  <div class="tg-shell tg-topbar">
-    <a class="tg-brand" href="{{ROOT}}/index.html">Maruf Studio</a>
-    <nav aria-label="Tools and games navigation" class="tg-nav">
-      <a href="{{ROOT}}/index.html">Home</a>
-      <a href="{{ROOT}}/blog/">Blog</a>
-      <a href="{{ROOT}}/tools/" data-tg-link="tools">Tools</a>
-      <a href="{{ROOT}}/games/" data-tg-link="games">Games</a>
-    </nav>
-  </div>
+<header class="site-header" role="banner">
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Primary navigation">
+    <div class="nav-container">
+      <a href="{{ROOT}}/index.html#home" class="nav-logo" aria-label="Md Maruf Hossen - Home">
+        <span class="logo-text-wrap">
+          <span class="logo-text">Maruf</span>
+          <span class="logo-dot">.</span>
+        </span>
+        <span class="logo-subtitle">Digital Marketer</span>
+      </a>
+      <div class="nav-menu" id="nav-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation menu">
+        <ul class="nav-list">
+          <li><a href="{{ROOT}}/index.html#home" class="nav-link">Home</a></li>
+          <li><a href="{{ROOT}}/index.html#about" class="nav-link">About</a></li>
+          <li><a href="{{ROOT}}/index.html#services" class="nav-link">Services</a></li>
+          <li><a href="{{ROOT}}/index.html#portfolio" class="nav-link">Portfolio</a></li>
+          <li><a href="{{ROOT}}/index.html#contact" class="nav-link">Contact</a></li>
+          <li><a href="{{ROOT}}/blog/" class="nav-link" data-tg-link="blog">Blog</a></li>
+          <li class="nav-dropdown">
+            <button type="button" class="nav-link nav-dropdown-toggle" aria-expanded="false">Tools &amp; Games <i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+            <ul class="nav-dropdown-menu">
+              <li><a href="{{ROOT}}/tools/" class="nav-link" data-tg-link="tools">Tools</a></li>
+              <li><a href="{{ROOT}}/games/" class="nav-link" data-tg-link="games">Games</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="nav-actions">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle light or dark theme" title="Toggle Light/Dark Theme">
+          <i class="fas fa-sun sun-icon"></i>
+          <i class="fas fa-moon moon-icon"></i>
+        </button>
+        <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
 </header>

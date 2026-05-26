@@ -1,15 +1,15 @@
 class RobustFloatingBubbles {
     constructor() {
         this.skills = [
-            { name: 'React', icon: 'fab fa-react' },
-            { name: 'Node.js', icon: 'fab fa-node-js' },
-            { name: 'MongoDB', icon: 'fas fa-database' },
-            { name: 'JavaScript', icon: 'fab fa-js' },
-            { name: 'Express.js', icon: 'fas fa-server' },
-            { name: 'HTML5', icon: 'fab fa-html5' },
-            { name: 'CSS3', icon: 'fab fa-css3-alt' },
-            { name: 'Git', icon: 'fab fa-git-alt' },
-            { name: 'Next.js', icon: 'fas fa-arrow-circle-right' }
+            { name: 'Photoshop', icon: 'fas fa-palette' },
+            { name: 'Illustrator', icon: 'fas fa-pen-nib' },
+            { name: 'Figma', icon: 'fab fa-figma' },
+            { name: 'Social Media', icon: 'fas fa-bullhorn' },
+            { name: 'SEO & Google Ads', icon: 'fas fa-search' },
+            { name: 'Brand Design', icon: 'fas fa-lightbulb' },
+            { name: 'Copywriting', icon: 'fas fa-file-alt' },
+            { name: 'Canva Pro', icon: 'fas fa-magic' },
+            { name: 'Email Marketing', icon: 'fas fa-envelope' }
         ];
 
         this.config = {
