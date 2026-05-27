@@ -70,9 +70,8 @@
     const year = document.querySelector('[data-tg-year]');
     if (year) year.textContent = new Date().getFullYear();
 
-    // 1. Dynamic scroll hide/show logic matching home page perfectly
+    // 1. Premium Smart Auto-Hide capsule header logic
     let lastScrollTop = 0;
-    let scrollTimeout;
     if (navbar) {
       window.addEventListener('scroll', () => {
         const isMobileMenuOpen = navMenu && navMenu.classList.contains('active');
@@ -93,17 +92,12 @@
           navbar.classList.remove('scrolled');
         }
 
-        // IMMEDIATELY hide the navbar during active scrolling, but only if scrolled past 80px
-        if (currentScrollTop > 80) {
+        // Smart Auto-Hide: hide the navbar when scrolling down past 80px, reveal immediately when scrolling up
+        if (currentScrollTop > 80 && currentScrollTop > lastScrollTop) {
           navbar.classList.add('hidden');
         } else {
           navbar.classList.remove('hidden');
         }
-
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          navbar.classList.remove('hidden');
-        }, 200); // Snappy 200ms debounce
 
         lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
       }, { passive: true });

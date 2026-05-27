@@ -12,8 +12,6 @@ const contactForm = document.getElementById('contact-form');
 
 // Smart Auto-Hide Header functionality
 let lastScrollTop = 0;
-let scrollTimeout;
-let isScrolling = false;
 
 window.addEventListener('scroll', () => {
     if (!navbar) return;
@@ -30,8 +28,6 @@ window.addEventListener('scroll', () => {
     // Prevent executing scroll logic if scroll position hasn't changed (prevents synthetic event loops)
     if (currentScrollTop === lastScrollTop) return;
 
-    isScrolling = true;
-
     // Shrink and style capsule size when scrolled down
     if (currentScrollTop > 50) {
         navbar.classList.add('scrolled');
@@ -39,21 +35,12 @@ window.addEventListener('scroll', () => {
         navbar.classList.remove('scrolled');
     }
 
-    // IMMEDIATELY hide the navbar during active scrolling, but only if scrolled past the header height
-    if (currentScrollTop > 80) {
+    // Smart Auto-Hide: hide the navbar when scrolling down, show immediately when scrolling up
+    if (currentScrollTop > 80 && currentScrollTop > lastScrollTop) {
         navbar.classList.add('hidden');
     } else {
         navbar.classList.remove('hidden');
     }
-
-    // Clear previous timeout
-    clearTimeout(scrollTimeout);
-
-    // Set timeout to reveal the navbar after scrolling has fully stopped
-    scrollTimeout = setTimeout(() => {
-        isScrolling = false;
-        navbar.classList.remove('hidden');
-    }, 200); // Snappy 200ms debounce
 
     lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
 
