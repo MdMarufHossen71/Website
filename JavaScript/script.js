@@ -98,22 +98,14 @@ const handleScroll = () => {
 const updateScrollButtons = (scrollTop) => {
     const scrollButtons = document.querySelector('.scroll-buttons');
     if (scrollButtons) {
-        const scrollDownBtn = scrollButtons.querySelector('.scroll-down');
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
 
-        if (scrollTop > 300) {
+        // Only show the scroll buttons (Move to Top) when the user reaches the absolute bottom/end of the page
+        if (scrollTop + windowHeight >= documentHeight - 120) {
             scrollButtons.classList.add('visible');
         } else {
             scrollButtons.classList.remove('visible');
-        }
-
-        if (scrollDownBtn) {
-            if (scrollTop + windowHeight >= documentHeight - 100) {
-                scrollDownBtn.style.display = 'none';
-            } else {
-                scrollDownBtn.style.display = 'flex';
-            }
         }
     }
 };
@@ -366,15 +358,11 @@ const createScrollButtons = () => {
         <button class="scroll-btn scroll-up" title="Scroll to top">
             <i class="fas fa-chevron-up"></i>
         </button>
-        <button class="scroll-btn scroll-down" title="Scroll down">
-            <i class="fas fa-chevron-down"></i>
-        </button>
     `;
     
     document.body.appendChild(scrollButtons);
     
     const scrollUpBtn = scrollButtons.querySelector('.scroll-up');
-    const scrollDownBtn = scrollButtons.querySelector('.scroll-down');
     
     scrollUpBtn.addEventListener('click', () => {
         window.scrollTo({
@@ -382,36 +370,6 @@ const createScrollButtons = () => {
             behavior: 'smooth'
         });
     });
-    
-    scrollDownBtn.addEventListener('click', () => {
-        const currentSection = getCurrentSection();
-        const nextSection = getNextSection(currentSection);
-        if (nextSection) {
-            nextSection.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-};
-
-// Helper functions for scroll buttons
-const getCurrentSection = () => {
-    const sections = document.querySelectorAll('section[id]');
-    const scrollPosition = window.pageYOffset + 100;
-    
-    for (let i = sections.length - 1; i >= 0; i--) {
-        if (sections[i].offsetTop <= scrollPosition) {
-            return sections[i];
-        }
-    }
-    return sections[0];
-};
-
-const getNextSection = (currentSection) => {
-    const sections = document.querySelectorAll('section[id]');
-    const currentIndex = Array.from(sections).indexOf(currentSection);
-    return sections[currentIndex + 1] || null;
 };
 
 // Contact form handling
