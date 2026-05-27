@@ -1,65 +1,294 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Free Online Tools | Text, Calculator, Converter, Color, Image</title>
-  <meta name="description" content="Professional free online tools: text counter, calculator, unit converter, color picker, and private client-side image compressor.">
-  <link rel="canonical" href="https://mdmarufhossen71.site/tools/">
-  <meta name="robots" content="index,follow">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="../assets/css/tools.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "Tools by Md Maruf Hossen",
-    "url": "https://mdmarufhossen71.site/tools/",
-    "description": "Fast, mobile-ready utility tools.",
-    "hasPart": [
-      {"@type":"WebApplication","name":"QR Code Generator","url":"https://mdmarufhossen71.site/tools/apps/qr-generator.html"},
-      {"@type":"WebApplication","name":"Text Counter","url":"https://mdmarufhossen71.site/tools/apps/text-counter.html"},
-      {"@type":"WebApplication","name":"Calculator","url":"https://mdmarufhossen71.site/tools/apps/calculator.html"},
-      {"@type":"WebApplication","name":"Unit Converter","url":"https://mdmarufhossen71.site/tools/apps/unit-converter.html"},
-      {"@type":"WebApplication","name":"Color Picker","url":"https://mdmarufhossen71.site/tools/apps/color-picker.html"},
-      {"@type":"WebApplication","name":"Image Compressor","url":"https://mdmarufhossen71.site/tools/apps/image-compressor.html"}
-    ]
-  }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Tools Suite | Md Maruf Hossen</title>
+    <meta name="description" content="30+ free offline developer tools: JSON formatter, JWT decoder, Base64 encoder, regex tester, QR generator, Unix converter, diff checker, and SEO tag tools. Run 100% locally.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://mdmarufhossen71.site/tools/">
+    
+    <!-- External typography and icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS loaded for the Dev Suite, custom config to sync with site dark theme -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: ['selector', '[data-theme="dark"]'],
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: '#f5f3ff',
+                100: '#ede9fe',
+                200: '#ddd6fe',
+                300: '#c4b5fd',
+                400: '#a78bfa',
+                500: '#6366f1',
+                600: '#4f46e5',
+                700: '#4338ca',
+                800: '#3730a3',
+                900: '#312e81',
+              },
+              darkbg: '#0b0f19',
+              darkcard: '#111827',
+              darkborder: 'rgba(255,255,255,0.08)'
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              mono: ['Fira Code', 'monospace'],
+            }
+          }
+        }
+      }
+    </script>
+    
+    <!-- Custom styling extensions -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .glassmorphism {
+                @apply bg-white/70 dark:bg-darkcard/70 backdrop-blur-md border border-slate-200/80 dark:border-darkborder shadow-xl;
+            }
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-thin::-webkit-scrollbar {
+                width: 6px;
+                height: 6px;
+            }
+            .scrollbar-thin::-webkit-scrollbar-track {
+                @apply bg-transparent;
+            }
+            .scrollbar-thin::-webkit-scrollbar-thumb {
+                @apply bg-slate-200 dark:bg-slate-700 rounded-full;
+            }
+        }
+        
+        /* Ambient Background Glow */
+        .tools-glow-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.12;
+        }
+
+        /* Tool transitions */
+        .tool-fade-in {
+            animation: toolFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes toolFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-<body>
-  <div data-tools-games-header></div>
-  <header class="page-header">
-    <div class="site-shell topbar">
-      <strong>Maruf Tools</strong>
-      <nav aria-label="Primary">
-        <a href="../index.html">Home</a>
-        <a href="../blog/">Blog</a>
-        <a href="../games/">Games</a>
-        <a href="./index.html" aria-current="page">Tools</a>
-      </nav>
+<body class="bg-slate-50 dark:bg-darkbg text-slate-800 dark:text-slate-200 transition-colors duration-300 font-sans min-height-screen antialiased overflow-x-hidden">
+    <!-- Dynamic navbar mounted by layout system -->
+    <div data-tools-games-header></div>
+
+    <!-- Main Container -->
+    <main class="w-full relative min-h-screen pt-24 pb-16 flex overflow-hidden z-10">
+        <!-- Floating background effects -->
+        <div class="tools-glow-blob w-[450px] h-[450px] bg-primary-500 top-1/4 -left-64"></div>
+        <div class="tools-glow-blob w-[450px] h-[450px] bg-emerald-500 bottom-1/4 -right-64"></div>
+
+        <!-- Inner Wrapper -->
+        <div class="max-w-[1400px] w-full mx-auto px-4 md:px-6 flex gap-6 relative z-10">
+            <!-- Sidebar Navigation -->
+            <aside id="tools-sidebar" class="fixed inset-y-0 left-0 lg:static lg:block z-40 w-64 h-full bg-white dark:bg-darkcard lg:bg-transparent lg:dark:bg-transparent border-r border-slate-200/80 dark:border-darkborder lg:border-none p-6 lg:p-0 transition-transform duration-300 transform -translate-x-full lg:translate-x-0 flex flex-col gap-6">
+                <!-- Sidebar Header (Mobile only) -->
+                <div class="flex justify-between items-center lg:hidden pb-4 border-b border-slate-100 dark:border-darkborder">
+                    <span class="font-extrabold text-primary-500 text-lg flex items-center gap-2">
+                        <i class="fas fa-terminal"></i> DevSuite
+                    </span>
+                    <button id="sidebar-close-btn" class="text-slate-400 hover:text-slate-600 dark:hover:text-white text-xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Navigation List -->
+                <div class="flex flex-col gap-6 overflow-y-auto scrollbar-thin flex-1 pr-1 lg:max-h-[calc(100vh-140px)]">
+                    <!-- Default Links -->
+                    <div class="flex flex-col gap-1">
+                        <button data-cat="all" class="cat-nav-btn active flex items-center justify-between w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                            <span class="flex items-center gap-2.5">
+                                <i class="fas fa-shapes text-primary-500"></i> All Utility Tools
+                            </span>
+                            <span id="badge-all-count" class="bg-slate-100 dark:bg-slate-800 text-xs px-2 py-0.5 rounded-full font-medium">30</span>
+                        </button>
+                        <button data-cat="featured" class="cat-nav-btn flex items-center justify-between w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                            <span class="flex items-center gap-2.5">
+                                <i class="fas fa-star text-amber-500"></i> Featured Tools
+                            </span>
+                        </button>
+                    </div>
+
+                    <!-- Categories list -->
+                    <div class="flex flex-col gap-3">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest px-3">Categories</h4>
+                        <div class="flex flex-col gap-1">
+                            <button data-cat="utilities" class="cat-nav-btn flex items-center justify-between w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                                <span class="flex items-center gap-2.5">
+                                    <i class="fas fa-screwdriver-wrench text-blue-500 w-4"></i> Developer Utilities
+                                </span>
+                            </button>
+                            <button data-cat="converters" class="cat-nav-btn flex items-center justify-between w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                                <span class="flex items-center gap-2.5">
+                                    <i class="fas fa-right-left-arrows text-cyan-500 w-4"></i> Converters
+                                </span>
+                            </button>
+                            <button data-cat="styling" class="cat-nav-btn flex items-center justify-between w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                                <span class="flex items-center gap-2.5">
+                                    <i class="fas fa-palette text-purple-500 w-4"></i> Design & Styling
+                                </span>
+                            </button>
+                            <button data-cat="images" class="cat-nav-btn flex items-center justify-between w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                                <span class="flex items-center gap-2.5">
+                                    <i class="fas fa-image text-emerald-500 w-4"></i> Image Tools
+                                </span>
+                            </button>
+                            <button data-cat="text" class="cat-nav-btn flex items-center justify-between w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                                <span class="flex items-center gap-2.5">
+                                    <i class="fas fa-font text-rose-500 w-4"></i> Text & Code
+                                </span>
+                            </button>
+                            <button data-cat="generators" class="cat-nav-btn flex items-center justify-between w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                                <span class="flex items-center gap-2.5">
+                                    <i class="fas fa-wand-magic-sparkles text-amber-500 w-4"></i> Generators
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Sidebar overlay backdrop (Mobile only) -->
+            <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-30 hidden lg:hidden"></div>
+
+            <!-- Workspace Screen Area -->
+            <section class="flex-1 min-w-0 flex flex-col gap-6 z-10">
+                <!-- Search and Top Controls Header Card -->
+                <div class="glassmorphism rounded-2xl p-4 flex gap-4 items-center justify-between">
+                    <!-- Left search input -->
+                    <div class="flex-1 relative">
+                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="global-tool-search" placeholder="Search developer tools... (e.g. JSON, JWT, Base64)" class="w-full bg-slate-100/70 dark:bg-slate-800/70 text-slate-700 dark:text-slate-200 border-none outline-none ring-2 ring-transparent focus:ring-primary-500/30 rounded-xl pl-11 pr-4 py-2.5 text-sm transition-all">
+                        <!-- Reset search btn -->
+                        <button id="search-clear-btn" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 hidden"><i class="fas fa-times-circle"></i></button>
+                    </div>
+
+                    <!-- Sidebar Toggle Button (Mobile/Tablet only) -->
+                    <button id="sidebar-toggle-btn" class="lg:hidden bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 w-10 h-10 rounded-xl flex items-center justify-center transition-colors">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+
+                <!-- MAIN WORKSPACE VIEWS -->
+                <div id="tools-workspace" class="w-full flex-1">
+                    <!-- VIEW 1: DASHBOARD (Active when no route hash is loaded) -->
+                    <div id="view-dashboard" class="flex flex-col gap-8 w-full">
+                        <!-- Hero Banner visual -->
+                        <div class="glassmorphism rounded-2xl p-6 md:p-8 relative overflow-hidden flex flex-col md:flex-row justify-between gap-6 md:items-center">
+                            <!-- Overlay glowing lines -->
+                            <div class="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-emerald-500/10 opacity-30 z-0"></div>
+                            
+                            <div class="flex flex-col gap-3 max-w-[620px] relative z-10">
+                                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight">Ultimate Developer Utilities Box</h2>
+                                <p class="text-sm md:text-base text-slate-500 dark:text-slate-400 leading-relaxed">Fast, offline-compatible client-side utilities. We never send your private tokens, images, or payloads to any backend server. Everything runs secure inside your browser.</p>
+                            </div>
+                            
+                            <div class="flex items-center gap-3 relative z-10 flex-shrink-0">
+                                <span class="bg-primary-500/15 text-primary-500 text-xs font-bold border border-primary-500/20 px-3 py-1.5 rounded-full flex items-center gap-1.5"><i class="fas fa-shield-halved"></i> 100% Secure</span>
+                                <span class="bg-emerald-500/15 text-emerald-500 text-xs font-bold border border-emerald-500/20 px-3 py-1.5 rounded-full flex items-center gap-1.5"><i class="fas fa-bolt"></i> Ultra Fast</span>
+                            </div>
+                        </div>
+
+                        <!-- SECTION: RECENTLY USED -->
+                        <div id="section-recently-used" class="flex flex-col gap-4 hidden">
+                            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2"><i class="fas fa-clock"></i> Recently Used Tools</h3>
+                            <div id="recently-used-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <!-- Rendered dynamically by script -->
+                            </div>
+                        </div>
+
+                        <!-- SECTION: DYNAMICALLY FILTERED TOOLS GRID -->
+                        <div class="flex flex-col gap-4">
+                            <h3 id="current-category-title" class="text-sm font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2"><i class="fas fa-list"></i> All Developer Tools</h3>
+                            <div id="tools-grid-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <!-- Cards rendered dynamically -->
+                            </div>
+                            
+                            <!-- Search Not Found Mock -->
+                            <div id="search-not-found-card" class="glassmorphism rounded-2xl p-12 flex flex-col items-center justify-center text-center gap-4 hidden">
+                                <div class="bg-rose-500/10 text-rose-500 text-4xl w-16 h-16 rounded-full flex items-center justify-center border border-rose-500/20"><i class="fas fa-triangle-exclamation"></i></div>
+                                <h3 class="font-extrabold text-lg text-slate-900 dark:text-white">No tools found matching your query</h3>
+                                <p class="text-sm text-slate-400 max-w-sm">Try typing alternative terms like formatter, encoder, decoder, regex, generators, or counter.</p>
+                                <button id="reset-search-notfound-btn" class="bg-primary-500 hover:bg-primary-600 text-white font-semibold text-sm px-5 py-2 rounded-xl transition-colors mt-2 shadow-lg">Reset Search</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VIEW 2: ACTIVE TOOL WORKSPACE (Active when hash router loads a tool id) -->
+                    <div id="view-tool-workspace" class="w-full hidden">
+                        <!-- Tool Panel Wrapper -->
+                        <div class="glassmorphism rounded-2xl p-6 md:p-8 flex flex-col gap-6 tool-fade-in">
+                            <!-- Tool header navbar navigation breadcrumbs -->
+                            <div class="flex justify-between items-start gap-4">
+                                <div class="flex flex-col gap-2">
+                                    <!-- Breadcrumbs -->
+                                    <div class="flex items-center gap-2 text-xs font-semibold text-slate-400">
+                                        <a href="#/" class="hover:text-primary-500 transition-colors">Tools</a>
+                                        <i class="fas fa-chevron-right text-[10px]"></i>
+                                        <span id="tool-breadcrumbs-cat">Category</span>
+                                    </div>
+                                    
+                                    <!-- Title & subtitle -->
+                                    <h2 id="active-tool-title" class="text-2xl font-extrabold text-slate-900 dark:text-white flex items-center gap-3">Tool Title</h2>
+                                    <p id="active-tool-desc" class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-2xl">Description here</p>
+                                </div>
+
+                                <!-- Action bar -->
+                                <div class="flex items-center gap-2">
+                                    <button id="tool-fav-btn" class="bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-amber-500 w-10 h-10 rounded-xl flex items-center justify-center transition-all" title="Add to Favorites">
+                                        <i class="far fa-star"></i>
+                                    </button>
+                                    <a href="#/" class="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-300 px-4 h-10 rounded-xl flex items-center gap-1.5 font-semibold text-sm transition-colors">
+                                        <i class="fas fa-chevron-left"></i> Back to Dashboard
+                                    </a>
+                                </div>
+                            </div>
+
+                            <hr class="border-slate-100 dark:border-darkborder">
+
+                            <!-- Tool Specific Body Grid (Renders Input-Output dynamically via JS) -->
+                            <div id="active-tool-container" class="w-full flex flex-col gap-6">
+                                <!-- Embedded by script app controller -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Global Toast Alert Container -->
+    <div id="global-toast-container" class="fixed bottom-6 right-6 flex flex-col gap-2 z-50 pointer-events-none">
+        <!-- Toast elements dynamically injected here -->
     </div>
-  </header>
 
-  <main class="site-shell">
-    <section class="hero">
-      <h1>Tools & Utilities</h1>
-      <p>Useful browser tools built for creators, marketers, students, and developers. Every tool works directly in-browser on desktop and mobile.</p>
-    </section>
+    <!-- Dynamic footer injected by layout system -->
+    <div data-tools-games-footer></div>
 
-    <section class="card-grid" aria-label="Available tools">
-      <article class="card"><span class="chip" style="background:rgba(99,102,241,0.08);color:#6366f1;border-color:rgba(99,102,241,0.2);">NEW</span><h2>QR Code Generator &amp; Stylist</h2><p>Generate highly-customized branded QR codes with colors, scales, and downloads.</p><a class="btn" href="apps/qr-generator.html">Open tool</a></article>
-      <article class="card"><span class="chip">Live</span><h2>Text Counter</h2><p>Count characters, words, lines, and reading time with instant stats.</p><a class="btn" href="apps/text-counter.html">Open tool</a></article>
-      <article class="card"><span class="chip">Live</span><h2>Calculator</h2><p>Responsive arithmetic calculator with button and keyboard support.</p><a class="btn" href="apps/calculator.html">Open tool</a></article>
-      <article class="card"><span class="chip">Live</span><h2>Unit Converter</h2><p>Convert length, weight, and speed units in real-time.</p><a class="btn" href="apps/unit-converter.html">Open tool</a></article>
-      <article class="card"><span class="chip">Live</span><h2>Color Picker</h2><p>Pick any color, copy HEX/RGB values, and check contrast for accessibility.</p><a class="btn" href="apps/color-picker.html">Open tool</a></article>
-      <article class="card"><span class="chip">Live</span><h2>Image Compressor</h2><p>Compress images on-device for faster uploads with full privacy.</p><a class="btn" href="apps/image-compressor.html">Open tool</a></article>
-    </section>
-  </main>
-
-  <footer class="page-footer"><div class="site-shell footer-inner">© <span id="year"></span> Md Maruf Hossen.</div></footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-  <script defer src="../assets/js/tools-games-layout.js"></script>
-  <div data-tools-games-footer></div>
+    <!-- External and modular script loadings -->
+    <script defer src="../assets/js/tools-games-layout.js"></script>
+    <script src="./js/tools-implementations.js"></script>
+    <script src="./js/tools-app.js"></script>
 </body>
 </html>

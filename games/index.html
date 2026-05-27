@@ -1,35 +1,374 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Games | Professional Browser Games Collection</title>
-<meta name="description" content="Play professional-quality browser games built with HTML, CSS and Vanilla JavaScript. Strategy, puzzle, arcade and multiplayer experiences.">
-<link rel="canonical" href="https://mdmarufhossen71.site/games/">
-<link rel="stylesheet" href="../assets/css/games.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Game Studio | Md Maruf Hossen</title>
+    <meta name="description" content="Play 20+ retro browser games: Snake, Tetris, Flappy Bird, 2048, Sudoku, Pong, and Space Shooter. 100% locally client-side with full scoreboards and achievements.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://mdmarufhossen71.site/games/">
+    
+    <!-- External typography and icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS loaded for the Game Studio, custom config to sync with site dark theme -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: ['selector', '[data-theme="dark"]'],
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: '#fdf2f8',
+                100: '#fce7f3',
+                200: '#fbcfe8',
+                300: '#f9a8d4',
+                400: '#f472b6',
+                500: '#ec4899',
+                600: '#db2777',
+                700: '#be185d',
+                800: '#9d174d',
+                900: '#831843',
+              },
+              darkbg: '#0b0f19',
+              darkcard: '#111827',
+              darkborder: 'rgba(255,255,255,0.08)'
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Orbitron', 'sans-serif'],
+              mono: ['Fira Code', 'monospace'],
+            }
+          }
+        }
+      }
+    </script>
+    
+    <!-- Custom styling extensions -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .glassmorphism {
+                @apply bg-white/70 dark:bg-darkcard/70 backdrop-blur-md border border-slate-200/80 dark:border-darkborder shadow-xl;
+            }
+            .gaming-glow {
+                @apply shadow-[0_0_15px_rgba(236,72,153,0.15)] dark:shadow-[0_0_20px_rgba(236,72,153,0.35)];
+            }
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-thin::-webkit-scrollbar {
+                width: 6px;
+                height: 6px;
+            }
+            .scrollbar-thin::-webkit-scrollbar-track {
+                @apply bg-transparent;
+            }
+            .scrollbar-thin::-webkit-scrollbar-thumb {
+                @apply bg-slate-200 dark:bg-slate-700 rounded-full;
+            }
+        }
+        
+        /* Cyberpunk Grid Background */
+        .cyber-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(236, 72, 153, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(236, 72, 153, 0.05) 1px, transparent 1px);
+        }
+        
+        /* Retro Game scanlines */
+        .scanlines {
+            position: relative;
+        }
+        .scanlines::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.04));
+            z-index: 10;
+            background-size: 100% 3px, 6px 100%;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        /* Ambient Background Glow */
+        .games-glow-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.15;
+            animation: orbFloat 25s infinite alternate ease-in-out;
+        }
+
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(60px, -40px) scale(1.1); }
+            100% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        /* Tool transitions */
+        .game-fade-in {
+            animation: gameFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes gameFadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-<body>
-  <div data-tools-games-header></div>
-  <main class="wrap">
-    <header class="hero">
-      <p class="eyebrow">Game Studio Collection</p>
-      <h1>Professional Browser Games</h1>
-      <p>Explore polished mini-games designed for responsive performance, modern UI, and replayable gameplay loops across desktop and mobile.</p>
-    </header>
-    <section class="grid">
-      <article class="card"><span class="chip" style="background:rgba(99,102,241,0.08);color:#6366f1;border-color:rgba(99,102,241,0.2);">NEW</span><h2>Cyberpunk Typing Speed Racer</h2><p>Test your typing speed with real-time WPM calculation, accuracy telemetry, and a cyberpunk neon visual aesthetic.</p><a class="btn" href="./cyberpunk-typing-racer/">Play Now</a></article>
-      <article class="card"><h2>Reaction Time Test</h2><p>Measure and improve your reflex speed with repeatable timing rounds.</p><a class="btn" href="./reaction-time-test/">Play Now</a></article>
-      <article class="card"><h2>Tic-Tac-Toe vs AI</h2><p>Challenge adaptive AI difficulty levels from casual to unbeatable mode.</p><a class="btn" href="./tic-tac-toe-ai/">Play Now</a></article>
-      <article class="card"><h2>Sudoku Generator & Solver</h2><p>Generate fresh Sudoku boards and solve with built-in logic assistance.</p><a class="btn" href="./sudoku-generator-solver/">Play Now</a></article>
-      <article class="card"><h2>Projectile Physics Game</h2><p>Tune angle and velocity to master trajectory and precision target hits.</p><a class="btn" href="./projectile-physics/">Play Now</a></article>
-      <article class="card"><h2>Space Shooter</h2><p>Fast arcade combat with responsive controls and score-driven gameplay.</p><a class="btn" href="./space-shooter/">Play Now</a></article>
-      <article class="card"><h2>Memory Matching Game</h2><p>Boost memory recall through timed card-flip challenges and levels.</p><a class="btn" href="./memory-matching/">Play Now</a></article>
-      <article class="card"><h2>Chessboard Logic</h2><p>Focus on tactical movement and board awareness in a clean interface.</p><a class="btn" href="./chessboard-logic/">Play Now</a></article>
-      <article class="card"><h2>Multiplayer Tic-Tac-Toe</h2><p>Create private rooms and play live with real-time synced turns.</p><a class="btn" href="./multiplayer-tic-tac-toe/">Play Now</a></article>
-      <article class="card"><h2>Modern Snake Game</h2><p>A refreshed classic with polished visuals and quick restart loops.</p><a class="btn" href="./modern-snake/">Play Now</a></article>
-      <article class="card"><h2>Match-3 Puzzle Game</h2><p>Swap adjacent tiles to chain combinations and maximize score streaks.</p><a class="btn" href="./match-3-puzzle/">Play Now</a></article>
-    </section>
-  </main>
-  <script defer src="../assets/js/tools-games-layout.js"></script>
-  <div data-tools-games-footer></div>
+<body class="bg-slate-50 dark:bg-darkbg text-slate-800 dark:text-slate-200 transition-colors duration-300 font-sans min-height-screen antialiased overflow-x-hidden cyber-grid">
+    <!-- Dynamic navbar mounted by layout system -->
+    <div data-tools-games-header></div>
+
+    <!-- Main Container -->
+    <main class="w-full relative min-h-screen pt-24 pb-16 flex overflow-hidden z-10">
+        <!-- Floating background effects -->
+        <div class="games-glow-blob w-[450px] h-[450px] bg-primary-500 top-1/4 -left-64"></div>
+        <div class="games-glow-blob w-[450px] h-[450px] bg-indigo-500 bottom-1/4 -right-64"></div>
+
+        <!-- Inner Wrapper -->
+        <div class="max-w-[1400px] w-full mx-auto px-4 md:px-6 flex gap-6 relative z-10">
+            <!-- Sidebar Navigation -->
+            <aside id="games-sidebar" class="fixed inset-y-0 left-0 lg:static lg:block z-40 w-64 h-full bg-white dark:bg-darkcard lg:bg-transparent lg:dark:bg-transparent border-r border-slate-200/80 dark:border-darkborder lg:border-none p-6 lg:p-0 transition-transform duration-300 transform -translate-x-full lg:translate-x-0 flex flex-col gap-6 select-none">
+                <!-- Sidebar Header (Mobile only) -->
+                <div class="flex justify-between items-center lg:hidden pb-4 border-b border-slate-100 dark:border-darkborder">
+                    <span class="font-extrabold text-primary-500 text-lg flex items-center gap-2 font-display uppercase tracking-wider">
+                        <i class="fas fa-gamepad"></i> Studio
+                    </span>
+                    <button id="sidebar-close-btn" class="text-slate-400 hover:text-slate-600 dark:hover:text-white text-xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Navigation List -->
+                <div class="flex flex-col gap-6 overflow-y-auto scrollbar-thin flex-1 pr-1 lg:max-h-[calc(100vh-140px)]">
+                    <!-- Default Links -->
+                    <div class="flex flex-col gap-1">
+                        <button data-cat="all" class="cat-nav-btn active flex items-center justify-between w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                            <span class="flex items-center gap-2.5">
+                                <i class="fas fa-cubes text-primary-500"></i> All Mini-Games
+                            </span>
+                            <span id="badge-all-count" class="bg-slate-100 dark:bg-slate-800 text-xs px-2 py-0.5 rounded-full font-medium">20</span>
+                        </button>
+                        <button data-cat="featured" class="cat-nav-btn flex items-center justify-between w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                            <span class="flex items-center gap-2.5">
+                                <i class="fas fa-fire text-amber-500"></i> Featured Games
+                            </span>
+                        </button>
+                    </div>
+
+                    <!-- Categories list -->
+                    <div class="flex flex-col gap-3">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest px-3">Categories</h4>
+                        <div class="flex flex-col gap-1">
+                            <button data-cat="arcade" class="cat-nav-btn flex items-center justify-between w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                                <span class="flex items-center gap-2.5">
+                                    <i class="fas fa-ghost text-red-500 w-4"></i> Arcade Classic
+                                </span>
+                            </button>
+                            <button data-cat="puzzle" class="cat-nav-btn flex items-center justify-between w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                                <span class="flex items-center gap-2.5">
+                                    <i class="fas fa-brain text-blue-500 w-4"></i> Puzzle & Logic
+                                </span>
+                            </button>
+                            <button data-cat="strategy" class="cat-nav-btn flex items-center justify-between w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                                <span class="flex items-center gap-2.5">
+                                    <i class="fas fa-chess text-purple-500 w-4"></i> Strategy Board
+                                </span>
+                            </button>
+                            <button data-cat="casual" class="cat-nav-btn flex items-center justify-between w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                                <span class="flex items-center gap-2.5">
+                                    <i class="fas fa-mug-hot text-emerald-500 w-4"></i> Casual Fun
+                                </span>
+                            </button>
+                            <button data-cat="typing" class="cat-nav-btn flex items-center justify-between w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                                <span class="flex items-center gap-2.5">
+                                    <i class="fas fa-keyboard text-rose-500 w-4"></i> Typing speed
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Achievements cabinet -->
+                    <div class="flex flex-col gap-3 mt-4">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest px-3 flex items-center justify-between">
+                            <span>Achievements</span>
+                            <span id="achieve-ratio" class="text-primary-500 font-mono">0/6</span>
+                        </h4>
+                        <div id="achievements-cabinet" class="grid grid-cols-3 gap-2 px-3">
+                            <!-- Injected dynamically by script, unlocked items glow -->
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Sidebar overlay backdrop (Mobile only) -->
+            <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-30 hidden lg:hidden"></div>
+
+            <!-- Workspace Screen Area -->
+            <section class="flex-1 min-w-0 flex flex-col gap-6 z-10">
+                <!-- Search and Audio Controls Header Card -->
+                <div class="glassmorphism rounded-2xl p-4 flex gap-4 items-center justify-between flex-wrap md:flex-nowrap">
+                    <!-- Left search input -->
+                    <div class="flex-1 relative min-w-[200px]">
+                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="global-game-search" placeholder="Search mini-games... (e.g. Snake, Tetris, 2048)" class="w-full bg-slate-100/70 dark:bg-slate-800/70 text-slate-700 dark:text-slate-200 border-none outline-none ring-2 ring-transparent focus:ring-primary-500/30 rounded-xl pl-11 pr-4 py-2.5 text-sm transition-all font-semibold">
+                        <!-- Reset search btn -->
+                        <button id="search-clear-btn" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 hidden"><i class="fas fa-times-circle"></i></button>
+                    </div>
+
+                    <!-- Audio and Mobile Toggles -->
+                    <div class="flex items-center gap-2 flex-shrink-0 ml-auto md:ml-0">
+                        <!-- Sound Effects Toggle -->
+                        <button id="toggle-sfx" class="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 w-10 h-10 rounded-xl flex items-center justify-center transition-colors" title="Toggle Sound Effects">
+                            <i class="fas fa-volume-high"></i>
+                        </button>
+                        
+                        <!-- Sidebar Toggle (Mobile only) -->
+                        <button id="sidebar-toggle-btn" class="lg:hidden bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 w-10 h-10 rounded-xl flex items-center justify-center transition-colors">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MAIN WORKSPACE VIEWS -->
+                <div id="games-workspace" class="w-full flex-1">
+                    <!-- VIEW 1: DASHBOARD HUB (Active when no route hash is loaded) -->
+                    <div id="view-dashboard" class="flex flex-col gap-8 w-full">
+                        <!-- Hero retro console banner -->
+                        <div class="glassmorphism rounded-2xl p-6 md:p-8 relative overflow-hidden flex flex-col md:flex-row justify-between gap-6 md:items-center gaming-glow">
+                            <!-- Overlay gradients -->
+                            <div class="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-indigo-500/10 opacity-30 z-0"></div>
+                            
+                            <div class="flex flex-col gap-3 max-w-[620px] relative z-10">
+                                <span class="text-xs font-bold text-primary-500 font-display uppercase tracking-widest flex items-center gap-1.5"><i class="fas fa-microchip"></i> HTML5 Canvas Arcade</span>
+                                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight font-display tracking-wide uppercase">Retro Gaming Center</h2>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Fast-loading retro browser mini-games. Complete achievements, secure high-score tracking, and 100% locally synthesized sounds. Play on desktop or mobile!</p>
+                            </div>
+                            
+                            <div class="flex flex-col gap-2 relative z-10 flex-shrink-0 text-right">
+                                <div class="bg-primary-500/15 text-primary-500 text-[11px] font-bold border border-primary-500/20 px-3 py-1.5 rounded-full flex items-center gap-1.5 justify-center md:justify-end"><i class="fas fa-trophy"></i> Cabinet Active</div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION: RECENTLY PLAYED -->
+                        <div id="section-recently-played" class="flex flex-col gap-4 hidden">
+                            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2"><i class="fas fa-history"></i> Continue Game</h3>
+                            <div id="recently-played-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <!-- Injected dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- SECTION: DYNAMICALLY FILTERED GAMES GRID -->
+                        <div class="flex flex-col gap-4">
+                            <h3 id="current-category-title" class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2"><i class="fas fa-gamepad"></i> Game studio roster</h3>
+                            <div id="games-grid-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <!-- Cards rendered dynamically -->
+                            </div>
+                            
+                            <!-- Search Not Found -->
+                            <div id="search-not-found-card" class="glassmorphism rounded-2xl p-12 flex flex-col items-center justify-center text-center gap-4 hidden">
+                                <div class="bg-rose-500/10 text-rose-500 text-4xl w-16 h-16 rounded-full flex items-center justify-center border border-rose-500/20"><i class="fas fa-triangle-exclamation"></i></div>
+                                <h3 class="font-extrabold text-lg text-slate-900 dark:text-white">No games found matching your search query</h3>
+                                <p class="text-sm text-slate-400 max-w-sm">Try searching alternative keywords like Tetris, Pong, Snake, Space, or Puzzle.</p>
+                                <button id="reset-search-notfound-btn" class="bg-primary-500 hover:bg-primary-600 text-white font-semibold text-sm px-5 py-2 rounded-xl transition-colors mt-2 shadow-lg">Reset Search</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VIEW 2: ACTIVE GAME PLAY ARENA (Active when hash router loads a game id) -->
+                    <div id="view-game-workspace" class="w-full hidden">
+                        <!-- Play arena Card -->
+                        <div class="glassmorphism rounded-2xl p-4 md:p-6 flex flex-col gap-6 game-fade-in relative z-10">
+                            <!-- Header actions -->
+                            <div class="flex justify-between items-center gap-4">
+                                <div class="flex flex-col gap-1">
+                                    <div class="flex items-center gap-2 text-xs font-semibold text-slate-400">
+                                        <a href="#/" class="hover:text-primary-500 transition-colors">Games</a>
+                                        <i class="fas fa-chevron-right text-[10px]"></i>
+                                        <span id="game-breadcrumbs-cat">Arcade</span>
+                                    </div>
+                                    <h2 id="active-game-title" class="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white flex items-center gap-3 font-display uppercase tracking-wide">Game Title</h2>
+                                </div>
+
+                                <!-- Action buttons -->
+                                <div class="flex items-center gap-2 select-none">
+                                    <button id="game-restart-btn" class="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-300 w-10 h-10 rounded-xl flex items-center justify-center transition-colors" title="Restart Game">
+                                        <i class="fas fa-arrows-rotate"></i>
+                                    </button>
+                                    <button id="game-fullscreen-btn" class="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-300 w-10 h-10 rounded-xl flex items-center justify-center transition-colors" title="Toggle Fullscreen">
+                                        <i class="fas fa-expand"></i>
+                                    </button>
+                                    <a href="#/" class="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-300 px-4 h-10 rounded-xl flex items-center gap-1.5 font-semibold text-sm transition-colors">
+                                        <i class="fas fa-chevron-left"></i> Exit Game
+                                    </a>
+                                </div>
+                            </div>
+
+                            <hr class="border-slate-100 dark:border-darkborder">
+
+                            <!-- ACTIVE INTERACTIVE SCREEN STAGE -->
+                            <div id="game-stage-wrapper" class="w-full flex flex-col md:flex-row gap-6 items-stretch">
+                                <!-- LEFT PANEL: ACTUAL RENDER CONTAINER -->
+                                <div class="flex-1 flex flex-col gap-4 min-h-[380px] bg-slate-950 border border-slate-800 rounded-2xl p-4 items-center justify-center relative overflow-hidden scanlines shadow-inner select-none" id="game-play-area">
+                                    <!-- Embedded dynamically by script -->
+                                </div>
+
+                                <!-- RIGHT PANEL: STATS / DETAILS SIDEBAR -->
+                                <div class="w-full md:w-72 flex flex-col gap-4 justify-between">
+                                    <div class="flex flex-col gap-4">
+                                        <!-- Score Card metrics -->
+                                        <div class="glassmorphism rounded-xl p-4 flex flex-col gap-2 shadow-inner">
+                                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-display">Score Panel</span>
+                                            <div class="flex justify-between items-center">
+                                                <span class="text-xs font-semibold text-slate-500">Current score:</span>
+                                                <span id="game-score-val" class="text-xl font-extrabold text-primary-500 font-display">0</span>
+                                            </div>
+                                            <div class="flex justify-between items-center border-t border-slate-100 dark:border-darkborder pt-2">
+                                                <span class="text-xs font-semibold text-slate-500">Your high score:</span>
+                                                <span id="game-highscore-val" class="text-lg font-bold text-emerald-500 font-display">0</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Achievement Badge targets -->
+                                        <div class="glassmorphism rounded-xl p-4 flex flex-col gap-2">
+                                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-display">Target Achievements</span>
+                                            <div id="game-achieve-box" class="flex flex-col gap-2.5">
+                                                <!-- Dynamic list of tasks/achievements -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Guidelines panel -->
+                                    <div class="glassmorphism rounded-xl p-4 flex flex-col gap-2">
+                                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-display"><i class="fas fa-keyboard"></i> Control guide</span>
+                                        <p id="game-controls-desc" class="text-xs text-slate-500 leading-relaxed">Keyboard controls listed here</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Global particles canvas for victory confetti -->
+    <canvas id="victory-confetti-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-50" style="display: none;"></canvas>
+
+    <!-- Global Toast Alert Cabinet -->
+    <div id="global-toast-container" class="fixed bottom-6 right-6 flex flex-col gap-2 z-50 pointer-events-none"></div>
+
+    <!-- External and modular script loadings -->
+    <script defer src="../assets/js/tools-games-layout.js"></script>
+    <script src="./js/games-implementations.js"></script>
+    <script src="./js/games-app.js"></script>
 </body>
 </html>
