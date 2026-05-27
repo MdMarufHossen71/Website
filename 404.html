@@ -4,101 +4,437 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page Not Found | Md Maruf Hossen - Digital Marketer & Graphic Designer</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="Design/style.css">
     
-    <meta name="description" content="Page not found. Return to Md Maruf Hossen's portfolio for digital marketing and graphic design services.">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Page not found. Return to Md Maruf Hossen's portfolio for digital marketing, SEO, social media marketing, and graphic design services in Bangladesh.">
     <meta name="robots" content="noindex, nofollow">
     <link rel="canonical" href="https://mdmarufhossen71.site/">
+    
+    <!-- Analytics Integration -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6643839621415615" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-52XK1Y68N8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-52XK1Y68N8');
+    </script>
+    
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-5J6T4SNR');
+    </script>
+    
+    <!-- Ahrefs Analytics -->
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="jUEeMB4OBZepSmnosajlnQ" async></script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation Header matching index.html -->
+    <header class="site-header" role="banner">
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Primary navigation">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">
-                <span class="logo-text">Maruf</span>
-                <span class="logo-dot">.</span>
+            <a href="index.html" class="nav-logo" aria-label="Md Maruf Hossen - Home">
+                <span class="logo-text-wrap">
+                    <span class="logo-text">Maruf</span>
+                    <span class="logo-dot">.</span>
+                </span>
+                <span class="logo-subtitle">Digital Marketer</span>
             </a>
-            <div class="nav-menu" id="nav-menu">
-                <a href="index.html#home" class="nav-link">Home</a>
-                <a href="index.html#about" class="nav-link">About</a>
-                <a href="index.html#services" class="nav-link">Services</a>
-                <a href="index.html#portfolio" class="nav-link">Portfolio</a>
-                <a href="index.html#contact" class="nav-link">Contact</a>
-                <a href="blog/" class="nav-link">Blog</a>
+            <div class="nav-menu" id="nav-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation menu">
+                <ul class="nav-list">
+                    <li><a href="index.html#home" class="nav-link">Home</a></li>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
+                    <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                    <li><a href="blog/" class="nav-link" aria-label="Visit Digital Marketing Blog">Blog</a></li>
+                    <li class="nav-dropdown">
+                        <button type="button" class="nav-link nav-dropdown-toggle" aria-expanded="false">Explore <i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+                        <ul class="nav-dropdown-menu">
+                            <li><a href="tools/" class="nav-link">Tools</a></li>
+                            <li><a href="games/" class="nav-link">Games</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-            <div class="nav-toggle" id="nav-toggle">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+            <div class="nav-actions">
+                <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle light or dark theme" title="Toggle Light/Dark Theme">
+                    <i class="fas fa-sun sun-icon"></i>
+                    <i class="fas fa-moon moon-icon"></i>
+                </button>
+                <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
             </div>
         </div>
     </nav>
+    </header>
 
-    <!-- 404 Error Section -->
-    <section class="hero" style="min-height: 100vh; display: flex; align-items: center;">
-        <div class="container">
-            <div class="hero-container" style="text-align: center; max-width: 800px; margin: 0 auto; padding: 2rem;">
-                <div class="hero-content">
-                    <div class="hero-badge" style="background: #ef4444; color: white; margin-bottom: 2rem;">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <span>404 Error</span>
+    <main id="main-content">
+        <!-- 404 Hero Section with interactive playground -->
+        <section class="error-hero" style="position: relative; overflow: hidden; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 120px 20px 60px 20px;">
+            <!-- Floating Glowing Background Blobs -->
+            <div class="glow-blob blob-1"></div>
+            <div class="glow-blob blob-2"></div>
+            
+            <div class="error-page-container">
+                <!-- 404 Header Meta -->
+                <div class="error-badge-container">
+                    <div class="error-badge">
+                        <i class="fas fa-compass animated-compass"></i>
+                        <span>Error 404</span>
                     </div>
-                    <h1 class="hero-title" style="font-size: clamp(3rem, 6vw, 5rem); margin-bottom: 2rem; color: var(--text-primary);">
-                        Oops! Page Not Found
-                    </h1>
-                    <p class="hero-description" style="font-size: 1.25rem; margin-bottom: 3rem; color: var(--text-secondary); line-height: 1.6;">
-                        The page you're looking for doesn't exist or has been moved. Let's get you back to exploring my digital marketing and design services.
-                    </p>
-                    
-                    <div class="hero-buttons">
-                        <a href="index.html" class="btn btn-primary">
-                            <i class="fas fa-home"></i>
-                            Back to Home
-                        </a>
-                        <a href="index.html#portfolio" class="btn btn-secondary">
-                            <i class="fas fa-eye"></i>
-                            View Portfolio
-                        </a>
+                </div>
+
+                <h1 class="error-main-title">Oops! You've Gone Off-Grid</h1>
+                <p class="error-subtitle">
+                    The requested creative campaign or design layout is currently missing. Switch perspectives below to help debug this page, or navigate back to the main site!
+                </p>
+
+                <!-- Perspective Switcher Capsule Toggle -->
+                <div class="perspective-toggle-wrapper">
+                    <div class="perspective-toggle-container">
+                        <button type="button" class="perspective-btn active" id="btn-designer" aria-pressed="true">
+                            <i class="fas fa-bezier-curve"></i>
+                            <span>Graphic Designer</span>
+                        </button>
+                        <button type="button" class="perspective-btn" id="btn-marketer" aria-pressed="false">
+                            <i class="fas fa-funnel-dollar"></i>
+                            <span>Digital Marketer</span>
+                        </button>
                     </div>
-                    
-                    <div class="popular-links" style="margin-top: 3rem; padding: 2rem; background: var(--bg-secondary); border-radius: var(--border-radius);">
-                        <h3 style="margin-bottom: 1.5rem; color: var(--text-primary);">Popular Pages</h3>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                            <a href="index.html#services" style="display: flex; align-items: center; gap: 0.5rem; padding: 1rem; background: white; border-radius: 8px; text-decoration: none; color: var(--text-primary); transition: var(--transition);">
-                                <i class="fas fa-bullhorn" style="color: var(--primary-color);"></i>
-                                <span>Digital Marketing Services</span>
-                            </a>
-                            <a href="index.html#about" style="display: flex; align-items: center; gap: 0.5rem; padding: 1rem; background: white; border-radius: 8px; text-decoration: none; color: var(--text-primary); transition: var(--transition);">
-                                <i class="fas fa-user" style="color: var(--primary-color);"></i>
-                                <span>About Me</span>
-                            </a>
-                            <a href="blog/" style="display: flex; align-items: center; gap: 0.5rem; padding: 1rem; background: white; border-radius: 8px; text-decoration: none; color: var(--text-primary); transition: var(--transition);">
-                                <i class="fas fa-blog" style="color: var(--primary-color);"></i>
-                                <span>Marketing Blog</span>
-                            </a>
-                            <a href="index.html#contact" style="display: flex; align-items: center; gap: 0.5rem; padding: 1rem; background: white; border-radius: 8px; text-decoration: none; color: var(--text-primary); transition: var(--transition);">
-                                <i class="fas fa-envelope" style="color: var(--primary-color);"></i>
-                                <span>Contact Me</span>
-                            </a>
+                </div>
+
+                <!-- PERSPECTIVE 1: GRAPHIC DESIGNER CANVAS MOCKUP -->
+                <div class="playground-panel" id="panel-designer">
+                    <div class="figma-mockup">
+                        <!-- Toolbar -->
+                        <div class="figma-toolbar">
+                            <div class="toolbar-left">
+                                <span class="figma-logo-icon">F</span>
+                                <span class="figma-project-title">404-canvas-layer.fig</span>
+                            </div>
+                            <div class="toolbar-tools">
+                                <span class="tool-btn active" title="Move Tool"><i class="fas fa-mouse-pointer"></i></span>
+                                <span class="tool-btn" title="Rectangle"><i class="far fa-square"></i></span>
+                                <span class="tool-btn" title="Circle"><i class="far fa-circle"></i></span>
+                                <span class="tool-btn" title="Pen Tool"><i class="fas fa-pen"></i></span>
+                                <span class="tool-btn" title="Text"><i class="fas fa-font"></i></span>
+                            </div>
+                            <div class="toolbar-right">
+                                <span class="user-avatar" style="background-color: var(--primary-color);">M</span>
+                                <span class="share-btn">Share</span>
+                            </div>
+                        </div>
+
+                        <!-- Workspace Main Area -->
+                        <div class="figma-workspace">
+                            <!-- Left Sidebar: Layers Panel -->
+                            <aside class="figma-sidebar layers-panel">
+                                <div class="panel-section-header">
+                                    <span>Layers</span>
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                                <ul class="layers-list">
+                                    <li class="layer-item active" data-target="designer-vector-text">
+                                        <i class="fas fa-font text-layer-color"></i>
+                                        <span>Text: 404_ERROR</span>
+                                        <button class="layer-toggle-vis" title="Toggle Visibility" onclick="toggleLayerVis('designer-vector-text', this)"><i class="fas fa-eye"></i></button>
+                                    </li>
+                                    <li class="layer-item" data-target="shape-circle">
+                                        <i class="far fa-circle circle-layer-color"></i>
+                                        <span>Vector: Neon Circle</span>
+                                        <button class="layer-toggle-vis" title="Toggle Visibility" onclick="toggleLayerVis('shape-circle', this)"><i class="fas fa-eye"></i></button>
+                                    </li>
+                                    <li class="layer-item" data-target="shape-rect">
+                                        <i class="far fa-square rect-layer-color"></i>
+                                        <span>Vector: Accent Rect</span>
+                                        <button class="layer-toggle-vis" title="Toggle Visibility" onclick="toggleLayerVis('shape-rect', this)"><i class="fas fa-eye"></i></button>
+                                    </li>
+                                    <li class="layer-item" data-target="shape-poly">
+                                        <i class="fas fa-caret-up poly-layer-color"></i>
+                                        <span>Vector: Star Triangle</span>
+                                        <button class="layer-toggle-vis" title="Toggle Visibility" onclick="toggleLayerVis('shape-poly', this)"><i class="fas fa-eye"></i></button>
+                                    </li>
+                                </ul>
+                                <div class="figma-instructions">
+                                    <p><i class="fas fa-info-circle"></i> Drag vector elements inside the canvas freely!</p>
+                                </div>
+                            </aside>
+
+                            <!-- Interactive Canvas Screen -->
+                            <div class="figma-canvas-view">
+                                <div class="figma-canvas-info">Canvas: 404 Error Artboard (800 x 480 px)</div>
+                                <div class="figma-artboard" id="figma-artboard">
+                                    <!-- Draggable Shapes -->
+                                    <div class="canvas-shape shape-circle style-glow" id="shape-circle" style="transform: translate(60px, 80px);"></div>
+                                    <div class="canvas-shape shape-rect style-glow" id="shape-rect" style="transform: translate(500px, 180px);"></div>
+                                    <div class="canvas-shape shape-poly style-glow" id="shape-poly" style="transform: translate(120px, 240px);"></div>
+
+                                    <!-- Main Draggable 404 Text -->
+                                    <div class="canvas-text style-glow" id="designer-vector-text" style="transform: translate(0px, 0px);">
+                                        <div class="designer-text-value">404</div>
+                                        <div class="designer-text-sub">Page Missing</div>
+                                    </div>
+                                    
+                                    <!-- Help tip overlay -->
+                                    <div class="artboard-guide">Drag elements & adjust properties on the right panel</div>
+                                </div>
+                            </div>
+
+                            <!-- Right Sidebar: Properties Panel -->
+                            <aside class="figma-sidebar properties-panel">
+                                <div class="panel-section">
+                                    <div class="panel-section-header">Alignment</div>
+                                    <div class="align-grid">
+                                        <button class="align-btn" onclick="alignCanvas('left')" title="Align Left"><i class="fas fa-align-left"></i></button>
+                                        <button class="align-btn" onclick="alignCanvas('center')" title="Align Center"><i class="fas fa-align-center"></i></button>
+                                        <button class="align-btn" onclick="alignCanvas('right')" title="Align Right"><i class="fas fa-align-right"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="panel-section">
+                                    <div class="panel-section-header">Transform Controls</div>
+                                    <div class="property-row">
+                                        <label for="designer-scale">Scale: <span id="val-scale">1.0x</span></label>
+                                        <input type="range" id="designer-scale" min="0.5" max="2.0" step="0.05" value="1.0">
+                                    </div>
+                                    <div class="property-row">
+                                        <label for="designer-rotate">Rotation: <span id="val-rotate">0°</span></label>
+                                        <input type="range" id="designer-rotate" min="-180" max="180" value="0">
+                                    </div>
+                                </div>
+
+                                <div class="panel-section">
+                                    <div class="panel-section-header">Color Customizer</div>
+                                    <div class="color-palette">
+                                        <button class="color-swatch active" style="background-color: #6366f1;" data-color="#6366f1" title="Indigo"></button>
+                                        <button class="color-swatch" style="background-color: #ec4899;" data-color="#ec4899" title="Pink"></button>
+                                        <button class="color-swatch" style="background-color: #10b981;" data-color="#10b981" title="Emerald"></button>
+                                        <button class="color-swatch" style="background-color: #f59e0b;" data-color="#f59e0b" title="Amber"></button>
+                                        <button class="color-swatch" style="background-color: #8b5cf6;" data-color="#8b5cf6" title="Purple"></button>
+                                    </div>
+                                    <div class="property-row custom-color-picker">
+                                        <label for="color-picker-input">Custom Hex:</label>
+                                        <div class="color-picker-wrapper">
+                                            <input type="color" id="color-picker-input" value="#6366f1">
+                                            <span id="hex-code-value">#6366f1</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel-section">
+                                    <div class="panel-section-header">Layer Style Presets</div>
+                                    <div class="style-presets">
+                                        <button class="preset-btn active" data-preset="glow">Glow Neon</button>
+                                        <button class="preset-btn" data-preset="flat">Sleek Flat</button>
+                                        <button class="preset-btn" data-preset="glass">Glassmorphism</button>
+                                        <button class="preset-btn" data-preset="outline">Wire Outline</button>
+                                    </div>
+                                </div>
+                            </aside>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+                <!-- PERSPECTIVE 2: DIGITAL MARKETER DASHBOARD MOCKUP -->
+                <div class="playground-panel" id="panel-marketer" style="display: none;">
+                    <div class="analytics-mockup">
+                        <!-- Dashboard Navbar -->
+                        <div class="analytics-header">
+                            <div class="dashboard-logo">
+                                <i class="fas fa-chart-bar logo-analytics-color"></i>
+                                <span>Maruf Ads Manager</span>
+                            </div>
+                            <div class="campaign-selector">
+                                <span class="active-dot"></span>
+                                <span>Campaign: <strong>[ERROR] 404 Target Audience Miss</strong></span>
+                            </div>
+                            <div class="header-actions">
+                                <span class="status-indicator live">● Active Learning</span>
+                            </div>
+                        </div>
+
+                        <!-- Statistics Grid -->
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-meta">
+                                    <span>Bounce Rate</span>
+                                    <i class="fas fa-door-open stat-icon-color"></i>
+                                </div>
+                                <div class="stat-value text-danger" id="stat-bounce">100%</div>
+                                <div class="stat-description desc-error" id="stat-bounce-desc">All campaigns bounced instantly.</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-meta">
+                                    <span>Conversions</span>
+                                    <i class="fas fa-bullseye stat-icon-color"></i>
+                                </div>
+                                <div class="stat-value" id="stat-conversions">0</div>
+                                <div class="stat-description" id="stat-conversions-desc">No conversion goals triggered.</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-meta">
+                                    <span>CTR (Click-Through)</span>
+                                    <i class="fas fa-mouse-pointer stat-icon-color"></i>
+                                </div>
+                                <div class="stat-value" id="stat-ctr">0.00%</div>
+                                <div class="stat-description" id="stat-ctr-desc">Zero potential buyers clicked.</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-meta">
+                                    <span>Ad ROI / ROAS</span>
+                                    <i class="fas fa-hand-holding-usd stat-icon-color"></i>
+                                </div>
+                                <div class="stat-value text-danger" id="stat-roi">-100%</div>
+                                <div class="stat-description desc-error" id="stat-roi-desc">Total budget sinks without trace.</div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Control Center -->
+                        <div class="analytics-row">
+                            <!-- Left Card: Budget Optimizer Slider -->
+                            <div class="control-card budget-slider-card">
+                                <h3 class="card-title"><i class="fas fa-sliders-h text-primary"></i> Budget Optimizer (ROAS Scaler)</h3>
+                                <p class="card-subtitle">Scale campaign budget in real-time to find this missing page.</p>
+                                
+                                <div class="budget-slider-section">
+                                    <div class="budget-values-header">
+                                        <span class="budget-label">Daily Budget Limit:</span>
+                                        <span class="budget-display-amount" id="budget-amount">$4.04</span>
+                                    </div>
+                                    <input type="range" id="marketer-budget" min="0" max="5" value="0" step="1">
+                                    <div class="budget-ticks">
+                                        <span>$0</span>
+                                        <span>$404</span>
+                                        <span>$4k</span>
+                                        <span>$40k</span>
+                                        <span>$250k</span>
+                                        <span>$1M</span>
+                                    </div>
+                                </div>
+
+                                <!-- Campaign Status alert -->
+                                <div class="campaign-status-alert status-level-0" id="campaign-status-box">
+                                    <div class="status-alert-header">
+                                        <i class="fas fa-exclamation-circle" id="status-icon"></i>
+                                        <strong id="status-title">Campaign Idle (ROAS Dead)</strong>
+                                    </div>
+                                    <p class="status-alert-body" id="status-message">
+                                        Budget set to absolute minimum. Your campaign is currently sleeping. No users can see this page, which is why it returned a 404 error!
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Right Card: Interactive SVG Chart -->
+                            <div class="control-card chart-card">
+                                <h3 class="card-title"><i class="fas fa-chart-line text-primary"></i> Live Performance Tracking Curve</h3>
+                                <p class="card-subtitle">Showing direct traffic correlation to marketing efforts.</p>
+                                <div class="chart-container">
+                                    <svg viewBox="0 0 500 180" class="performance-chart-svg">
+                                        <!-- Grid lines -->
+                                        <line x1="0" y1="30" x2="500" y2="30" stroke="rgba(229, 231, 235, 0.15)" stroke-dasharray="4" />
+                                        <line x1="0" y1="80" x2="500" y2="80" stroke="rgba(229, 231, 235, 0.15)" stroke-dasharray="4" />
+                                        <line x1="0" y1="130" x2="500" y2="130" stroke="rgba(229, 231, 235, 0.15)" stroke-dasharray="4" />
+                                        
+                                        <!-- Bending gradient area -->
+                                        <defs>
+                                            <linearGradient id="chart-glow-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                <stop offset="0%" stop-color="var(--primary-color)" stop-opacity="0.35" />
+                                                <stop offset="100%" stop-color="var(--primary-color)" stop-opacity="0.0" />
+                                            </linearGradient>
+                                        </defs>
+                                        <path id="chart-area" d="M 0,150 L 100,150 L 200,150 L 300,150 L 400,150 L 500,150 L 500,180 L 0,180 Z" fill="url(#chart-glow-gradient)" />
+                                        
+                                        <!-- Moving SVG Line -->
+                                        <path id="chart-line" d="M 0,150 L 100,150 L 200,150 L 300,150 L 400,150 L 500,150" fill="none" stroke="var(--primary-color)" stroke-width="4.5" stroke-linecap="round" />
+                                        
+                                        <!-- Interactive Pulsing Dot -->
+                                        <circle id="chart-pulse-dot" cx="500" cy="150" r="6" fill="#fff" stroke="var(--primary-color)" stroke-width="3" style="display: none;" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call-to-actions grid -->
+                <div class="error-actions-group">
+                    <div class="actions-buttons">
+                        <a href="index.html" class="btn btn-primary btn-icon-slide">
+                            <i class="fas fa-home"></i>
+                            <span>Return to Home</span>
+                        </a>
+                        <a href="index.html#portfolio" class="btn btn-secondary btn-icon-slide">
+                            <i class="fas fa-eye"></i>
+                            <span>Explore Portfolio</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Popular Directory grid links -->
+                <div class="error-popular-links">
+                    <h3 class="popular-links-title">Quick Diagnostic Links</h3>
+                    <div class="popular-links-grid">
+                        <a href="index.html#services" class="popular-link-card">
+                            <i class="fas fa-bullhorn card-icon"></i>
+                            <div class="link-card-meta">
+                                <strong>Digital Marketing</strong>
+                                <span>See marketing strategies</span>
+                            </div>
+                        </a>
+                        <a href="index.html#about" class="popular-link-card">
+                            <i class="fas fa-user-tie card-icon"></i>
+                            <div class="link-card-meta">
+                                <strong>About Maruf</strong>
+                                <span>Read professional journey</span>
+                            </div>
+                        </a>
+                        <a href="blog/" class="popular-link-card">
+                            <i class="fas fa-newspaper card-icon"></i>
+                            <div class="link-card-meta">
+                                <strong>Creative Blog</strong>
+                                <span>Industry insights & tips</span>
+                            </div>
+                        </a>
+                        <a href="index.html#contact" class="popular-link-card">
+                            <i class="fas fa-paper-plane card-icon"></i>
+                            <div class="link-card-meta">
+                                <strong>Contact Now</strong>
+                                <span>Start a new campaign</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer matching index.html -->
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <a href="index.html" class="footer-logo">
+                    <a href="index.html" class="footer-logo" aria-label="Md Maruf Hossen - Logo">
                         <span class="logo-text">Maruf</span>
                         <span class="logo-dot">.</span>
                     </a>
-                    <p>Professional Digital Marketer & Graphic Designer in Bangladesh helping businesses grow through strategic marketing and compelling design.</p>
+                    <p>Professional Digital Marketer & Graphic Designer in Bangladesh helping businesses grow through strategic social media marketing, SEO optimization, and compelling visual design solutions.</p>
                 </div>
                 
                 <div class="footer-links">
@@ -113,51 +449,1719 @@
                     </div>
                     
                     <div class="footer-column">
-                        <h4>Services</h4>
+                        <h4>Design Services</h4>
                         <ul>
-                            <li><a href="index.html#services">Digital Marketing</a></li>
-                            <li><a href="index.html#services">Brand Identity</a></li>
-                            <li><a href="index.html#services">Web Design</a></li>
-                            <li><a href="index.html#services">Print Design</a></li>
+                            <li><a href="index.html#services">Professional Brand Identity</a></li>
+                            <li><a href="index.html#services">Custom Logo Design</a></li>
+                            <li><a href="index.html#services">SEO Web Design</a></li>
+                            <li><a href="index.html#services">Professional Print Design</a></li>
                         </ul>
                     </div>
                     
                     <div class="footer-column">
-                        <h4>Connect</h4>
+                        <h4>Connect & Learn</h4>
                         <ul>
-                            <li><a href="index.html#contact">Contact</a></li>
                             <li><a href="blog/">Blog</a></li>
-                            <li><a href="mailto:official@mdmarufhossen71.site">Email</a></li>
+                            <li><a href="tools/">Tools</a></li>
+                            <li><a href="games/">Games</a></li>
+                            <li><a href="index.html#contact">Contact for Projects</a></li>
+                            <li><a href="mailto:official@mdmarufhossen71.site">Business Email</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Trust & Legal</h4>
+                        <ul>
+                            <li><a href="about-this-website.html">About This Website</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="terms-and-conditions.html">Terms &amp; Conditions</a></li>
+                            <li><a href="disclaimer.html">Disclaimer</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2025 Md Maruf Hossen. All rights reserved.</p>
-                <p>Professional Portfolio Designed & Developed with <i class="fas fa-heart"></i> by Maruf</p>
+                <p>&copy; 2026 Md Maruf Hossen. All rights reserved.</p>
+                <p>Professional Portfolio Designed & Developed with <i class="fas fa-heart"></i> by Maruf in Bangladesh</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="JavaScript/script.js"></script>
-    
+    <!-- CSS STYLING OVERLAYS (SPECIFICALLY FOR REDESIGNED 404 COMPONENTS) -->
     <style>
-        .popular-links a:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+        /* Scoped styling variables for 404 error page */
+        :root {
+            --canvas-fill: #6366f1;
+            --canvas-fill-glow: rgba(99, 102, 241, 0.4);
+            --figma-bg: #1e1e1e;
+            --figma-border: #2c2c2c;
+            --figma-text-mute: #8e8e8e;
+            --figma-text-light: #e5e5e5;
+            --analytics-bg: #0f172a;
+            --analytics-border: #1e293b;
+            --analytics-card-bg: #1e293b;
+        }
+
+        [data-theme="light"] {
+            --figma-bg: #f3f4f6;
+            --figma-border: #d1d5db;
+            --figma-text-mute: #6b7280;
+            --figma-text-light: #1f2937;
+            --analytics-bg: #f8fafc;
+            --analytics-border: #e2e8f0;
+            --analytics-card-bg: #ffffff;
+        }
+
+        /* Ambient glowing backgrounds */
+        .glow-blob {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.0) 70%);
+            z-index: 1;
+            filter: blur(80px);
+            pointer-events: none;
+            animation: floatBlob 25s infinite alternate ease-in-out;
+        }
+        .blob-1 {
+            top: 10%;
+            left: -100px;
+        }
+        .blob-2 {
+            bottom: 20%;
+            right: -100px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(99, 102, 241, 0.0) 70%);
+            animation-duration: 30s;
+        }
+
+        @keyframes floatBlob {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(80px, 40px) scale(1.2); }
+            100% { transform: translate(-40px, -60px) scale(0.9); }
+        }
+
+        /* 404 Content Container Layout */
+        .error-page-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Error Header Elements */
+        .error-badge-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .error-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 18px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-color);
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08);
+        }
+
+        .animated-compass {
+            animation: spinCompass 6s infinite linear;
+        }
+
+        @keyframes spinCompass {
+            0% { transform: rotate(0deg); }
+            10% { transform: rotate(45deg); }
+            45% { transform: rotate(45deg); }
+            55% { transform: rotate(-45deg); }
+            85% { transform: rotate(-45deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .error-main-title {
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        .error-subtitle {
+            font-size: 1.15rem;
+            max-width: 720px;
+            margin: 0 auto 36px auto;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Perspective Switcher Buttons */
+        .perspective-toggle-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .perspective-toggle-container {
+            display: inline-flex;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 100px;
+            padding: 5px;
+            gap: 5px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .perspective-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 22px;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .perspective-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .perspective-btn.active {
+            background: var(--primary-color);
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Panels Shared Layout */
+        .playground-panel {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(12px);
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+            text-align: left;
+            margin-bottom: 48px;
+            animation: panelFade 0.4s ease-out;
+            border: 1px solid var(--border-color);
+        }
+
+        @keyframes panelFade {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* FIGMA MOCKUP INTERFACE */
+        .figma-mockup {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 520px;
+            background-color: var(--figma-bg);
+            color: var(--figma-text-light);
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 13px;
+        }
+
+        .figma-toolbar {
+            height: 48px;
+            background-color: var(--figma-bg);
+            border-bottom: 1px solid var(--figma-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            user-select: none;
+        }
+
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .figma-logo-icon {
+            background: linear-gradient(180deg, #f24e1e 0%, #a259ff 100%);
+            color: white;
+            font-weight: 800;
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-family: Inter, sans-serif;
+        }
+
+        .figma-project-title {
+            font-weight: 500;
+            color: var(--figma-text-light);
+        }
+
+        .toolbar-tools {
+            display: flex;
+            gap: 4px;
+        }
+
+        .tool-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--figma-text-mute);
+            transition: var(--transition);
+        }
+
+        .tool-btn:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: var(--figma-text-light);
+        }
+
+        .tool-btn.active {
+            background-color: rgba(99, 102, 241, 0.15);
+            color: var(--primary-color) !important;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+        }
+
+        .share-btn {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .figma-workspace {
+            display: flex;
+            flex: 1;
+            height: calc(100% - 48px);
+            overflow: hidden;
+        }
+
+        .figma-sidebar {
+            width: 220px;
+            background-color: var(--figma-bg);
+            border-color: var(--figma-border);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            user-select: none;
+        }
+
+        .layers-panel {
+            border-right: 1px solid var(--figma-border);
+        }
+
+        .properties-panel {
+            border-left: 1px solid var(--figma-border);
+            padding: 16px;
+        }
+
+        .panel-section-header {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 0.5px;
+            color: var(--figma-text-mute);
+            padding: 14px 16px 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .layers-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .layer-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            color: var(--figma-text-mute);
+            transition: background 0.2s;
+            position: relative;
+        }
+
+        .layer-item:hover {
+            background-color: rgba(255, 255, 255, 0.04);
+            color: var(--figma-text-light);
+        }
+
+        .layer-item.active {
+            background-color: rgba(99, 102, 241, 0.08);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .layer-toggle-vis {
+            position: absolute;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--figma-text-mute);
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+
+        .layer-toggle-vis:hover {
+            opacity: 1;
+            color: var(--figma-text-light);
+        }
+
+        .text-layer-color { color: #f43f5e; }
+        .circle-layer-color { color: #3b82f6; }
+        .rect-layer-color { color: #10b981; }
+        .poly-layer-color { color: #f59e0b; }
+
+        .figma-instructions {
+            margin-top: auto;
+            padding: 16px;
+            color: var(--figma-text-mute);
+            font-size: 11px;
+            line-height: 1.4;
+            border-top: 1px solid var(--figma-border);
+        }
+
+        /* Artboard Main canvas frame */
+        .figma-canvas-view {
+            flex: 1;
+            background-color: var(--bg-secondary);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .figma-canvas-info {
+            font-size: 11px;
+            color: var(--figma-text-mute);
+            padding: 8px 16px;
+            border-bottom: 1px solid var(--figma-border);
+            background-color: var(--figma-bg);
+        }
+
+        .figma-artboard {
+            flex: 1;
+            margin: 20px;
+            border: 1px dashed var(--figma-text-mute);
+            border-radius: 8px;
+            position: relative;
+            background-image: radial-gradient(rgba(128, 128, 128, 0.15) 1.5px, transparent 1.5px);
+            background-size: 20px 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Draggable Design Assets */
+        .canvas-shape {
+            position: absolute;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+            transition: box-shadow 0.3s;
+            z-index: 10;
+        }
+
+        .canvas-shape:active {
+            cursor: grabbing;
+        }
+
+        .shape-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: rgba(59, 130, 246, 0.35);
+            border: 3px solid #3b82f6;
+        }
+
+        .shape-rect {
+            width: 100px;
+            height: 60px;
+            background-color: rgba(16, 185, 129, 0.3);
+            border: 3px solid #10b981;
+            border-radius: 8px;
+        }
+
+        .shape-poly {
+            width: 0;
+            height: 0;
+            border-left: 45px solid transparent;
+            border-right: 45px solid transparent;
+            border-bottom: 80px solid rgba(245, 158, 11, 0.3);
+            position: absolute;
+            background: none !important;
+            filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.3));
         }
         
-        @media (max-width: 768px) {
-            .popular-links {
-                padding: 1.5rem;
-            }
-            
-            .popular-links div {
+        .shape-poly::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: -45px;
+            width: 0;
+            height: 0;
+            border-left: 45px solid transparent;
+            border-right: 45px solid transparent;
+            border-bottom: 80px solid transparent;
+            border-bottom-color: #f59e0b;
+            transform: scale(0.92) translateY(5px);
+            pointer-events: none;
+        }
+
+        .canvas-text {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+            z-index: 15;
+            transform-origin: center center;
+        }
+
+        .canvas-text:active {
+            cursor: grabbing;
+        }
+
+        .designer-text-value {
+            font-size: 110px;
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -2px;
+            font-family: 'Inter', sans-serif;
+            color: var(--canvas-fill);
+            transition: color 0.2s;
+        }
+
+        .designer-text-sub {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-top: 10px;
+            color: var(--text-primary);
+        }
+
+        /* Preset Styles for designer vectors */
+        .style-glow .designer-text-value {
+            text-shadow: 0 0 15px var(--canvas-fill-glow), 0 0 30px var(--canvas-fill-glow);
+        }
+        .style-glow.shape-circle {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+        }
+        .style-glow.shape-rect {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .style-flat .designer-text-value {
+            text-shadow: none;
+        }
+        .style-flat.canvas-shape {
+            box-shadow: none !important;
+            background-color: transparent !important;
+        }
+        .style-flat.shape-circle { border-color: #3b82f6; background-color: #3b82f6 !important; }
+        .style-flat.shape-rect { border-color: #10b981; background-color: #10b981 !important; }
+        .style-flat.shape-poly { border-bottom-color: #f59e0b; }
+
+        .style-glass .designer-text-value {
+            color: rgba(255, 255, 255, 0.2);
+            -webkit-text-stroke: 1.5px var(--canvas-fill);
+            text-shadow: none;
+        }
+        .style-glass.canvas-shape {
+            background: rgba(255, 255, 255, 0.05) !important;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1) !important;
+        }
+
+        .style-outline .designer-text-value {
+            color: transparent;
+            -webkit-text-stroke: 2px var(--canvas-fill);
+            text-shadow: none;
+        }
+        .style-outline.canvas-shape {
+            background: transparent !important;
+            border-style: dashed !important;
+            box-shadow: none !important;
+        }
+        .style-outline.shape-poly::after {
+            border-bottom-style: dashed !important;
+            background: transparent !important;
+        }
+
+        .artboard-guide {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.65);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            pointer-events: none;
+            white-space: nowrap;
+            letter-spacing: 0.2px;
+        }
+
+        /* Properties Panel Controls */
+        .panel-section {
+            border-bottom: 1px solid var(--figma-border);
+            padding-bottom: 16px;
+            margin-bottom: 16px;
+        }
+
+        .panel-section:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .align-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+
+        .align-btn {
+            background-color: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--figma-border);
+            color: var(--figma-text-light);
+            border-radius: 4px;
+            padding: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .align-btn:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .property-row {
+            margin-top: 12px;
+        }
+
+        .property-row label {
+            display: flex;
+            justify-content: space-between;
+            color: var(--figma-text-mute);
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .property-row input[type="range"] {
+            width: 100%;
+            height: 4px;
+            background: var(--figma-border);
+            border-radius: 2px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .property-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .color-swatch {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.1);
+        }
+
+        .color-swatch.active {
+            border-color: white;
+            box-shadow: 0 0 0 2px var(--primary-color);
+        }
+
+        .custom-color-picker .color-picker-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .custom-color-picker input[type="color"] {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .custom-color-picker input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+
+        .custom-color-picker input[type="color"]::-webkit-color-swatch {
+            border: 1px solid var(--figma-border);
+            border-radius: 4px;
+        }
+
+        #hex-code-value {
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            color: var(--figma-text-light);
+        }
+
+        .style-presets {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .preset-btn {
+            background-color: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--figma-border);
+            color: var(--figma-text-light);
+            padding: 8px 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .preset-btn:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .preset-btn.active {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+        }
+
+        /* DIGITAL MARKETER DASHBOARD MOCKUP */
+        .analytics-mockup {
+            background-color: var(--analytics-bg);
+            color: var(--text-primary);
+            padding: 24px;
+            border-radius: var(--border-radius);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .analytics-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--analytics-border);
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .dashboard-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .logo-analytics-color { color: #10b981; }
+
+        .campaign-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            color: var(--text-primary);
+        }
+
+        .active-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulseActive 1.8s infinite;
+        }
+
+        @keyframes pulseActive {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+
+        .status-indicator.live {
+            font-size: 12px;
+            font-weight: 600;
+            color: #10b981;
+        }
+
+        /* Statistics Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background-color: var(--analytics-card-bg);
+            border: 1px solid var(--analytics-border);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .stat-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .stat-icon-color { color: rgba(16, 185, 129, 0.6); }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .stat-description {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .desc-error { color: #ef4444; }
+
+        /* Double Card Analytics Layout */
+        .analytics-row {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .analytics-row {
                 grid-template-columns: 1fr;
             }
         }
+
+        .control-card {
+            background-color: var(--analytics-card-bg);
+            border: 1px solid var(--analytics-border);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .budget-slider-section {
+            margin-bottom: 20px;
+        }
+
+        .budget-values-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .budget-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .budget-display-amount {
+            font-size: 20px;
+            font-weight: 800;
+            color: #10b981;
+            font-family: 'Fira Code', monospace;
+            background: rgba(16, 185, 129, 0.08);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+
+        /* Style Range input for marketer budget */
+        #marketer-budget {
+            width: 100%;
+            height: 8px;
+            background: var(--analytics-border);
+            border-radius: 10px;
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+
+        #marketer-budget::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #10b981;
+            border: 3px solid var(--analytics-card-bg);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(16, 185, 129, 0.4);
+            transition: var(--transition);
+        }
+
+        #marketer-budget::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            background: #059669;
+        }
+
+        .budget-ticks {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            padding: 0 4px;
+        }
+
+        /* Campaign Status Alert Alert Box */
+        .campaign-status-alert {
+            padding: 16px;
+            border-radius: 8px;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .status-alert-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .status-alert-body {
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* Status Colors Levels */
+        .status-level-0 {
+            background-color: rgba(148, 163, 184, 0.08);
+            border-color: rgba(148, 163, 184, 0.2);
+            color: var(--text-secondary);
+        }
+        .status-level-0 #status-icon { color: #94a3b8; }
+
+        .status-level-1 {
+            background-color: rgba(59, 130, 246, 0.08);
+            border-color: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+        .status-level-1 #status-icon { color: #3b82f6; }
+        .status-level-1 .status-alert-header { color: #3b82f6; }
+        .status-level-1 .status-alert-body { color: var(--text-primary); }
+
+        .status-level-2 {
+            background-color: rgba(245, 158, 11, 0.08);
+            border-color: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+        .status-level-2 #status-icon { color: #f59e0b; }
+        .status-level-2 .status-alert-header { color: #f59e0b; }
+        .status-level-2 .status-alert-body { color: var(--text-primary); }
+
+        .status-level-3 {
+            background-color: rgba(16, 185, 129, 0.08);
+            border-color: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+        .status-level-3 #status-icon { color: #10b981; }
+        .status-level-3 .status-alert-header { color: #10b981; }
+        .status-level-3 .status-alert-body { color: var(--text-primary); }
+
+        .status-level-4 {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            color: #8b5cf6;
+        }
+        .status-level-4 #status-icon { color: #ec4899; }
+        .status-level-4 .status-alert-header { color: #8b5cf6; font-weight: 700; }
+        .status-level-4 .status-alert-body { color: var(--text-primary); }
+
+        .status-level-5 {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(245, 158, 11, 0.12) 100%);
+            border: 1px dashed #ef4444;
+            color: #ef4444;
+            animation: statusGlitch 0.4s infinite alternate;
+        }
+        .status-level-5 #status-icon { color: #ef4444; }
+        .status-level-5 .status-alert-header { color: #ef4444; font-weight: 800; text-transform: uppercase; }
+        .status-level-5 .status-alert-body { color: var(--text-primary); }
+
+        @keyframes statusGlitch {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.01); box-shadow: 0 0 10px rgba(239, 68, 68, 0.1); }
+        }
+
+        /* SVG Chart Card Styling */
+        .chart-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 180px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            border: 1px solid var(--analytics-border);
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .performance-chart-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        #chart-line {
+            transition: d 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        #chart-area {
+            transition: d 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        #chart-pulse-dot {
+            transition: cx 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), cy 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* Navigation Buttons actions */
+        .error-actions-group {
+            margin-bottom: 56px;
+        }
+
+        .actions-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-icon-slide {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .btn-primary.btn-icon-slide {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);
+        }
+
+        .btn-primary.btn-icon-slide:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+        }
+
+        .btn-secondary.btn-icon-slide {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary.btn-icon-slide:hover {
+            background-color: var(--border-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Diagnostic Quick Directory Links */
+        .error-popular-links {
+            max-width: 860px;
+            margin: 0 auto;
+            border-top: 1px solid var(--border-color);
+            padding-top: 40px;
+        }
+
+        .popular-links-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .popular-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .popular-link-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            text-align: left;
+            transition: var(--transition);
+        }
+
+        .popular-link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+            background: var(--bg-primary);
+        }
+
+        .popular-link-card .card-icon {
+            font-size: 20px;
+            color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.08);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .link-card-meta {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .link-card-meta strong {
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .link-card-meta span {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        /* Fully Responsive Canvas overrides */
+        @media (max-width: 992px) {
+            .figma-sidebar {
+                display: none; /* Hide panels on smaller tablets for layout spacing */
+            }
+            .figma-mockup {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .error-main-title {
+                font-size: 2.25rem;
+            }
+            .error-subtitle {
+                font-size: 1rem;
+                margin-bottom: 24px;
+            }
+            .playground-panel {
+                margin-bottom: 32px;
+            }
+            .actions-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .btn-icon-slide {
+                justify-content: center;
+            }
+            .popular-links-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .stat-card {
+                padding: 14px;
+            }
+            .stat-value {
+                font-size: 20px;
+            }
+        }
     </style>
+
+    <!-- SCRIPTS FOR PLAYGROUND INTERACTIVITY -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- PERSPECTIVE PANEL SWITCHER SYSTEM ---
+            const btnDesigner = document.getElementById('btn-designer');
+            const btnMarketer = document.getElementById('btn-marketer');
+            const panelDesigner = document.getElementById('panel-designer');
+            const panelMarketer = document.getElementById('panel-marketer');
+
+            if (btnDesigner && btnMarketer) {
+                btnDesigner.addEventListener('click', () => {
+                    btnDesigner.classList.add('active');
+                    btnDesigner.setAttribute('aria-pressed', 'true');
+                    btnMarketer.classList.remove('active');
+                    btnMarketer.setAttribute('aria-pressed', 'false');
+                    panelDesigner.style.display = 'block';
+                    panelMarketer.style.display = 'none';
+                    alignCanvas('center'); // reset layout placement
+                });
+
+                btnMarketer.addEventListener('click', () => {
+                    btnMarketer.classList.add('active');
+                    btnMarketer.setAttribute('aria-pressed', 'true');
+                    btnDesigner.classList.remove('active');
+                    btnDesigner.setAttribute('aria-pressed', 'false');
+                    panelMarketer.style.display = 'block';
+                    panelDesigner.style.display = 'none';
+                    updateMarketerDashboard(); // trigger dashboard values calculate
+                });
+            }
+
+            // --- GRAPHIC DESIGNER: VECTOR DRAG AND DROP ---
+            const draggableIds = ['designer-vector-text', 'shape-circle', 'shape-rect', 'shape-poly'];
+            
+            draggableIds.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    makeElementDraggable(element);
+                }
+            });
+
+            function makeElementDraggable(element) {
+                let isDragging = false;
+                let startX = 0, startY = 0;
+                let initialX = 0, initialY = 0;
+
+                element.addEventListener('pointerdown', (e) => {
+                    // Make layers active on click
+                    document.querySelectorAll('.layers-list .layer-item').forEach(li => {
+                        li.classList.remove('active');
+                        if (li.getAttribute('data-target') === element.id) {
+                            li.classList.add('active');
+                        }
+                    });
+
+                    isDragging = true;
+                    element.style.cursor = 'grabbing';
+                    element.setPointerCapture(e.pointerId);
+
+                    const transform = window.getComputedStyle(element).transform;
+                    if (transform && transform !== 'none') {
+                        const matrix = new DOMMatrixReadOnly(transform);
+                        initialX = matrix.m41;
+                        initialY = matrix.m42;
+                    } else {
+                        initialX = 0;
+                        initialY = 0;
+                    }
+
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    e.preventDefault();
+                });
+
+                element.addEventListener('pointermove', (e) => {
+                    if (!isDragging) return;
+                    const dx = e.clientX - startX;
+                    const dy = e.clientY - startY;
+
+                    // Keep slider transform values
+                    const scaleVal = document.getElementById('designer-scale').value;
+                    const rotateVal = document.getElementById('designer-rotate').value;
+                    
+                    element.style.transform = `translate(${initialX + dx}px, ${initialY + dy}px) scale(${scaleVal}) rotate(${rotateVal}deg)`;
+                });
+
+                const stopDrag = (e) => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    element.style.cursor = 'grab';
+                    element.releasePointerCapture(e.pointerId);
+                };
+
+                element.addEventListener('pointerup', stopDrag);
+                element.addEventListener('pointercancel', stopDrag);
+            }
+
+            // Transform Sliders Listeners
+            const scaleSlider = document.getElementById('designer-scale');
+            const rotateSlider = document.getElementById('designer-rotate');
+            const valScaleLabel = document.getElementById('val-scale');
+            const valRotateLabel = document.getElementById('val-rotate');
+
+            if (scaleSlider && rotateSlider) {
+                const updateSelectedLayerTransform = () => {
+                    const activeLayer = document.querySelector('.layers-list .layer-item.active');
+                    if (activeLayer) {
+                        const targetId = activeLayer.getAttribute('data-target');
+                        const targetEl = document.getElementById(targetId);
+                        if (targetEl) {
+                            const scale = scaleSlider.value;
+                            const rotate = rotateSlider.value;
+                            valScaleLabel.textContent = scale + 'x';
+                            valRotateLabel.textContent = rotate + '°';
+
+                            // Extract existing translation coordinates
+                            let tx = 0, ty = 0;
+                            const transform = window.getComputedStyle(targetEl).transform;
+                            if (transform && transform !== 'none') {
+                                const matrix = new DOMMatrixReadOnly(transform);
+                                tx = matrix.m41;
+                                ty = matrix.m42;
+                            }
+                            targetEl.style.transform = `translate(${tx}px, ${ty}px) scale(${scale}) rotate(${rotate}deg)`;
+                        }
+                    }
+                };
+
+                scaleSlider.addEventListener('input', updateSelectedLayerTransform);
+                rotateSlider.addEventListener('input', updateSelectedLayerTransform);
+            }
+
+            // Sync Sliders when active layer changes
+            document.querySelectorAll('.layers-list .layer-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.layers-list .layer-item').forEach(li => li.classList.remove('active'));
+                    item.classList.add('active');
+
+                    const targetId = item.getAttribute('data-target');
+                    const targetEl = document.getElementById(targetId);
+                    if (targetEl) {
+                        // Extract current scale and rotate from matrix if possible
+                        const transform = window.getComputedStyle(targetEl).transform;
+                        let currentScale = 1.0;
+                        let currentRotate = 0;
+
+                        if (transform && transform !== 'none') {
+                            const matrix = new DOMMatrixReadOnly(transform);
+                            // Simple parsing of scale and rotate from matrix
+                            currentScale = Math.round(Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b) * 100) / 100;
+                            currentRotate = Math.round(Math.atan2(matrix.b, matrix.a) * (180 / Math.PI));
+                        }
+
+                        // update controls
+                        scaleSlider.value = currentScale;
+                        rotateSlider.value = currentRotate;
+                        valScaleLabel.textContent = currentScale + 'x';
+                        valRotateLabel.textContent = currentRotate + '°';
+                    }
+                });
+            });
+
+            // Color Customizer Swatches and Picker
+            const swatches = document.querySelectorAll('.color-swatch');
+            const colorPickerInput = document.getElementById('color-picker-input');
+            const hexCodeLabel = document.getElementById('hex-code-value');
+
+            function applyColor(color) {
+                document.documentElement.style.setProperty('--canvas-fill', color);
+                
+                // Convert hex to RGBA for glow fill
+                let r = 99, g = 102, b = 241;
+                if (color.startsWith('#')) {
+                    const hex = color.substring(1);
+                    if (hex.length === 6) {
+                        r = parseInt(hex.substring(0, 2), 16);
+                        g = parseInt(hex.substring(2, 4), 16);
+                        b = parseInt(hex.substring(4, 6), 16);
+                    }
+                }
+                document.documentElement.style.setProperty('--canvas-fill-glow', `rgba(${r}, ${g}, ${b}, 0.4)`);
+
+                if (colorPickerInput) colorPickerInput.value = color;
+                if (hexCodeLabel) hexCodeLabel.textContent = color.toUpperCase();
+            }
+
+            swatches.forEach(swatch => {
+                swatch.addEventListener('click', () => {
+                    swatches.forEach(s => s.classList.remove('active'));
+                    swatch.classList.add('active');
+                    const color = swatch.getAttribute('data-color');
+                    applyColor(color);
+                });
+            });
+
+            if (colorPickerInput) {
+                colorPickerInput.addEventListener('input', (e) => {
+                    const color = e.target.value;
+                    applyColor(color);
+                    // Remove active swatch styles since it's a custom color
+                    swatches.forEach(s => s.classList.remove('active'));
+                });
+            }
+
+            // Layer Preset Buttons
+            const presetBtns = document.querySelectorAll('.preset-btn');
+            presetBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    presetBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const preset = btn.getAttribute('data-preset');
+                    
+                    const targets = ['designer-vector-text', 'shape-circle', 'shape-rect', 'shape-poly'];
+                    targets.forEach(tid => {
+                        const tel = document.getElementById(tid);
+                        if (tel) {
+                            // Clear style classes
+                            tel.classList.remove('style-glow', 'style-flat', 'style-glass', 'style-outline');
+                            // Add selected style class
+                            tel.classList.add(`style-${preset}`);
+                        }
+                    });
+                });
+            });
+
+
+            // --- DIGITAL MARKETER: CAMPAIGN OPTIMIZER SYSTEM ---
+            const budgetSlider = document.getElementById('marketer-budget');
+            if (budgetSlider) {
+                budgetSlider.addEventListener('input', updateMarketerDashboard);
+            }
+
+            function updateMarketerDashboard() {
+                if (!budgetSlider) return;
+                const value = parseInt(budgetSlider.value);
+                
+                // DOM references
+                const budgetAmount = document.getElementById('budget-amount');
+                const bounceEl = document.getElementById('stat-bounce');
+                const conversionsEl = document.getElementById('stat-conversions');
+                const ctrEl = document.getElementById('stat-ctr');
+                const roiEl = document.getElementById('stat-roi');
+                
+                const bounceDesc = document.getElementById('stat-bounce-desc');
+                const conversionsDesc = document.getElementById('stat-conversions-desc');
+                const ctrDesc = document.getElementById('stat-ctr-desc');
+                const roiDesc = document.getElementById('stat-roi-desc');
+
+                const statusBox = document.getElementById('campaign-status-box');
+                const statusIcon = document.getElementById('status-icon');
+                const statusTitle = document.getElementById('status-title');
+                const statusMessage = document.getElementById('status-message');
+
+                const chartLine = document.getElementById('chart-line');
+                const chartArea = document.getElementById('chart-area');
+                const pulseDot = document.getElementById('chart-pulse-dot');
+
+                // Metric states dataset based on index (0 to 5)
+                const data = [
+                    {
+                        budget: "$4.04",
+                        bounce: "100%",
+                        conversions: "0",
+                        ctr: "0.00%",
+                        roi: "-100%",
+                        bounceDesc: "Total bounces detected. Absolute bounce.",
+                        conversionsDesc: "No client converted on this page.",
+                        ctrDesc: "Nobody clicked anything. No impressions.",
+                        roiDesc: "ROI is fully negative. Dry pipeline.",
+                        alertClass: "status-level-0",
+                        alertIcon: "fa-exclamation-circle",
+                        alertTitle: "Campaign Idle (ROAS Dead)",
+                        alertMsg: "Budget set to absolute minimum. Campaign is sleeping. No users can see this page, resulting in this 404 error!",
+                        chartLinePath: "M 0,150 L 100,150 L 200,150 L 300,150 L 400,150 L 500,150",
+                        chartAreaPath: "M 0,150 L 100,150 L 200,150 L 300,150 L 400,150 L 500,150 L 500,180 L 0,180 Z",
+                        dotX: 500, dotY: 150, dotVisible: false
+                    },
+                    {
+                        budget: "$404",
+                        bounce: "99.4%",
+                        conversions: "1",
+                        ctr: "0.45%",
+                        roi: "-98.2%",
+                        bounceDesc: "One user stayed. Likely a spider bot crawler.",
+                        conversionsDesc: "One accidental signup occurred.",
+                        ctrDesc: "Very sparse organic click-through events.",
+                        roiDesc: "Practically burning money. Keep scaling.",
+                        alertClass: "status-level-1",
+                        alertIcon: "fa-seedling",
+                        alertTitle: "Microsized Campaign (Learning)",
+                        alertMsg: "Low daily limits. The system is scanning keywords but can't find this page. CTR is microscopic. Bump budget to explore further!",
+                        chartLinePath: "M 0,150 Q 150,140 250,130 T 500,140",
+                        chartAreaPath: "M 0,150 Q 150,140 250,130 T 500,140 L 500,180 L 0,180 Z",
+                        dotX: 500, dotY: 140, dotVisible: true
+                    },
+                    {
+                        budget: "$4,040",
+                        bounce: "92.1%",
+                        conversions: "14",
+                        ctr: "1.65%",
+                        roi: "-76.5%",
+                        bounceDesc: "Minor decrease. Users quickly exits.",
+                        conversionsDesc: "Micro-conversions registered. High dropoff.",
+                        ctrDesc: "Slight interest from target custom audience.",
+                        roiDesc: "High Cost-Per-Click is eating our returns.",
+                        alertClass: "status-level-2",
+                        alertIcon: "fa-chart-line",
+                        alertTitle: "Campaign Active (Mid Tier)",
+                        alertMsg: "We are bidding on premium marketing keywords! Pixel is firing and tracking clicks, but users are still landing on this empty artboard.",
+                        chartLinePath: "M 0,150 Q 100,120 200,140 T 400,100 T 500,120",
+                        chartAreaPath: "M 0,150 Q 100,120 200,140 T 400,100 T 500,120 L 500,180 L 0,180 Z",
+                        dotX: 500, dotY: 120, dotVisible: true
+                    },
+                    {
+                        budget: "$40,400",
+                        bounce: "65.3%",
+                        conversions: "284",
+                        ctr: "4.80%",
+                        roi: "-12.4%",
+                        bounceDesc: "Bounces decreasing as target ads optimize.",
+                        conversionsDesc: "Healthy lead-gen submissions. High CPA.",
+                        ctrDesc: "Solid click rate on digital banners.",
+                        roiDesc: "Approaching break-even! ROAS improving.",
+                        alertClass: "status-level-3",
+                        alertIcon: "fa-rocket",
+                        alertTitle: "Hyper-Targeted Campaign (Scale)",
+                        alertMsg: "Optimization algorithm has locked in. Clicks are cascading and conversions are climbing. The campaign is scaling at massive speeds!",
+                        chartLinePath: "M 0,150 Q 80,90 180,130 T 350,60 T 500,75",
+                        chartAreaPath: "M 0,150 Q 80,90 180,130 T 350,60 T 500,75 L 500,180 L 0,180 Z",
+                        dotX: 500, dotY: 75, dotVisible: true
+                    },
+                    {
+                        budget: "$250,000",
+                        bounce: "34.1%",
+                        conversions: "3,820",
+                        ctr: "11.25%",
+                        roi: "+148%",
+                        bounceDesc: "Superb retention. Audience loves the visual design.",
+                        conversionsDesc: "Goal checklist completed at peak levels.",
+                        ctrDesc: "Sensational viral click-through scores.",
+                        roiDesc: "Highly lucrative! ROAS index 2.5x.",
+                        alertClass: "status-level-4",
+                        alertIcon: "fa-crown",
+                        alertTitle: "Full Funnel Overdrive (High ROAS)",
+                        alertMsg: "Incredible ad relevance score! Re-marketing funnel is capturing thousands of qualified leads. Retargeting is operating at peak productivity!",
+                        chartLinePath: "M 0,150 Q 80,50 180,120 T 320,30 T 500,20",
+                        chartAreaPath: "M 0,150 Q 80,50 180,120 T 320,30 T 500,20 L 500,180 L 0,180 Z",
+                        dotX: 500, dotY: 20, dotVisible: true
+                    },
+                    {
+                        budget: "$1,000,000",
+                        bounce: "0.04%",
+                        conversions: "404,000",
+                        ctr: "40.40%",
+                        roi: "+4040%",
+                        bounceDesc: "Absolute client retention. Retained permanently.",
+                        conversionsDesc: "We basically converted the planet.",
+                        ctrDesc: "Unbelievable click velocity, internet broke.",
+                        roiDesc: "ROAS is legendary. Infinite budget loop.",
+                        alertClass: "status-level-5",
+                        alertIcon: "fa-bomb",
+                        alertTitle: "Internet Domination (Maximum Scale)",
+                        alertMsg: "BOOM! You've funded the entire web. The CPC model has broken the space-time continuum. Google was purchased and we STILL can't find this page!",
+                        chartLinePath: "M 0,150 Q 50,120 120,60 T 250,10 T 380,-30 T 500,-80",
+                        chartAreaPath: "M 0,150 Q 50,120 120,60 T 250,10 T 380,-30 T 500,-80 L 500,180 L 0,180 Z",
+                        dotX: 500, dotY: -80, dotVisible: true
+                    }
+                ];
+
+                const current = data[value];
+
+                // Write text content
+                budgetAmount.textContent = current.budget;
+                bounceEl.textContent = current.bounce;
+                conversionsEl.textContent = current.conversions;
+                ctrEl.textContent = current.ctr;
+                roiEl.textContent = current.roi;
+
+                // Color overrides on positive conversions
+                if (value >= 4) {
+                    roiEl.className = "stat-value text-success";
+                    bounceEl.className = "stat-value text-success";
+                } else if (value === 3) {
+                    roiEl.className = "stat-value text-warning";
+                    bounceEl.className = "stat-value text-warning";
+                } else {
+                    roiEl.className = "stat-value text-danger";
+                    bounceEl.className = "stat-value text-danger";
+                }
+
+                bounceDesc.textContent = current.bounceDesc;
+                conversionsDesc.textContent = current.conversionsDesc;
+                ctrDesc.textContent = current.ctrDesc;
+                roiDesc.textContent = current.roiDesc;
+
+                // Update Status alert
+                statusBox.className = "campaign-status-alert " + current.alertClass;
+                statusIcon.className = "fas " + current.alertIcon;
+                statusTitle.textContent = current.alertTitle;
+                statusMessage.textContent = current.alertMsg;
+
+                // Update SVG Chart path bends
+                chartLine.setAttribute('d', current.chartLinePath);
+                chartArea.setAttribute('d', current.chartAreaPath);
+
+                if (pulseDot) {
+                    if (current.dotVisible) {
+                        pulseDot.style.display = 'block';
+                        pulseDot.setAttribute('cx', current.dotX);
+                        pulseDot.setAttribute('cy', current.dotY);
+                    } else {
+                        pulseDot.style.display = 'none';
+                    }
+                }
+            }
+        });
+
+        // Toggle Layer Visibility Helper (Graphic Designer Layers)
+        function toggleLayerVis(layerId, btn) {
+            const el = document.getElementById(layerId);
+            if (el) {
+                const isHidden = el.style.display === 'none';
+                el.style.display = isHidden ? '' : 'none';
+                
+                // Update button icon class
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    icon.className = isHidden ? 'fas fa-eye' : 'fas fa-eye-slash';
+                }
+                
+                // dim the layer item in list
+                const listItem = btn.closest('.layer-item');
+                if (listItem) {
+                    listItem.style.opacity = isHidden ? '1' : '0.4';
+                }
+            }
+        }
+
+        // Align Canvas helper
+        function alignCanvas(alignment) {
+            const targetEl = document.getElementById('designer-vector-text');
+            if (targetEl) {
+                const scaleVal = document.getElementById('designer-scale').value;
+                const rotateVal = document.getElementById('designer-rotate').value;
+                
+                let tx = 0, ty = 0;
+                if (alignment === 'left') {
+                    tx = -150;
+                } else if (alignment === 'right') {
+                    tx = 150;
+                } else {
+                    tx = 0;
+                }
+                targetEl.style.transform = `translate(${tx}px, ${ty}px) scale(${scaleVal}) rotate(${rotateVal}deg)`;
+            }
+        }
+    </script>
+
+    <!-- MAIN TEMPLATE INTERFACES SCRIPTS INHERITED FROM index.html -->
+    <script defer src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script defer src="JavaScript/floating-bubbles.js"></script>
+    <script defer src="JavaScript/script.js"></script>
 </body>
 </html>
