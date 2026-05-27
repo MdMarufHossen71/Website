@@ -12,11 +12,12 @@ const contactForm = document.getElementById('contact-form');
 
 // Smart Auto-Hide Header functionality
 let lastScrollTop = 0;
+let scrollStopTimeout = null;
+let ticking = false;
 
-window.addEventListener('scroll', () => {
+const handleScroll = () => {
     if (!navbar) return;
 
-    // Do not hide navbar on scroll if the mobile menu is currently open
     const isMobileMenuOpen = navMenu && navMenu.classList.contains('active');
     if (isMobileMenuOpen) {
         navbar.classList.remove('hidden');
@@ -25,19 +26,21 @@ window.addEventListener('scroll', () => {
 
     const currentScrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
 
-    // Prevent executing scroll logic if scroll position hasn't changed (prevents synthetic event loops)
+    // Prevent executing scroll logic if scroll position hasn't changed
     if (currentScrollTop === lastScrollTop) return;
 
-    // Mobile specific behavior: keep header fixed at the top, never hide
     const isMobile = window.innerWidth < 992;
     if (isMobile) {
         navbar.classList.remove('hidden');
-        if (currentScrollTop > 50) {
+        if (currentScrollTop > 30) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
         lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+        
+        // Show/hide scroll buttons on mobile too
+        updateScrollButtons(currentScrollTop);
         return;
     }
 
@@ -48,28 +51,58 @@ window.addEventListener('scroll', () => {
         navbar.classList.remove('scrolled');
     }
 
-    // Smart Auto-Hide: hide the navbar when scrolling down, show immediately when scrolling up
-    if (currentScrollTop > 80 && currentScrollTop > lastScrollTop) {
-        navbar.classList.add('hidden');
-    } else {
+    // Clear any active stop timeouts
+    if (scrollStopTimeout) {
+        clearTimeout(scrollStopTimeout);
+    }
+
+    // If scrolling stops, show the navbar again
+    scrollStopTimeout = setTimeout(() => {
         navbar.classList.remove('hidden');
+    }, 150);
+
+    // Direction and threshold detection
+    const diff = currentScrollTop - lastScrollTop;
+    if (currentScrollTop <= 80) {
+        navbar.classList.remove('hidden');
+    } else if (diff > 15) {
+        navbar.classList.add('hidden'); // Scroll down past threshold -> hide
+    } else if (diff < -10) {
+        navbar.classList.remove('hidden'); // Scroll up past threshold -> show immediately
     }
 
     lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
 
     // Show/hide scroll buttons
+    updateScrollButtons(currentScrollTop);
+
+    // Update active nav link based on scroll position
+    updateActiveNavLink();
+};
+
+const updateScrollButtons = (scrollTop) => {
     const scrollButtons = document.querySelector('.scroll-buttons');
     if (scrollButtons) {
-        if (currentScrollTop > 300) {
+        if (scrollTop > 300) {
             scrollButtons.classList.add('visible');
         } else {
             scrollButtons.classList.remove('visible');
         }
     }
+};
 
-    // Update active nav link based on scroll position
-    updateActiveNavLink();
-}, { passive: true });
+const onScroll = () => {
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            handleScroll();
+            ticking = false;
+        });
+        ticking = true;
+    }
+};
+
+window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('resize', handleScroll);
 
 // Mobile menu toggle
 function setMenuState(isOpen) {

@@ -72,8 +72,11 @@
 
     // 1. Premium Smart Auto-Hide capsule header logic
     let lastScrollTop = 0;
+    let scrollStopTimeout = null;
+    let ticking = false;
+
     if (navbar) {
-      window.addEventListener('scroll', () => {
+      const handleLayoutScroll = () => {
         const isMobileMenuOpen = navMenu && navMenu.classList.contains('active');
         if (isMobileMenuOpen) {
           navbar.classList.remove('hidden');
@@ -82,14 +85,14 @@
 
         const currentScrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
 
-        // Prevent executing scroll logic if scroll position hasn't changed (prevents synthetic event loops)
+        // Prevent executing scroll logic if scroll position hasn't changed
         if (currentScrollTop === lastScrollTop) return;
 
         // Mobile specific behavior: keep header fixed at the top, never hide
         const isMobile = window.innerWidth < 992;
         if (isMobile) {
           navbar.classList.remove('hidden');
-          if (currentScrollTop > 50) {
+          if (currentScrollTop > 30) {
             navbar.classList.add('scrolled');
           } else {
             navbar.classList.remove('scrolled');
@@ -105,15 +108,41 @@
           navbar.classList.remove('scrolled');
         }
 
-        // Smart Auto-Hide: hide the navbar when scrolling down past 80px, reveal immediately when scrolling up
-        if (currentScrollTop > 80 && currentScrollTop > lastScrollTop) {
-          navbar.classList.add('hidden');
-        } else {
+        // Clear any active stop timeouts
+        if (scrollStopTimeout) {
+          clearTimeout(scrollStopTimeout);
+        }
+
+        // If scrolling stops, show the navbar again
+        scrollStopTimeout = setTimeout(() => {
           navbar.classList.remove('hidden');
+        }, 150);
+
+        // Smart Auto-Hide with direction thresholds
+        const diff = currentScrollTop - lastScrollTop;
+        if (currentScrollTop <= 80) {
+          navbar.classList.remove('hidden');
+        } else if (diff > 15) {
+          navbar.classList.add('hidden'); // Scroll down past threshold -> hide
+        } else if (diff < -10) {
+          navbar.classList.remove('hidden'); // Scroll up past threshold -> show immediately
         }
 
         lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-      }, { passive: true });
+      };
+
+      const onLayoutScroll = () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            handleLayoutScroll();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      };
+
+      window.addEventListener('scroll', onLayoutScroll, { passive: true });
+      window.addEventListener('resize', handleLayoutScroll);
     }
 
     // 2. Mobile navbar hamburger toggling overlays
