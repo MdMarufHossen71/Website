@@ -32,6 +32,11 @@
   --neon-glow: 0 0 20px rgba(79, 140, 255, 0.2);
 }
 
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 body {
   background-color: var(--blog-bg);
   color: var(--blog-text);
@@ -39,6 +44,10 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   transition: background-color 0.3s, color 0.3s;
+  overflow-x: hidden;
+  max-width: 100%;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
 }
 
 .blog-main {

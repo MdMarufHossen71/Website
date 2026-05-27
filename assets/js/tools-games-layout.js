@@ -85,6 +85,19 @@
         // Prevent executing scroll logic if scroll position hasn't changed (prevents synthetic event loops)
         if (currentScrollTop === lastScrollTop) return;
 
+        // Mobile specific behavior: keep header fixed at the top, never hide
+        const isMobile = window.innerWidth < 992;
+        if (isMobile) {
+          navbar.classList.remove('hidden');
+          if (currentScrollTop > 50) {
+            navbar.classList.add('scrolled');
+          } else {
+            navbar.classList.remove('scrolled');
+          }
+          lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+          return;
+        }
+
         // Capsule sizing shift
         if (currentScrollTop > 50) {
           navbar.classList.add('scrolled');
