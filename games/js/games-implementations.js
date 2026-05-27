@@ -43,6 +43,7 @@ window.BROWSER_GAMES_LIST.push({
         let dx = grid, dy = 0;
         let apple = {x: 3 * grid, y: 3 * grid};
         let score = 0;
+        let frameCount = 0;
 
         const spawnApple = () => {
             apple.x = Math.floor(Math.random() * (canvas.width / grid)) * grid;
@@ -56,19 +57,30 @@ window.BROWSER_GAMES_LIST.push({
             else if ((key === 'ArrowRight' || key === 'd') && dx === 0) { dx = grid; dy = 0; }
         };
 
-        window.addEventListener('keydown', e => handleInput(e.key));
+        app.addGameListener(window, 'keydown', e => {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key)) {
+                e.preventDefault();
+            }
+            handleInput(e.key);
+        });
         
         // Mobile UI controls
-        c.querySelector('#sk-up')?.addEventListener('click', () => handleInput('ArrowUp'));
-        c.querySelector('#sk-down')?.addEventListener('click', () => handleInput('ArrowDown'));
-        c.querySelector('#sk-left')?.addEventListener('click', () => handleInput('ArrowLeft'));
-        c.querySelector('#sk-right')?.addEventListener('click', () => handleInput('ArrowRight'));
+        const skUp = c.querySelector('#sk-up');
+        const skDown = c.querySelector('#sk-down');
+        const skLeft = c.querySelector('#sk-left');
+        const skRight = c.querySelector('#sk-right');
+
+        if (skUp) app.addGameListener(skUp, 'click', () => handleInput('ArrowUp'));
+        if (skDown) app.addGameListener(skDown, 'click', () => handleInput('ArrowDown'));
+        if (skLeft) app.addGameListener(skLeft, 'click', () => handleInput('ArrowLeft'));
+        if (skRight) app.addGameListener(skRight, 'click', () => handleInput('ArrowRight'));
 
         const loop = () => {
             app.activeLoop = requestAnimationFrame(loop);
             
-            // Limit snake FPS to make it playable
-            if (++frameCount < 6) return;
+            // Limit snake FPS to make it playable + speed scaling
+            let frameLimit = Math.max(2, 6 - Math.floor(score / 5));
+            if (++frameCount < frameLimit) return;
             frameCount = 0;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -95,6 +107,9 @@ window.BROWSER_GAMES_LIST.push({
                     app.submitScore('snake', score);
                     cancelAnimationFrame(app.activeLoop);
                     app.activeLoop = null;
+                    ctx.fillStyle = '#f43f5e';
+                    ctx.font = '20px Orbitron, sans-serif';
+                    ctx.fillText('GAME OVER', canvas.width / 2 - 60, canvas.height / 2);
                     return;
                 }
             }
@@ -127,7 +142,6 @@ window.BROWSER_GAMES_LIST.push({
             ctx.shadowBlur = 0;
         };
 
-        let frameCount = 0;
         spawnApple();
         app.activeLoop = requestAnimationFrame(loop);
     }
@@ -252,11 +266,11 @@ window.BROWSER_GAMES_LIST.push({
                 isGameOver = true;
                 if (res.winner === 'T') {
                     status.textContent = "TIE GAME! 🤝";
-                    status.className = "text-sm font-bold text-amber-500";
+                    status.className = "text-sm font-bold text-amber-500 font-display";
                     app.playTone('hit');
                 } else {
                     status.textContent = `PLAYER ${res.winner} WINS! 🎉`;
-                    status.className = `text-sm font-bold ${res.winner === 'X' ? 'text-primary-500' : 'text-emerald-500'}`;
+                    status.className = `text-sm font-bold ${res.winner === 'X' ? 'text-primary-500' : 'text-emerald-500'} font-display`;
                     
                     // Highlight win
                     res.line.forEach(i => {
@@ -272,32 +286,36 @@ window.BROWSER_GAMES_LIST.push({
             status.textContent = `Player ${activePlayer}'s Turn`;
 
             if (mode === 'ai' && activePlayer === 'O') {
-                setTimeout(makeAiMove, 400);
+                app.addTimeout(makeAiMove, 400);
             }
         };
 
         cells.forEach(cell => {
-            cell.addEventListener('click', () => {
-                if (mode === 'ai' && activePlayer === 'O') return; // block moves during AI
+            app.addGameListener(cell, 'click', () => {
+                if (mode === 'ai' && activePlayer === 'O') return;
                 const idx = parseInt(cell.getAttribute('data-idx'));
                 makeMove(idx, cell);
             });
         });
 
         // Mode switchers
-        btnLocal.addEventListener('click', () => {
-            mode = 'local';
-            btnLocal.className = 'bg-primary-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition-all shadow shadow-primary-500/30';
-            btnAi.className = 'bg-slate-800 text-slate-300 hover:text-white font-bold text-xs px-4 py-2 rounded-xl transition-all border border-slate-700';
-            resetGame();
-        });
+        if (btnLocal) {
+            app.addGameListener(btnLocal, 'click', () => {
+                mode = 'local';
+                btnLocal.className = 'bg-primary-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition-all shadow shadow-primary-500/30';
+                btnAi.className = 'bg-slate-800 text-slate-300 hover:text-white font-bold text-xs px-4 py-2 rounded-xl transition-all border border-slate-700';
+                resetGame();
+            });
+        }
 
-        btnAi.addEventListener('click', () => {
-            mode = 'ai';
-            btnAi.className = 'bg-primary-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition-all shadow shadow-primary-500/30';
-            btnLocal.className = 'bg-slate-800 text-slate-300 hover:text-white font-bold text-xs px-4 py-2 rounded-xl transition-all border border-slate-700';
-            resetGame();
-        });
+        if (btnAi) {
+            app.addGameListener(btnAi, 'click', () => {
+                mode = 'ai';
+                btnAi.className = 'bg-primary-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition-all shadow shadow-primary-500/30';
+                btnLocal.className = 'bg-slate-800 text-slate-300 hover:text-white font-bold text-xs px-4 py-2 rounded-xl transition-all border border-slate-700';
+                resetGame();
+            });
+        }
 
         const resetGame = () => {
             board = Array(9).fill('');
@@ -328,7 +346,7 @@ window.BROWSER_GAMES_LIST.push({
     controlsGuide: 'Click cards to flip them. Find matching pairs.',
     render: (c) => {
         c.innerHTML = `
-            <div class="flex flex-col items-center gap-6 w-full max-w-sm select-none">
+            <div class="flex flex-col items-center gap-6 w-full max-w-sm select-none font-display">
                 <div class="grid grid-cols-4 gap-3 w-full">
                     ${Array.from({length: 12}).map((_, i) => `
                         <div class="mem-card w-full aspect-square bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center text-2xl font-bold cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95" data-idx="${i}">
@@ -336,8 +354,9 @@ window.BROWSER_GAMES_LIST.push({
                         </div>
                     `).join('')}
                 </div>
-                <div class="flex justify-between w-full text-xs font-bold text-slate-400 font-display">
+                <div class="flex justify-between w-full text-xs font-bold text-slate-400">
                     <span id="mem-moves">MOVES: 0</span>
+                    <span id="mem-timer">TIME: 0s</span>
                     <span id="mem-matches">MATCHES: 0/6</span>
                 </div>
             </div>
@@ -346,6 +365,7 @@ window.BROWSER_GAMES_LIST.push({
     init: (c, app) => {
         const cards = c.querySelectorAll('.mem-card');
         const movesLbl = c.querySelector('#mem-moves');
+        const timerLbl = c.querySelector('#mem-timer');
         const matchesLbl = c.querySelector('#mem-matches');
 
         const emojis = ["🍎", "🍌", "🍒", "🍇", "🍉", "🍍"];
@@ -355,13 +375,20 @@ window.BROWSER_GAMES_LIST.push({
         let matches = 0;
         let moves = 0;
         let isLocked = false;
+        let startTime = Date.now();
+
+        // Active ticking timer panel
+        app.addInterval(() => {
+            if (matches === 6) return;
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            if (timerLbl) timerLbl.textContent = `TIME: ${elapsed}s`;
+        }, 1000);
 
         cards.forEach(card => {
-            card.addEventListener('click', () => {
+            app.addGameListener(card, 'click', () => {
                 if (isLocked) return;
                 const idx = parseInt(card.getAttribute('data-idx'));
                 
-                // Block clicking already flipped card
                 if (card.classList.contains('flipped') || flipped.some(item => item.idx === idx)) return;
 
                 card.innerHTML = boardEmojis[idx];
@@ -372,13 +399,13 @@ window.BROWSER_GAMES_LIST.push({
 
                 if (flipped.length === 2) {
                     moves++;
-                    movesLbl.textContent = `MOVES: ${moves}`;
+                    if (movesLbl) movesLbl.textContent = `MOVES: ${moves}`;
                     isLocked = true;
 
                     // Match Check
                     if (boardEmojis[flipped[0].idx] === boardEmojis[flipped[1].idx]) {
                         matches++;
-                        matchesLbl.textContent = `MATCHES: ${matches}/6`;
+                        if (matchesLbl) matchesLbl.textContent = `MATCHES: ${matches}/6`;
                         
                         flipped.forEach(item => {
                             item.card.className = 'mem-card w-full aspect-square bg-emerald-500/10 border border-emerald-500/30 rounded-2xl flex items-center justify-center text-2xl font-bold';
@@ -393,7 +420,7 @@ window.BROWSER_GAMES_LIST.push({
                         }
                     } else {
                         // Flip back
-                        setTimeout(() => {
+                        app.addTimeout(() => {
                             flipped.forEach(item => {
                                 item.card.innerHTML = '<i class="fas fa-question text-slate-600"></i>';
                                 item.card.className = 'mem-card w-full aspect-square bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center text-2xl font-bold cursor-pointer transition-all duration-300 hover:scale-105';
@@ -439,6 +466,7 @@ window.BROWSER_GAMES_LIST.push({
         let score = 0;
         let pipeGap = 90;
         let isGameOver = false;
+        let frameCount = 0;
 
         const handleJump = () => {
             if (isGameOver) return;
@@ -446,13 +474,13 @@ window.BROWSER_GAMES_LIST.push({
             app.playTone('jump');
         };
 
-        window.addEventListener('keydown', e => {
+        app.addGameListener(window, 'keydown', e => {
             if (e.key === ' ' || e.key === 'ArrowUp') {
                 e.preventDefault();
                 handleJump();
             }
         });
-        canvas.addEventListener('pointerdown', handleJump);
+        if (canvas) app.addGameListener(canvas, 'pointerdown', handleJump);
 
         const loop = () => {
             app.activeLoop = requestAnimationFrame(loop);
@@ -533,7 +561,6 @@ window.BROWSER_GAMES_LIST.push({
             ctx.fillText('CRASHED!', canvas.width / 2 - 55, canvas.height / 2);
         };
 
-        let frameCount = 0;
         app.activeLoop = requestAnimationFrame(loop);
     }
 });
@@ -584,9 +611,10 @@ window.BROWSER_GAMES_LIST.push({
             'L': '#f97316'
         };
 
-        let current = getRandomPiece();
+        let current = null;
         let score = 0;
         let linesClearedTotal = 0;
+        let frameCount = 0;
 
         function getRandomPiece() {
             const types = Object.keys(SHAPES);
@@ -598,6 +626,8 @@ window.BROWSER_GAMES_LIST.push({
                 y: 0
             };
         }
+
+        current = getRandomPiece();
 
         const collide = (piece, bx, by) => {
             const m = piece.matrix;
@@ -678,12 +708,19 @@ window.BROWSER_GAMES_LIST.push({
             }
         };
 
-        window.addEventListener('keydown', handleInput);
+        app.addGameListener(window, 'keydown', e => {
+            if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+                e.preventDefault();
+            }
+            handleInput(e);
+        });
 
         const loop = () => {
             app.activeLoop = requestAnimationFrame(loop);
 
-            if (++frameCount < 28) return;
+            // Dynamic Tetris speed scaling based on score
+            let frameLimit = Math.max(4, 28 - Math.floor(score / 15) * 2);
+            if (++frameCount < frameLimit) return;
             frameCount = 0;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -699,38 +736,41 @@ window.BROWSER_GAMES_LIST.push({
             }
 
             // Draw Active Piece
-            ctx.fillStyle = colors[current.type];
-            current.matrix.forEach((row, r) => {
-                row.forEach((cell, c) => {
-                    if (cell) {
-                        ctx.fillRect((current.x + c) * grid, (current.y + r) * grid, grid - 1, grid - 1);
-                    }
+            if (current) {
+                ctx.fillStyle = colors[current.type];
+                current.matrix.forEach((row, r) => {
+                    row.forEach((cell, c) => {
+                        if (cell) {
+                            ctx.fillRect((current.x + c) * grid, (current.y + r) * grid, grid - 1, grid - 1);
+                        }
+                    });
                 });
-            });
+            }
 
             // Physics drop tick
-            if (!collide(current, current.x, current.y + 1)) {
-                current.y++;
-            } else {
-                merge();
-                clearLines();
-                current = getRandomPiece();
+            if (current) {
+                if (!collide(current, current.x, current.y + 1)) {
+                    current.y++;
+                } else {
+                    merge();
+                    clearLines();
+                    current = getRandomPiece();
 
-                if (collide(current, current.x, current.y)) {
-                    // Game Over
-                    app.playTone('hit');
-                    app.submitScore('tetris', score);
-                    cancelAnimationFrame(app.activeLoop);
-                    app.activeLoop = null;
+                    if (collide(current, current.x, current.y)) {
+                        // Game Over
+                        app.playTone('hit');
+                        app.submitScore('tetris', score);
+                        cancelAnimationFrame(app.activeLoop);
+                        app.activeLoop = null;
 
-                    ctx.fillStyle = '#f43f5e';
-                    ctx.font = '18px Orbitron, sans-serif';
-                    ctx.fillText('MATRIX FULL!', canvas.width / 2 - 62, canvas.height / 2);
+                        ctx.fillStyle = '#f43f5e';
+                        ctx.font = '18px Orbitron, sans-serif';
+                        ctx.fillText('MATRIX FULL!', canvas.width / 2 - 62, canvas.height / 2);
+                    }
                 }
             }
         };
 
-        let frameCount = 0;
         app.activeLoop = requestAnimationFrame(loop);
     }
 });
@@ -781,7 +821,7 @@ window.BROWSER_GAMES_LIST.push({
         let score = 0;
 
         btns.forEach(btn => {
-            btn.addEventListener('click', () => {
+            app.addGameListener(btn, 'click', () => {
                 const move = btn.getAttribute('data-move');
                 const moves = ['rock', 'paper', 'scissors'];
                 const cpuMove = moves[Math.floor(Math.random() * 3)];
@@ -921,18 +961,19 @@ window.BROWSER_GAMES_LIST.push({
 
         const handleInput = (e) => {
             let changed = false;
+            const key = e.key;
             
-            if (e.key === 'ArrowLeft' || e.key === 'a') {
+            if (key === 'ArrowLeft' || key === 'a') {
                 changed = slideLeft();
-            } else if (e.key === 'ArrowRight' || e.key === 'd') {
+            } else if (key === 'ArrowRight' || key === 'd') {
                 rotate(); rotate();
                 changed = slideLeft();
                 rotate(); rotate();
-            } else if (e.key === 'ArrowUp' || e.key === 'w') {
+            } else if (key === 'ArrowUp' || key === 'w') {
                 rotate(); rotate(); rotate();
                 changed = slideLeft();
                 rotate();
-            } else if (e.key === 'ArrowDown' || e.key === 's') {
+            } else if (key === 'ArrowDown' || key === 's') {
                 rotate();
                 changed = slideLeft();
                 rotate(); rotate(); rotate();
@@ -942,7 +983,14 @@ window.BROWSER_GAMES_LIST.push({
                 spawn();
                 renderGrid();
 
-                // Check lose
+                // Check win condition (reaching 2048 tile)
+                if (grid.some(val => val === 2048)) {
+                    app.playTone('win');
+                    app.submitScore('game2048', score);
+                    app.showToast('You reached 2048! 🏆');
+                }
+
+                // Check lose condition
                 const canMove = () => {
                     if (grid.some(val => val === 0)) return true;
                     for (let r = 0; r < 4; r++) {
@@ -962,7 +1010,39 @@ window.BROWSER_GAMES_LIST.push({
             }
         };
 
-        window.addEventListener('keydown', handleInput);
+        app.addGameListener(window, 'keydown', e => {
+            if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+                e.preventDefault();
+            }
+            handleInput(e);
+        });
+
+        // Touch gesture controls
+        let touchstartX = 0;
+        let touchstartY = 0;
+
+        app.addGameListener(c, 'touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
+            touchstartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        app.addGameListener(c, 'touchend', e => {
+            const touchendX = e.changedTouches[0].screenX;
+            const touchendY = e.changedTouches[0].screenY;
+            
+            const dx = touchendX - touchstartX;
+            const dy = touchendY - touchstartY;
+            const absX = Math.abs(dx);
+            const absY = Math.abs(dy);
+
+            if (Math.max(absX, absY) > 35) { // 35px threshold
+                if (absX > absY) {
+                    handleInput({ key: dx > 0 ? 'ArrowRight' : 'ArrowLeft' });
+                } else {
+                    handleInput({ key: dy > 0 ? 'ArrowDown' : 'ArrowUp' });
+                }
+            }
+        }, { passive: true });
 
         // spawn 2 tiles on start
         spawn(); spawn();
@@ -1070,7 +1150,7 @@ window.BROWSER_GAMES_LIST.push({
         };
 
         letterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
+            app.addGameListener(btn, 'click', () => {
                 const l = btn.getAttribute('data-letter').toUpperCase();
                 makeGuess(l, btn);
             });
@@ -1166,7 +1246,7 @@ window.BROWSER_GAMES_LIST.push({
             }
         };
 
-        input.addEventListener('input', updateMetrics);
+        app.addGameListener(input, 'input', updateMetrics);
     }
 });
 
@@ -1221,7 +1301,7 @@ window.BROWSER_GAMES_LIST.push({
         };
 
         circles.forEach(circle => {
-            circle.addEventListener('click', () => {
+            app.addGameListener(circle, 'click', () => {
                 const idx = parseInt(circle.getAttribute('data-idx'));
 
                 if (idx === correctIdx) {
@@ -1234,7 +1314,7 @@ window.BROWSER_GAMES_LIST.push({
                         if (cIdx !== correctIdx) cEl.className += ' opacity-20';
                     });
                     
-                    setTimeout(generateColors, 1200);
+                    app.addTimeout(generateColors, 1200);
                 } else {
                     score = 0;
                     app.playTone('hit');
@@ -1277,15 +1357,33 @@ window.BROWSER_GAMES_LIST.push({
 
         let player = { y: canvas.height/2 - 25, score: 0 };
         let cpu = { y: canvas.height/2 - 25, score: 0 };
-        let ball = { x: canvas.height/2, y: canvas.width/2, dx: 3.5, dy: 2.2 };
+        let ball = { x: canvas.width/2, y: canvas.height/2, dx: 3.5, dy: 2.2 };
         const paddleH = 50;
         const paddleW = 8;
 
-        canvas.addEventListener('mousemove', e => {
+        const handlePaddleMove = (clientY) => {
             const rect = canvas.getBoundingClientRect();
-            const relativeY = e.clientY - rect.top;
+            const relativeY = clientY - rect.top;
             player.y = Math.min(canvas.height - paddleH, Math.max(0, relativeY - paddleH/2));
+        };
+
+        app.addGameListener(canvas, 'mousemove', e => {
+            handlePaddleMove(e.clientY);
         });
+
+        app.addGameListener(canvas, 'touchmove', e => {
+            if (e.touches.length > 0) {
+                e.preventDefault();
+                handlePaddleMove(e.touches[0].clientY);
+            }
+        }, { passive: false });
+
+        const resetBall = () => {
+            ball.x = canvas.width / 2;
+            ball.y = canvas.height / 2;
+            ball.dx = 3.5 * (Math.random() > 0.5 ? 1 : -1);
+            ball.dy = 2.2 * (Math.random() > 0.5 ? 1 : -1);
+        };
 
         const loop = () => {
             app.activeLoop = requestAnimationFrame(loop);
@@ -1360,13 +1458,7 @@ window.BROWSER_GAMES_LIST.push({
             ctx.fill();
         };
 
-        const resetBall = () => {
-            ball.x = canvas.width / 2;
-            ball.y = canvas.height / 2;
-            ball.dx = 3.5 * (Math.random() > 0.5 ? 1 : -1);
-            ball.dy = 2.2 * (Math.random() > 0.5 ? 1 : -1);
-        };
-
+        resetBall();
         app.activeLoop = requestAnimationFrame(loop);
     }
 });
@@ -1401,6 +1493,7 @@ window.BROWSER_GAMES_LIST.push({
         let asteroids = [];
         let score = 0;
         let speed = 2.2;
+        let frameCount = 0;
         let asteroidDestroyed = 0;
 
         const handleKeys = (e) => {
@@ -1415,7 +1508,12 @@ window.BROWSER_GAMES_LIST.push({
             }
         };
 
-        window.addEventListener('keydown', handleKeys);
+        app.addGameListener(window, 'keydown', e => {
+            if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' '].includes(e.key)) {
+                e.preventDefault();
+            }
+            handleKeys(e);
+        });
 
         const loop = () => {
             app.activeLoop = requestAnimationFrame(loop);
@@ -1503,7 +1601,6 @@ window.BROWSER_GAMES_LIST.push({
             frameCount++;
         };
 
-        let frameCount = 0;
         app.activeLoop = requestAnimationFrame(loop);
     }
 });
@@ -1552,11 +1649,22 @@ window.BROWSER_GAMES_LIST.push({
 
         let score = 0;
 
-        canvas.addEventListener('mousemove', e => {
+        const handlePaddleMove = (clientX) => {
             const rect = canvas.getBoundingClientRect();
-            const relX = e.clientX - rect.left;
+            const relX = clientX - rect.left;
             paddle.x = Math.min(canvas.width - paddle.w, Math.max(0, relX - paddle.w/2));
+        };
+
+        app.addGameListener(canvas, 'mousemove', e => {
+            handlePaddleMove(e.clientX);
         });
+
+        app.addGameListener(canvas, 'touchmove', e => {
+            if (e.touches.length > 0) {
+                e.preventDefault();
+                handlePaddleMove(e.touches[0].clientX);
+            }
+        }, { passive: false });
 
         const loop = () => {
             app.activeLoop = requestAnimationFrame(loop);
@@ -1685,18 +1793,20 @@ window.BROWSER_GAMES_LIST.push({
 
         const flashPad = (idx) => {
             const pad = pads[idx];
+            if (!pad) return;
             const originalClass = pad.className;
             
             // Apply bright flash styles
             pad.className = originalClass.replace(/bg-\w+-500\/\d+/, padStyles[idx].bg) + ' ' + padStyles[idx].glow;
             app.playTone(idx === 0 ? 'pop' : idx === 1 ? 'jump' : idx === 2 ? 'laser' : 'hit');
 
-            setTimeout(() => {
+            app.addTimeout(() => {
                 pad.className = originalClass; // reset
             }, 350);
         };
 
         const playSequence = () => {
+            if (!app.activeGame || app.activeGame.id !== 'simon') return;
             isPlayerTurn = false;
             playerSeq = [];
             status.textContent = "Watch sequence...";
@@ -1704,11 +1814,11 @@ window.BROWSER_GAMES_LIST.push({
 
             let delay = 0;
             sequence.forEach(idx => {
-                setTimeout(() => flashPad(idx), delay);
+                app.addTimeout(() => flashPad(idx), delay);
                 delay += 700;
             });
 
-            setTimeout(() => {
+            app.addTimeout(() => {
                 isPlayerTurn = true;
                 status.textContent = "Repeat sequence!";
                 status.className = "text-sm font-bold text-primary-500 font-display";
@@ -1716,12 +1826,13 @@ window.BROWSER_GAMES_LIST.push({
         };
 
         const nextRound = () => {
+            if (!app.activeGame || app.activeGame.id !== 'simon') return;
             sequence.push(Math.floor(Math.random() * 4));
-            setTimeout(playSequence, 800);
+            app.addTimeout(playSequence, 800);
         };
 
         pads.forEach(pad => {
-            pad.addEventListener('click', () => {
+            app.addGameListener(pad, 'click', () => {
                 if (!isPlayerTurn) return;
                 const idx = parseInt(pad.getAttribute('data-pad'));
                 
@@ -1784,7 +1895,7 @@ window.BROWSER_GAMES_LIST.push({
         let isGameOver = false;
 
         const popMole = () => {
-            if (isGameOver) return;
+            if (isGameOver || !app.activeGame || app.activeGame.id !== 'mole') return;
             
             // Reset previous
             if (activeIdx > -1) {
@@ -1798,7 +1909,7 @@ window.BROWSER_GAMES_LIST.push({
             activeHole.className += ' bg-amber-500/10 border-amber-500/40 shadow-[0_0_8px_rgba(245,158,11,0.25)]';
 
             // Auto-hide mole after delay
-            setTimeout(() => {
+            app.addTimeout(() => {
                 if (activeHole.textContent === '🐹') {
                     activeHole.textContent = '🕳️';
                     activeHole.className = 'mole-hole bg-slate-900 border border-slate-800 rounded-2xl w-full h-full flex items-center justify-center text-3xl transition-all cursor-pointer active:scale-95';
@@ -1808,7 +1919,7 @@ window.BROWSER_GAMES_LIST.push({
         };
 
         holes.forEach(hole => {
-            hole.addEventListener('click', () => {
+            app.addGameListener(hole, 'click', () => {
                 if (isGameOver) return;
                 
                 if (hole.textContent === '🐹') {
@@ -1818,7 +1929,7 @@ window.BROWSER_GAMES_LIST.push({
                     app.submitScore('mole', score);
                     
                     hole.textContent = '💥';
-                    setTimeout(() => {
+                    app.addTimeout(() => {
                         hole.textContent = '🕳️';
                         hole.className = 'mole-hole bg-slate-900 border border-slate-800 rounded-2xl w-full h-full flex items-center justify-center text-3xl transition-all cursor-pointer active:scale-95';
                     }, 250);
@@ -1964,12 +2075,12 @@ window.BROWSER_GAMES_LIST.push({
         };
 
         cells.forEach(cell => {
-            cell.addEventListener('click', () => {
+            app.addGameListener(cell, 'click', () => {
                 const idx = parseInt(cell.getAttribute('data-idx'));
                 revealCell(idx);
             });
 
-            cell.addEventListener('contextmenu', (e) => {
+            app.addGameListener(cell, 'contextmenu', (e) => {
                 const idx = parseInt(cell.getAttribute('data-idx'));
                 toggleFlag(idx, e);
             });
@@ -2007,6 +2118,7 @@ window.BROWSER_GAMES_LIST.push({
         let score = 0;
         let speed = 3;
         let isGameOver = false;
+        let frameCount = 0;
 
         const jump = () => {
             if (dino.isJumping || isGameOver) return;
@@ -2015,13 +2127,13 @@ window.BROWSER_GAMES_LIST.push({
             app.playTone('jump');
         };
 
-        window.addEventListener('keydown', e => {
+        app.addGameListener(window, 'keydown', e => {
             if (e.key === ' ' || e.key === 'ArrowUp') {
                 e.preventDefault();
                 jump();
             }
         });
-        canvas.addEventListener('pointerdown', jump);
+        if (canvas) app.addGameListener(canvas, 'pointerdown', jump);
 
         const loop = () => {
             app.activeLoop = requestAnimationFrame(loop);
@@ -2094,7 +2206,6 @@ window.BROWSER_GAMES_LIST.push({
             frameCount++;
         };
 
-        let frameCount = 0;
         app.activeLoop = requestAnimationFrame(loop);
     }
 });
@@ -2184,7 +2295,7 @@ window.BROWSER_GAMES_LIST.push({
         };
 
         cells.forEach(cell => {
-            cell.addEventListener('click', () => {
+            app.addGameListener(cell, 'click', () => {
                 const idx = parseInt(cell.getAttribute('data-idx'));
                 slideBlock(idx);
             });
@@ -2210,7 +2321,8 @@ window.BROWSER_GAMES_LIST.push({
     controlsGuide: 'Click pieces to highlight, then click highlighted squares to move.',
     render: (c) => {
         c.innerHTML = `
-            <div class="flex flex-col items-center gap-6 w-full max-w-sm select-none">
+            <div class="flex flex-col items-center gap-6 w-full max-w-sm select-none font-display">
+                <div id="chess-status" class="text-sm font-bold text-slate-400">White's Turn</div>
                 <div class="grid grid-cols-8 gap-0 p-3 bg-slate-900 border border-slate-800 rounded-2xl w-72 h-72 aspect-square">
                     ${Array.from({length: 64}).map((_, i) => {
                         const r = Math.floor(i / 8);
@@ -2225,9 +2337,11 @@ window.BROWSER_GAMES_LIST.push({
     },
     init: (c, app) => {
         const cells = c.querySelectorAll('.chess-cell');
+        const statusLbl = c.querySelector('#chess-status');
         
         let board = Array(64).fill('');
         let selectedIdx = -1;
+        let currentTurn = 'white';
 
         const pieces = {
             // White pieces
@@ -2243,12 +2357,106 @@ window.BROWSER_GAMES_LIST.push({
             board[i] = pieces[i] || '';
         }
 
+        const getPieceColor = (char) => {
+            if (!char) return null;
+            if (['♖', '♘', '♗', '♕', '♔', '♙'].includes(char)) return 'white';
+            if (['♜', '♞', '♝', '♛', '♚', '♟'].includes(char)) return 'black';
+            return null;
+        };
+
+        const isValidMove = (fromIdx, toIdx, piece) => {
+            const fromR = Math.floor(fromIdx / 8);
+            const fromC = fromIdx % 8;
+            const toR = Math.floor(toIdx / 8);
+            const toC = toIdx % 8;
+
+            const dr = toR - fromR;
+            const dc = toC - fromC;
+            const absR = Math.abs(dr);
+            const absC = Math.abs(dc);
+
+            // Cannot capture own pieces
+            const fromColor = getPieceColor(piece);
+            const targetColor = getPieceColor(board[toIdx]);
+            if (fromColor === targetColor) return false;
+
+            // Rook checks (straight line movements)
+            if (piece === '♜' || piece === '♖') {
+                if (fromR !== toR && fromC !== toC) return false;
+                const stepR = dr === 0 ? 0 : dr / absR;
+                const stepC = dc === 0 ? 0 : dc / absC;
+                let currR = fromR + stepR;
+                let currC = fromC + stepC;
+                while (currR !== toR || currC !== toC) {
+                    if (board[currR * 8 + currC] !== '') return false;
+                    currR += stepR;
+                    currC += stepC;
+                }
+                return true;
+            }
+
+            // Knight checks (L-shape movements)
+            if (piece === '♞' || piece === '♘') {
+                return (absR === 2 && absC === 1) || (absR === 1 && absC === 2);
+            }
+
+            // Pawn checks (forward steps or captures)
+            if (piece === '♟') { // Black Pawn (moves down the board)
+                if (dc === 0 && dr === 1 && board[toIdx] === '') return true;
+                if (dc === 0 && dr === 2 && fromR === 1 && board[fromIdx + 8] === '' && board[toIdx] === '') return true;
+                if (absC === 1 && dr === 1 && board[toIdx] !== '' && targetColor === 'white') return true;
+                return false;
+            }
+            if (piece === '♙') { // White Pawn (moves up the board)
+                if (dc === 0 && dr === -1 && board[toIdx] === '') return true;
+                if (dc === 0 && dr === -2 && fromR === 6 && board[fromIdx - 8] === '' && board[toIdx] === '') return true;
+                if (absC === 1 && dr === -1 && board[toIdx] !== '' && targetColor === 'black') return true;
+                return false;
+            }
+
+            // Bishops
+            if (piece === '♝' || piece === '♗') {
+                if (absR !== absC) return false;
+                const stepR = dr / absR;
+                const stepC = dc / absC;
+                let currR = fromR + stepR;
+                let currC = fromC + stepC;
+                while (currR !== toR || currC !== toC) {
+                    if (board[currR * 8 + currC] !== '') return false;
+                    currR += stepR;
+                    currC += stepC;
+                }
+                return true;
+            }
+
+            // Queen
+            if (piece === '♛' || piece === '♕') {
+                if (fromR !== toR && fromC !== toC && absR !== absC) return false;
+                const stepR = dr === 0 ? 0 : dr / absR;
+                const stepC = dc === 0 ? 0 : dc / absC;
+                let currR = fromR + stepR;
+                let currC = fromC + stepC;
+                while (currR !== toR || currC !== toC) {
+                    if (board[currR * 8 + currC] !== '') return false;
+                    currR += stepR;
+                    currC += stepC;
+                }
+                return true;
+            }
+
+            // King
+            if (piece === '♚' || piece === '♔') {
+                return absR <= 1 && absC <= 1;
+            }
+
+            return true;
+        };
+
         const renderBoard = () => {
             for (let i = 0; i < 64; i++) {
                 const cell = c.querySelector(`[data-idx="${i}"]`);
                 cell.textContent = board[i];
                 
-                // Color pieces
                 const r = Math.floor(i / 8);
                 const col = i % 8;
                 const isDark = (r + col) % 2 === 1;
@@ -2260,30 +2468,57 @@ window.BROWSER_GAMES_LIST.push({
             const cell = c.querySelector(`[data-idx="${idx}"]`);
 
             if (selectedIdx === -1) {
-                // Select
-                if (board[idx] !== '') {
+                const piece = board[idx];
+                if (piece !== '' && getPieceColor(piece) === currentTurn) {
                     selectedIdx = idx;
                     cell.className += ' bg-primary-500/25 border-primary-500';
                     app.playTone('pop');
                 }
             } else {
-                // Move
                 if (selectedIdx === idx) {
-                    // Deselect
                     selectedIdx = -1;
                     renderBoard();
                 } else {
-                    board[idx] = board[selectedIdx];
-                    board[selectedIdx] = '';
-                    selectedIdx = -1;
-                    app.playTone('pop');
-                    renderBoard();
+                    const piece = board[selectedIdx];
+                    if (isValidMove(selectedIdx, idx, piece)) {
+                        const targetPiece = board[idx];
+                        if (targetPiece === '♚' || targetPiece === '♔') {
+                            app.playTone('win');
+                            app.submitScore('chess', 100);
+                            app.showToast(`Checkmate! ${currentTurn.toUpperCase()} WINS! 🏆`);
+                        }
+
+                        board[idx] = piece;
+                        board[selectedIdx] = '';
+                        selectedIdx = -1;
+                        app.playTone('pop');
+                        
+                        currentTurn = currentTurn === 'white' ? 'black' : 'white';
+                        if (statusLbl) {
+                            statusLbl.textContent = `${currentTurn.charAt(0).toUpperCase() + currentTurn.slice(1)}'s Turn`;
+                        }
+                        
+                        renderBoard();
+                    } else {
+                        const nextPiece = board[idx];
+                        if (nextPiece !== '' && getPieceColor(nextPiece) === currentTurn) {
+                            selectedIdx = idx;
+                            renderBoard();
+                            const newCell = c.querySelector(`[data-idx="${idx}"]`);
+                            newCell.className += ' bg-primary-500/25 border-primary-500';
+                            app.playTone('pop');
+                        } else {
+                            selectedIdx = -1;
+                            app.playTone('hit');
+                            renderBoard();
+                        }
+                    }
                 }
             }
         };
 
         cells.forEach(cell => {
-            cell.addEventListener('click', () => {
+            app.addGameListener(cell, 'click', () => {
                 const idx = parseInt(cell.getAttribute('data-idx'));
                 handleCellClick(idx);
             });
@@ -2355,7 +2590,7 @@ window.BROWSER_GAMES_LIST.push({
         };
 
         cells.forEach(cell => {
-            cell.addEventListener('click', () => {
+            app.addGameListener(cell, 'click', () => {
                 const idx = parseInt(cell.getAttribute('data-idx'));
                 selectedIdx = idx;
                 
@@ -2366,7 +2601,7 @@ window.BROWSER_GAMES_LIST.push({
         });
 
         numBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
+            app.addGameListener(btn, 'click', () => {
                 if (selectedIdx === -1) return;
                 const num = parseInt(btn.getAttribute('data-num'));
 

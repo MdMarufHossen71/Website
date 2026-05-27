@@ -10,8 +10,10 @@ class RetroGameStudio {
         this.achieveKey = 'maruf-game-studio-achievements';
         this.statsKey = 'maruf-game-studio-stats';
         
-        // Sound status settings
-        this.sfxEnabled = true;
+        // Custom memory leaks protection trackers
+        this.activeListeners = [];
+        this.activeTimeouts = [];
+        this.activeIntervals = [];
 
         // Dom Elements
         this.sidebar = document.getElementById('games-sidebar');
@@ -41,6 +43,50 @@ class RetroGameStudio {
         this.init();
     }
 
+    addGameListener(target, type, listener, options = {}) {
+        if (!target) return;
+        target.addEventListener(type, listener, options);
+        this.activeListeners.push({ target, type, listener, options });
+    }
+
+    addTimeout(callback, delay) {
+        const id = setTimeout(callback, delay);
+        this.activeTimeouts.push(id);
+        return id;
+    }
+
+    addInterval(callback, delay) {
+        const id = setInterval(callback, delay);
+        this.activeIntervals.push(id);
+        return id;
+    }
+
+    cleanupGame() {
+        // Cancel active frame loops
+        if (this.activeLoop) {
+            cancelAnimationFrame(this.activeLoop);
+            this.activeLoop = null;
+        }
+
+        // Remove registered event listeners
+        this.activeListeners.forEach(({ target, type, listener, options }) => {
+            try {
+                target.removeEventListener(type, listener, options);
+            } catch (err) {
+                console.error('Failed to remove listener: ', err);
+            }
+        });
+        this.activeListeners = [];
+
+        // Clear timeouts
+        this.activeTimeouts.forEach(id => clearTimeout(id));
+        this.activeTimeouts = [];
+
+        // Clear intervals
+        this.activeIntervals.forEach(id => clearInterval(id));
+        this.activeIntervals = [];
+    }
+
     init() {
         this.initSidebar();
         this.initSearch();
@@ -59,7 +105,6 @@ class RetroGameStudio {
         const observer = new MutationObserver(() => this.syncTheme());
         observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     }
-
     // --- SIDEBAR NAV SYSTEM ---
     initSidebar() {
         if (this.sidebarToggleBtn) {
@@ -338,11 +383,7 @@ class RetroGameStudio {
     // --- ROUTER SYSTEM ---
     initRouting() {
         const handleRoute = () => {
-            // Unload active loops
-            if (this.activeLoop) {
-                cancelAnimationFrame(this.activeLoop);
-                this.activeLoop = null;
-            }
+            this.cleanupGame();
             // Clear current play area
             const playArea = document.getElementById('game-play-area');
             if (playArea) playArea.innerHTML = '';
@@ -454,10 +495,7 @@ class RetroGameStudio {
             restartBtn.parentNode.replaceChild(newRestartBtn, restartBtn);
             newRestartBtn.addEventListener('click', () => {
                 this.playTone('pop');
-                if (this.activeLoop) {
-                    cancelAnimationFrame(this.activeLoop);
-                    this.activeLoop = null;
-                }
+                this.cleanupGame();
                 if (game.render) game.render(playArea);
                 if (game.init) game.init(playArea, this);
                 document.getElementById('game-score-val').textContent = '0';
