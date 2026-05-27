@@ -2099,7 +2099,7 @@ p {
 .scroll-buttons {
     position: fixed;
     right: 30px;
-    bottom: 30px;
+    bottom: 105px; /* Positioned above the WhatsApp button (30 + 60 + 15 gap) */
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -2307,7 +2307,7 @@ p {
     
     .scroll-buttons {
         right: 20px;
-        bottom: 20px;
+        bottom: 90px; /* Above WhatsApp button on tablet */
     }
     
     .scroll-btn {
@@ -2399,7 +2399,7 @@ p {
     
     .scroll-buttons {
         right: 15px;
-        bottom: 15px;
+        bottom: 80px; /* Above WhatsApp button on small mobile */
     }
     
     .scroll-btn {

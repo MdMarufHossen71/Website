@@ -404,7 +404,7 @@ class RetroGameStudio {
     loadDashboard() {
         this.activeGame = null;
         document.getElementById('view-dashboard').classList.remove('hidden');
-        document.getElementById('view-tool-workspace').classList.add('hidden');
+        document.getElementById('view-game-workspace').classList.add('hidden');
 
         const activeCat = document.querySelector('.cat-nav-btn.active');
         const cat = activeCat ? activeCat.getAttribute('data-cat') : 'all';
@@ -427,7 +427,7 @@ class RetroGameStudio {
         this.activeGame = game;
 
         document.getElementById('view-dashboard').classList.add('hidden');
-        const workspace = document.getElementById('view-tool-workspace');
+        const workspace = document.getElementById('view-game-workspace');
         workspace.classList.remove('hidden');
 
         // Scroll to top
