@@ -41,6 +41,11 @@ const handleScroll = () => {
         
         // Show/hide scroll buttons on mobile too
         updateScrollButtons(currentScrollTop);
+
+        // Animate skill bars if in viewport
+        if (typeof animateSkillBars === 'function') {
+            animateSkillBars();
+        }
         return;
     }
 
@@ -78,15 +83,37 @@ const handleScroll = () => {
 
     // Update active nav link based on scroll position
     updateActiveNavLink();
+
+    // Animate skill bars if in viewport
+    if (typeof animateSkillBars === 'function') {
+        animateSkillBars();
+    }
+
+    // Parallax visual updates
+    if (typeof updateParallax === 'function') {
+        updateParallax();
+    }
 };
 
 const updateScrollButtons = (scrollTop) => {
     const scrollButtons = document.querySelector('.scroll-buttons');
     if (scrollButtons) {
+        const scrollDownBtn = scrollButtons.querySelector('.scroll-down');
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+
         if (scrollTop > 300) {
             scrollButtons.classList.add('visible');
         } else {
             scrollButtons.classList.remove('visible');
+        }
+
+        if (scrollDownBtn) {
+            if (scrollTop + windowHeight >= documentHeight - 100) {
+                scrollDownBtn.style.display = 'none';
+            } else {
+                scrollDownBtn.style.display = 'flex';
+            }
         }
     }
 };
@@ -329,7 +356,6 @@ const animateSkillBars = () => {
     });
 };
 
-window.addEventListener('scroll', animateSkillBars);
 window.addEventListener('load', animateSkillBars);
 
 // Create scroll buttons
@@ -365,30 +391,6 @@ const createScrollButtons = () => {
                 behavior: 'smooth',
                 block: 'start'
             });
-        }
-    });
-    
-    // Update scroll button visibility
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        
-        // Show buttons when not on home section
-        const homeSection = document.getElementById('home');
-        const homeSectionBottom = homeSection ? homeSection.offsetTop + homeSection.offsetHeight : 0;
-        
-        if (scrolled > homeSectionBottom - 200) {
-            scrollButtons.classList.add('visible');
-        } else {
-            scrollButtons.classList.remove('visible');
-        }
-        
-        // Hide down button when at bottom
-        if (scrolled + windowHeight >= documentHeight - 100) {
-            scrollDownBtn.style.display = 'none';
-        } else {
-            scrollDownBtn.style.display = 'flex';
         }
     });
 };
@@ -576,7 +578,6 @@ function showNotification(message, type = 'info') {
 }
 
 // Enhanced 3D parallax effect for hero section
-let ticking = false;
 
 function updateParallax() {
     const scrolled = window.pageYOffset;
@@ -602,14 +603,7 @@ function updateParallax() {
     ticking = false;
 }
 
-function requestParallaxUpdate() {
-    if (!ticking) {
-        requestAnimationFrame(updateParallax);
-        ticking = true;
-    }
-}
 
-window.addEventListener('scroll', requestParallaxUpdate);
 
 // Intersection Observer for animations
 const observerOptions = {
