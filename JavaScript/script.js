@@ -10,90 +10,12 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 const portfolioItems = document.querySelectorAll('.portfolio-item');
 const contactForm = document.getElementById('contact-form');
 
-// Smart Auto-Hide Header functionality
-let lastScrollTop = 0;
-let scrollStopTimeout = null;
-let ticking = false;
+// -----------------------------------------------------------------------
+// NAVBAR: handled globally by /assets/js/smart-navbar.js (loaded in HTML)
+// -----------------------------------------------------------------------
 
-const handleScroll = () => {
-    if (!navbar) return;
-
-    const isMobileMenuOpen = navMenu && navMenu.classList.contains('active');
-    if (isMobileMenuOpen) {
-        navbar.classList.remove('hidden');
-        return;
-    }
-
-    const currentScrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
-
-    // Prevent executing scroll logic if scroll position hasn't changed
-    if (currentScrollTop === lastScrollTop) return;
-
-    const isMobile = window.innerWidth < 992;
-    if (isMobile) {
-        navbar.classList.remove('hidden');
-        if (currentScrollTop > 30) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-        lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-        
-        // Show/hide scroll buttons on mobile too
-        updateScrollButtons(currentScrollTop);
-
-        // Animate skill bars if in viewport
-        if (typeof animateSkillBars === 'function') {
-            animateSkillBars();
-        }
-        return;
-    }
-
-    // Shrink and style capsule size when scrolled down
-    if (currentScrollTop > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-
-    // Clear any active stop timeouts
-    if (scrollStopTimeout) {
-        clearTimeout(scrollStopTimeout);
-    }
-
-    // If scrolling stops, show the navbar again
-    scrollStopTimeout = setTimeout(() => {
-        navbar.classList.remove('hidden');
-    }, 150);
-
-    // Direction and threshold detection
-    const diff = currentScrollTop - lastScrollTop;
-    if (currentScrollTop <= 80) {
-        navbar.classList.remove('hidden');
-    } else if (diff > 15) {
-        navbar.classList.add('hidden'); // Scroll down past threshold -> hide
-    } else if (diff < -10) {
-        navbar.classList.remove('hidden'); // Scroll up past threshold -> show immediately
-    }
-
-    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-
-    // Show/hide scroll buttons
-    updateScrollButtons(currentScrollTop);
-
-    // Update active nav link based on scroll position
-    updateActiveNavLink();
-
-    // Animate skill bars if in viewport
-    if (typeof animateSkillBars === 'function') {
-        animateSkillBars();
-    }
-
-    // Parallax visual updates
-    if (typeof updateParallax === 'function') {
-        updateParallax();
-    }
-};
+// Scroll-dependent helpers (NOT navbar — those live in smart-navbar.js)
+let _scrollTicking = false;
 
 const updateScrollButtons = (scrollTop) => {
     const scrollButtons = document.querySelector('.scroll-buttons');
@@ -110,18 +32,38 @@ const updateScrollButtons = (scrollTop) => {
     }
 };
 
-const onScroll = () => {
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-            handleScroll();
-            ticking = false;
-        });
-        ticking = true;
+const handleScrollExtras = () => {
+    const scrollY = window.scrollY;
+
+    // Show/hide scroll-to-top buttons
+    updateScrollButtons(scrollY);
+
+    // Update active nav link based on scroll position
+    updateActiveNavLink();
+
+    // Animate skill bars if in viewport
+    if (typeof animateSkillBars === 'function') {
+        animateSkillBars();
+    }
+
+    // Parallax visual updates
+    if (typeof updateParallax === 'function') {
+        updateParallax();
     }
 };
 
-window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('resize', handleScroll);
+const onScrollExtras = () => {
+    if (!_scrollTicking) {
+        window.requestAnimationFrame(() => {
+            handleScrollExtras();
+            _scrollTicking = false;
+        });
+        _scrollTicking = true;
+    }
+};
+
+window.addEventListener('scroll', onScrollExtras, { passive: true });
+
 
 // Mobile menu toggle
 function setMenuState(isOpen) {

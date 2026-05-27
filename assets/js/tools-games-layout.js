@@ -70,79 +70,18 @@
     const year = document.querySelector('[data-tg-year]');
     if (year) year.textContent = new Date().getFullYear();
 
-    // 1. Premium Smart Auto-Hide capsule header logic
-    let lastScrollTop = 0;
-    let scrollStopTimeout = null;
-    let ticking = false;
-
+    // 1. Premium Smart Auto-Hide capsule header — delegated to shared module
+    //    Dynamically loads smart-navbar.js after the navbar element has been injected.
     if (navbar) {
-      const handleLayoutScroll = () => {
-        const isMobileMenuOpen = navMenu && navMenu.classList.contains('active');
-        if (isMobileMenuOpen) {
-          navbar.classList.remove('hidden');
-          return;
-        }
-
-        const currentScrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
-
-        // Prevent executing scroll logic if scroll position hasn't changed
-        if (currentScrollTop === lastScrollTop) return;
-
-        // Mobile specific behavior: keep header fixed at the top, never hide
-        const isMobile = window.innerWidth < 992;
-        if (isMobile) {
-          navbar.classList.remove('hidden');
-          if (currentScrollTop > 30) {
-            navbar.classList.add('scrolled');
-          } else {
-            navbar.classList.remove('scrolled');
-          }
-          lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-          return;
-        }
-
-        // Capsule sizing shift
-        if (currentScrollTop > 50) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
-
-        // Clear any active stop timeouts
-        if (scrollStopTimeout) {
-          clearTimeout(scrollStopTimeout);
-        }
-
-        // If scrolling stops, show the navbar again
-        scrollStopTimeout = setTimeout(() => {
-          navbar.classList.remove('hidden');
-        }, 150);
-
-        // Smart Auto-Hide with direction thresholds
-        const diff = currentScrollTop - lastScrollTop;
-        if (currentScrollTop <= 80) {
-          navbar.classList.remove('hidden');
-        } else if (diff > 15) {
-          navbar.classList.add('hidden'); // Scroll down past threshold -> hide
-        } else if (diff < -10) {
-          navbar.classList.remove('hidden'); // Scroll up past threshold -> show immediately
-        }
-
-        lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-      };
-
-      const onLayoutScroll = () => {
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            handleLayoutScroll();
-            ticking = false;
-          });
-          ticking = true;
+      const smartNavScript = document.createElement('script');
+      smartNavScript.src = `${rootUrl}/assets/js/smart-navbar.js`;
+      smartNavScript.onload = () => {
+        // If the module already ran before navbar existed, re-attach now
+        if (typeof window.__smartNavbarAttach === 'function') {
+          window.__smartNavbarAttach();
         }
       };
-
-      window.addEventListener('scroll', onLayoutScroll, { passive: true });
-      window.addEventListener('resize', handleLayoutScroll);
+      document.body.appendChild(smartNavScript);
     }
 
     // 2. Mobile navbar hamburger toggling overlays
