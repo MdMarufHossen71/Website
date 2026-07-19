@@ -1,6 +1,6 @@
 # Md Maruf Hossen - Professional Portfolio Website 🚀
 
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Fmdmarufhossen71.site)](https://mdmarufhossen71.site)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fmdmarufhossen71.github.io/Website/)](https://mdmarufhossen71.github.io/Website/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/MdMarufHossen71/mdmarufhossen71.site/graphs/commit-activity)
 
