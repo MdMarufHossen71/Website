@@ -2,14 +2,14 @@
 
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fmdmarufhossen71.github.io/Website/)](https://mdmarufhossen71.github.io/Website/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/MdMarufHossen71/mdmarufhossen71.site/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/MdMarufHossen71/Website/graphs/commit-activity)
 
 > **Professional Digital Marketer & Graphic Designer Portfolio**  
 > Showcasing 6+ months of experience, 25+ successful projects, and expertise in digital marketing and creative design solutions.
 
 ## 🌟 Live Website
 
-**Visit:** [mdmarufhossen71.site](https://mdmarufhossen71.site)
+**Visit:** [mdmarufhossen71.github.io/Website](https://mdmarufhossen71.github.io/Website/)
 
 ---
 
@@ -122,14 +122,14 @@ This is the official portfolio website of **Md Maruf Hossen**, a professional Di
 ## 📁 Project Structure
 
 ```
-mdmarufhossen71.site/
+Website/ (deployed to GitHub Pages under the /Website/ path)
 ├── 📄 index.html                 # Main homepage
 ├── 📄 404.html                   # Custom 404 error page
 ├── 📄 thank-you.html             # Contact form success page
 ├── 📄 sitemap.xml                # SEO sitemap
 ├── 📄 robots.txt                 # Search engine directives
 ├── 📄 ads.txt                    # Google AdSense verification
-├── 📄 CNAME                      # Custom domain configuration
+├── 📄 dist/                        # Vite build output
 ├── 📄 .htaccess                  # Server configuration
 ├── 📄 site.webmanifest           # PWA manifest
 ├── 📁 Design/
@@ -170,8 +170,8 @@ mdmarufhossen71.site/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/MdMarufHossen71/mdmarufhossen71.site.git
-   cd mdmarufhossen71.site
+   git clone https://github.com/MdMarufHossen71/Website.git
+   cd Website
    ```
 
 2. **Install dependencies**
@@ -277,7 +277,7 @@ The website is fully responsive and optimized for:
 ## 📧 Contact & Collaboration
 
 ### **Professional Contact**
-- **Email:** [official@mdmarufhossen71.site](mailto:official@mdmarufhossen71.site)
+- **Email:** [maruf.112005@gmail.com](mailto:maruf.112005@gmail.com)
 - **Phone:** +880 160 609 6409
 - **Location:** Gazipur, Dhaka, Bangladesh
 
@@ -360,18 +360,18 @@ I'm available for freelance projects and long-term partnerships. Whether you nee
 - 💻 **Web Design** and development
 - 📄 **Print Design** and marketing materials
 
-**Let's discuss your project:** [official@mdmarufhossen71.site](mailto:official@mdmarufhossen71.site)
+**Let's discuss your project:** [maruf.112005@gmail.com](mailto:maruf.112005@gmail.com)
 
 ---
 
 <div align="center">
 
-**Built with ❤️ by [Md Maruf Hossen](https://mdmarufhossen71.site)**
+**Built with ❤️ by [Md Maruf Hossen](https://mdmarufhossen71.github.io/Website/)**
 
 *Professional Digital Marketer & Graphic Designer from Bangladesh*
 
-[![Portfolio](https://img.shields.io/badge/Portfolio-Visit%20Website-blue?style=for-the-badge)](https://mdmarufhossen71.site)
-[![Email](https://img.shields.io/badge/Email-Contact%20Me-red?style=for-the-badge)](mailto:official@mdmarufhossen71.site)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Visit%20Website-blue?style=for-the-badge)](https://mdmarufhossen71.github.io/Website/)
+[![Email](https://img.shields.io/badge/Email-Contact%20Me-red?style=for-the-badge)](mailto:maruf.112005@gmail.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge)](https://www.linkedin.com/in/mdmarufhossen71)
 
 </div>
