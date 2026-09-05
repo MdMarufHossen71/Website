@@ -884,91 +884,50 @@ const initPortfolioLightbox = () => {
     
     if (!lightbox || !body || items.length === 0) return;
     
-    // Detailed Case Studies Database
+    // Detailed Case Studies Database — real Behance work
     const caseStudies = {
-        "Restaurant Social Media Marketing Campaign": {
-            tags: ["Social Media Marketing", "Content Strategy", "Canva Pro"],
-            image: "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=1200",
-            challenge: "A local restaurant in Gazipur wanted to increase weekend foot traffic and build local brand awareness, but lacked a consistent content cadence and targeted advertising strategy.",
-            solution: "Designed and implemented a comprehensive social media marketing calendar featuring highly aesthetic behind-the-scenes content, customer video reviews, and weekly menu highlights. Ran hyper-local Facebook and Instagram ad campaigns targeting users within a 10km radius with customized graphic menus.",
-            resultsVal: "+300% Engagement",
-            resultsLabel: "Social Reach Growth",
+        "Bangladesh Premium Typography Poster": {
+            tags: ["Typography", "Poster Design", "Brand Identity"],
+            image: "https://mir-s3-cdn-cf.behance.net/projects/404/2d1f74251324249.Y3JvcCwxMzA5LDEwMjQsMTEzLDA.png",
+            challenge: "Create a premium Bengali + English typography poster that celebrates Bangladeshi identity without looking cliché — usable for branding, apparel, and social campaigns.",
+            solution: "Built custom 'বাংলাদেশ' lettering in Illustrator with flat vector style. Wove in Martyrs Memorial, Padma Bridge, Bengal Tiger and Alpana motifs in red-green palette. Delivered fully scalable SVG-ready files, screen-print compatible.",
+            resultsVal: "Pride Of Bangladesh",
+            resultsLabel: "আমার অহংকার, আমার বাংলাদেশ",
             metrics: [
-                "50+ new customers tracked directly from social campaigns weekly",
-                "Average local ad click-through rate (CTR) optimized to 6.2%",
-                "Built persistent social proof template loops reducing design time by 40%"
+                "100% vector, scalable from social post to billboard",
+                "Bilingual lockup: Bengali display + English support text",
+                "Live on Behance: <a href='https://www.behance.net/gallery/251324249/Bangladesh-Premium-Typography-Poster-Design' target='_blank' rel='noopener'>View case study ↗</a>",
+                "Licensable versions on <a href='https://stock.adobe.com/contributor/213399341/maruf' target='_blank' rel='noopener'>Adobe Stock ↗</a>"
             ],
-            tools: ["Adobe Photoshop", "Canva Pro", "Facebook Ads Manager", "Google Analytics"]
+            tools: ["Adobe Illustrator", "Typography Grids", "Vector Art"]
         },
-        "Tech Startup Brand Identity Design": {
-            tags: ["Custom Logo Design", "Brand Identity", "Graphic Design"],
-            image: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=1200",
-            challenge: "A rising tech startup needed a clean, modern, and memorable brand identity to appeal to venture capital investors and early B2B customers, requiring more than a generic logomark.",
-            solution: "Conducted intensive grid vector analysis to craft a unique minimalist logomark that represents continuous growth and technical precision. Designed a balanced color hierarchy supporting accessibility contrast, custom B2B icon packs, and delivered a 25-page comprehensive brand guidelines manual.",
-            resultsVal: "100% Consistent",
-            resultsLabel: "Brand Identity Audit Score",
+        "Squid Cove Pottery Logo Design": {
+            tags: ["Logo Design", "Brand Identity", "Illustrator"],
+            image: "https://mir-s3-cdn-cf.behance.net/projects/404/a0f36c249038509.Y3JvcCwyMDQ4LDE2MDEsMCwyMjM.png",
+            challenge: "A pottery brand needed a hand-crafted yet clean logomark that works on clay stamps, packaging, and website — memorable at 16px favicon and at shop signage.",
+            solution: "Designed custom logomark with organic curves + strong geometry. Tested light/dark versions, built mini brand sheet with clearspace and color usage.",
+            resultsVal: "100% Vector",
+            resultsLabel: "AI / EPS / SVG Delivered",
             metrics: [
-                "Fully unique scalable vector logo designed from scratch in Illustrator",
-                "Custom geometric iconography set implemented across dashboard UI",
-                "Delivered print-ready letterheads, business cards, and digital decks"
+                "Custom mark drawn from scratch — no template",
+                "Legibility tested from favicon to signage",
+                "Live on Behance: <a href='https://www.behance.net/gallery/249038509/LOGO-Design-Squid-Cove-Pottery' target='_blank' rel='noopener'>View case study ↗</a>"
             ],
-            tools: ["Adobe Illustrator", "Adobe Photoshop", "Figma", "Vector Grids"]
+            tools: ["Adobe Illustrator", "Grid Geometry", "Brand Sheet"]
         },
-        "Professional E-commerce Website Design": {
-            tags: ["SEO Web Design", "UI/UX Optimization", "Responsive Design"],
-            image: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=1200",
-            challenge: "An e-commerce retailer was receiving decent organic traffic but suffered from a high shopping cart abandonment rate (74%) due to a slow, un-optimized mobile checkout flow.",
-            solution: "Redesigned the complete storefront with a conversion-first mobile UI layout. Engineered clean category filters, clear checkout steps, and implemented technical structured data schemas to capture high-intent Google search traffic.",
-            resultsVal: "+45% Conversions",
-            resultsLabel: "Cart Abandonment Drop",
+        "Custom T-Shirt Design": {
+            tags: ["Apparel", "Print Design", "Mockup"],
+            image: "https://mir-s3-cdn-cf.behance.net/projects/404/ad7143249038405.Y3JvcCwxMDI0LDgwMCwwLDExMQ.png",
+            challenge: "Create a screen-print ready T-shirt graphic with mockup presentation that a client can approve instantly and send to print.",
+            solution: "Built vector artwork with limited print-friendly palette, presented on apparel mockups plus flat poster view for detail approval.",
+            resultsVal: "Print-Ready",
+            resultsLabel: "Screen-Print Compatible",
             metrics: [
-                "Boosted mobile site load speed by optimizing web image assets",
-                "Created persistent schema structures boosting search rankings",
-                "Structured prominent trust signals and review feeds to optimize buying intent"
+                "Vector source, print-compatible colors",
+                "Mockup + flat views for fast client approval",
+                "Live on Behance: <a href='https://www.behance.net/gallery/249038405/T-Shirt-Design' target='_blank' rel='noopener'>View case study ↗</a>"
             ],
-            tools: ["Figma", "HTML5 & CSS3", "JavaScript", "Google Search Console"]
-        },
-        "Professional Corporate Brochure Design": {
-            tags: ["Professional Print Design", "Corporate Branding", "Illustrator"],
-            image: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1200",
-            challenge: "A prestigious financial consulting firm in Dhaka needed an authoritative print brochure to hand out at high-level business networking dinners, representing complex advisory figures cleanly.",
-            solution: "Crafted a beautiful 16-page landscape corporate profile brochure. Selected a strong geometric layout grid, coupled luxury serif headings with highly legible body typography, and designed premium vector charts to display growth benchmarks.",
-            resultsVal: "100% Print-Ready",
-            resultsLabel: "CMYK Vector Precision",
-            metrics: [
-                "Created beautiful minimalist print templates with full bleed margins",
-                "Visualized 4 complex financial data models into neat intuitive graphics",
-                "Approved and successfully printed over 2,000 corporate copies"
-            ],
-            tools: ["Adobe Illustrator", "Adobe InDesign", "Photoshop"]
-        },
-        "Professional Email Marketing Campaign": {
-            tags: ["Email Marketing", "Marketing Automation", "Copywriting"],
-            image: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1200",
-            challenge: "An educational coaching service had a large, cold subscriber list (3,000+ contacts) that was completely unmonetized due to lack of a structured campaign sequence.",
-            solution: "Wrote and implemented a highly engaging 5-step welcome sequence focusing on storytelling, offering immediate value, and resolving client objections. Set up automated behavioral logic triggers and weekly educational newsletters.",
-            resultsVal: "42.5% Open Rate",
-            resultsLabel: "Industry Lead Average: 18%",
-            metrics: [
-                "Maintained record low unsubscribe rates through value-first copy",
-                "Conducted subject hook A/B tests yielding +35% click metrics",
-                "Generated substantial direct sales revenue from cold contacts in 30 days"
-            ],
-            tools: ["Mailchimp Automation", "Persuasive Copywriting", "Analytics"]
-        },
-        "Professional Logo Design Collection": {
-            tags: ["Custom Logo Design", "Professional Branding", "Illustrator"],
-            image: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1200",
-            challenge: "Various small business clients faced the challenge of stand-out identity recognition in saturated industries, requiring custom vector logomarks.",
-            solution: "Designed multiple distinct custom logos using robust vector geometry grids, tailored typographic pairings, and thorough scalability testing (verified high legibility from 16px favicons to billboard sizes).",
-            resultsVal: "15+ Custom Marks",
-            resultsLabel: "Registered Trademarks",
-            metrics: [
-                "Delivered full vector source files (AI, EPS, SVG, PDF) for all clients",
-                "Ensured color variations supporting dark/light UI layers perfectly",
-                "Achieved 100% client satisfaction ratings across all collections"
-            ],
-            tools: ["Adobe Illustrator", "Figma Design Tools", "Grid Vector Geometry"]
+            tools: ["Adobe Illustrator", "Photoshop Mockup", "Print Prep"]
         }
     };
     
