@@ -188,6 +188,44 @@ navLinks.forEach(link => {
     });
 }
 
+// Celebration popup modal (newsletter success, etc.)
+function showPopup({ title, text, type = 'success', button = 'Awesome!' }) {
+    document.getElementById('popup-overlay')?.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = 'popup-overlay';
+    overlay.className = 'popup-overlay';
+    const ok = type === 'success';
+    overlay.innerHTML = `
+        <div class="popup-card" role="dialog" aria-modal="true" aria-label="${title}">
+            <button class="popup-x" aria-label="Close">✕</button>
+            <div class="popup-icon ${ok ? 'ok' : 'err'}">${ok ? '✓' : '!'}</div>
+            <h3>${title}</h3>
+            <p>${text}</p>
+            <button class="btn btn-primary popup-btn">${button}</button>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden';
+
+    const close = () => {
+        overlay.classList.add('hide');
+        document.body.style.overflow = '';
+        setTimeout(() => overlay.remove(), 300);
+    };
+    overlay.querySelector('.popup-x').addEventListener('click', close);
+    overlay.querySelector('.popup-btn').addEventListener('click', close);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+    const esc = (e) => {
+        if (e.key === 'Escape') {
+            close();
+            document.removeEventListener('keydown', esc);
+        }
+    };
+    document.addEventListener('keydown', esc);
+    if (ok) setTimeout(close, 7000);
+}
+
 // Newsletter signup (footer) — Supabase if configured, else mailto fallback
 document.addEventListener('DOMContentLoaded', () => {
     const nlForm = document.getElementById('newsletter-form');
@@ -206,12 +244,20 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.PortfolioDB && typeof window.PortfolioDB.subscribeNewsletter === 'function') {
                 const res = await window.PortfolioDB.subscribeNewsletter(email);
                 if (res && res.ok) {
-                    nlMsg.textContent = '✅ You are in! Check your inbox soon.';
+                    nlMsg.textContent = '';
                     nlForm.reset();
+                    showPopup({
+                        title: "You're on the list! 🎉",
+                        text: 'Welcome aboard! You will get one useful marketing & design tip every month. No spam, unsubscribe anytime.'
+                    });
                     return;
                 }
                 if (res && res.reason === 'duplicate') {
-                    nlMsg.textContent = 'You are already subscribed. ✅';
+                    nlMsg.textContent = '';
+                    showPopup({
+                        title: 'Already subscribed ✅',
+                        text: 'This email is already on the list. Watch your inbox for the next tip!'
+                    });
                     return;
                 }
                 if (res && res.reason === 'no-supabase') {
@@ -219,10 +265,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
             }
-            nlMsg.textContent = 'Something went wrong, please WhatsApp me instead.';
+            nlMsg.textContent = '';
+            showPopup({
+                type: 'error',
+                title: 'Oops, something failed',
+                text: 'Please try again — or message directly on <a href="https://wa.me/8801606096409" style="color:#9aa7ff;">WhatsApp</a>.'
+            });
         } catch (err) {
             console.warn('Newsletter failed.', err);
-            nlMsg.textContent = 'Something went wrong, please try again.';
+            nlMsg.textContent = '';
+            showPopup({
+                type: 'error',
+                title: 'Oops, something failed',
+                text: 'Please try again — or message directly on <a href="https://wa.me/8801606096409" style="color:#9aa7ff;">WhatsApp</a>.'
+            });
         }
     });
 });
