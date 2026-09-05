@@ -273,42 +273,51 @@ filterBtns.forEach(btn => {
     });
 });
 
-// Typing animation for hero section
-const typingText = document.querySelector('.typing-text');
-if (typingText) {
-    const words = ['Digital Marketer', 'Graphic Designer', 'Brand Strategist',  'Creative Professional', 'Logo Designer', 'Web Designer', 'Print Designer', 'Visual Designer'];
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
+// Typing animation for hero section (language-aware: i18n.js sets window.__typingWords)
+const TYPING_EN = ['Digital Marketer', 'Graphic Designer', 'Brand Strategist',  'Creative Professional', 'Logo Designer', 'Web Designer', 'Print Designer', 'Visual Designer'];
+let _typeWord = 0;
+let _typeChar = 0;
+let _typeDeleting = false;
+
+function typeWriter() {
+    const typingText = document.querySelector('.typing-text');
+    if (!typingText) return;
+
+    const words = window.__typingWords || TYPING_EN;
+    _typeWord = _typeWord % words.length;
+    const currentWord = words[_typeWord];
     
-    function typeWriter() {
-        const currentWord = words[wordIndex];
-        
-        if (isDeleting) {
-            typingText.textContent = currentWord.substring(0, charIndex - 1);
-            charIndex--;
-        } else {
-            typingText.textContent = currentWord.substring(0, charIndex + 1);
-            charIndex++;
-        }
-        
-        let typeSpeed = isDeleting ? 100 : 150;
-        
-        if (!isDeleting && charIndex === currentWord.length) {
-            typeSpeed = 2000; // Pause at end
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            wordIndex = (wordIndex + 1) % words.length;
-            typeSpeed = 500; // Pause before next word
-        }
-        
-        setTimeout(typeWriter, typeSpeed);
+    if (_typeDeleting) {
+        typingText.textContent = currentWord.substring(0, _typeChar - 1);
+        _typeChar--;
+    } else {
+        typingText.textContent = currentWord.substring(0, _typeChar + 1);
+        _typeChar++;
     }
     
-    // Start typing animation after page load
-    setTimeout(typeWriter, 1000);
+    let typeSpeed = _typeDeleting ? 100 : 150;
+    
+    if (!_typeDeleting && _typeChar === currentWord.length) {
+        typeSpeed = 2000; // Pause at end
+        _typeDeleting = true;
+    } else if (_typeDeleting && _typeChar === 0) {
+        _typeDeleting = false;
+        _typeWord = (_typeWord + 1) % words.length;
+        typeSpeed = 500; // Pause before next word
+    }
+    
+    setTimeout(typeWriter, typeSpeed);
 }
+
+// Restart typing from first word when language changes
+window.addEventListener('portfolio-lang-change', () => {
+    _typeWord = 0;
+    _typeChar = 0;
+    _typeDeleting = false;
+});
+
+// Start typing animation after page load
+setTimeout(typeWriter, 1000);
 
 // Animate skill bars when they come into view
 const skillBars = document.querySelectorAll('.skill-progress');

@@ -163,15 +163,15 @@
             </a>
             <div class="nav-menu" id="nav-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation menu">
                 <ul class="nav-list">
-                    <li><a href="#home" class="nav-link active" aria-current="page">Home</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#services" class="nav-link">Services</a></li>
-                    <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-                    <li><a href="#experience" class="nav-link">Experience</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                    <li><a href="blog/" class="nav-link" aria-label="Visit Digital Marketing Blog">Blog</a></li>
+                    <li><a href="#home" class="nav-link active" aria-current="page" data-i18n="nav.home">Home</a></li>
+                    <li><a href="#about" class="nav-link" data-i18n="nav.about">About</a></li>
+                    <li><a href="#services" class="nav-link" data-i18n="nav.services">Services</a></li>
+                    <li><a href="#portfolio" class="nav-link" data-i18n="nav.portfolio">Portfolio</a></li>
+                    <li><a href="#experience" class="nav-link" data-i18n="nav.experience">Experience</a></li>
+                    <li><a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+                    <li><a href="blog/" class="nav-link" aria-label="Visit Digital Marketing Blog" data-i18n="nav.blog">Blog</a></li>
 <li class="nav-dropdown">
-              <button type="button" class="nav-link nav-dropdown-toggle" aria-expanded="false">Explore <i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+              <button type="button" class="nav-link nav-dropdown-toggle" aria-expanded="false" data-i18n="nav.explore">Explore <i class="fas fa-chevron-down" aria-hidden="true"></i></button>
               <ul class="nav-dropdown-menu">
                 <li><a href="tools/" class="nav-link">Tools</a></li>
                 <li><a href="games/" class="nav-link">Games</a></li>
@@ -180,6 +180,7 @@
                 </ul>
             </div>
             <div class="nav-actions">
+                <button type="button" class="theme-toggle" id="lang-toggle" aria-label="বাংলায় দেখো" title="বাংলা / English" style="font-weight:800;font-size:.95rem;">বাং</button>
                 <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle light or dark theme" title="Toggle Light/Dark Theme">
                     <i class="fas fa-sun sun-icon"></i>
                     <i class="fas fa-moon moon-icon"></i>
@@ -201,14 +202,14 @@
             <div class="hero-content" data-aos="fade-up">
                 <div class="hero-badge">
                     <i class="fas fa-rocket"></i>
-                    <span>Available for Projects</span>
+                    <span data-i18n="hero.badge">Available for Projects</span>
                 </div>
-                <h1 class="hero-title">
+                <h1 class="hero-title" data-i18n="hero.title">
                     Hi, I'm <span class="gradient-text">Maruf</span><br>
                     Professional<br>
                     <span class="typing-text">Graphic Designer</span>
                 </h1>
-                <p class="hero-description">
+                <p class="hero-description" data-i18n="hero.desc">
                     Transforming businesses through strategic digital marketing and compelling visual design. 
                     With 6+ months of hands-on experience and 25+ successful projects, I help businesses grow their online presence, 
                     increase social media engagement, and create memorable brand identities that drive results.
@@ -216,25 +217,25 @@
                 <div class="hero-stats">
                     <div class="stat-item">
                         <span class="stat-number">6+</span>
-                        <span class="stat-label">Months Experience</span>
+                        <span class="stat-label" data-i18n="hero.stat1">Months Experience</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">25+</span>
-                        <span class="stat-label">Projects Completed</span>
+                        <span class="stat-label" data-i18n="hero.stat2">Projects Completed</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">15+</span>
-                        <span class="stat-label">Happy Clients</span>
+                        <span class="stat-label" data-i18n="hero.stat3">Happy Clients</span>
                     </div>
                 </div>
                 <div class="hero-buttons">
                     <a href="#portfolio" class="btn btn-primary">
                         <i class="fas fa-eye"></i>
-                        View My Work
+                        <span data-i18n="hero.btn1">View My Work</span>
                     </a>
                     <a href="#contact" class="btn btn-secondary">
                         <i class="fas fa-paper-plane"></i>
-                        Let's Talk
+                        <span data-i18n="hero.btn2">Let's Talk</span>
                     </a>
                 </div>
             </div>
@@ -252,12 +253,12 @@
     <section id="about" class="about">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <span class="section-subtitle">Get to know me</span>
-                <h2 class="section-title">About Md Maruf Hossen - Creative Growth Partner</h2>
+                <span class="section-subtitle" data-i18n="about.sub">Get to know me</span>
+                <h2 class="section-title" data-i18n="about.title">About Md Maruf Hossen - Creative Growth Partner</h2>
             </div>
             <div class="about-content">
                 <div class="about-text" data-aos="fade-right">
-                    <p class="about-intro">
+                    <p class="about-intro" data-i18n="about.intro">
                         I am Md Maruf Hossen, a results-oriented Digital Growth Specialist & Professional Graphic Designer in Dhaka, Bangladesh. I specialize in turning creative visual ideas into data-driven marketing success.
                     </p>
                     <p>
@@ -285,7 +286,7 @@
                     </div>
                     <a href="PDF/CV%20of%20Md%20Maruf%20Hossen.pdf" class="btn btn-outline" download>
                         <i class="fas fa-download"></i>
-                        Download CV/Resume
+                        <span data-i18n="about.cv">Download CV/Resume</span>
                     </a>
                 </div>
                 <div class="about-visual" data-aos="fade-left" data-aos-delay="200">
@@ -322,16 +323,16 @@
     <section id="services" class="services">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <span class="section-subtitle">What I offer</span>
-                <h2 class="section-title">Professional Digital Marketing & Design Services</h2>
+                <span class="section-subtitle" data-i18n="services.sub">What I offer</span>
+                <h2 class="section-title" data-i18n="services.title">Professional Digital Marketing & Design Services</h2>
             </div>
             <div class="services-grid">
                 <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="service-icon">
                         <i class="fas fa-bullhorn"></i>
                     </div>
-                    <h3>Digital Marketing Services</h3>
-                    <p>Strategic social media marketing, SEO optimization, content creation, and campaign management to boost your online presence, increase engagement, and drive conversions for your business.</p>
+                    <h3 data-i18n="services.s1t">Digital Marketing Services</h3>
+                    <p data-i18n="services.s1d">Strategic social media marketing, SEO optimization, content creation, and campaign management to boost your online presence, increase engagement, and drive conversions for your business.</p>
                     <ul class="service-features">
                         <li>Social Media Marketing Strategy</li>
                         <li>SEO Content Planning</li>
@@ -346,8 +347,8 @@
                     <div class="service-icon">
                         <i class="fas fa-palette"></i>
                     </div>
-                    <h3>Professional Brand Identity Design</h3>
-                    <p>Complete brand identity packages including custom logo design, color schemes, typography selection, and comprehensive brand guidelines to establish a strong visual presence.</p>
+                    <h3 data-i18n="services.s2t">Professional Brand Identity Design</h3>
+                    <p data-i18n="services.s2d">Complete brand identity packages including custom logo design, color schemes, typography selection, and comprehensive brand guidelines to establish a strong visual presence.</p>
                     <ul class="service-features">
                         <li>Custom Logo Design</li>
                         <li>Brand Guidelines</li>
@@ -361,8 +362,8 @@
                     <div class="service-icon">
                         <i class="fas fa-laptop-code"></i>
                     </div>
-                    <h3>Professional Web Design Services</h3>
-                    <p>Modern, responsive website designs optimized for search engines and conversions. Creating user-friendly websites that convert visitors into customers with optimal user experience.</p>
+                    <h3 data-i18n="services.s3t">Professional Web Design Services</h3>
+                    <p data-i18n="services.s3d">Modern, responsive website designs optimized for search engines and conversions. Creating user-friendly websites that convert visitors into customers with optimal user experience.</p>
                     <ul class="service-features">
                         <li>SEO-Optimized Responsive Design</li>
                         <li>UI/UX Optimization</li>
@@ -376,8 +377,8 @@
                     <div class="service-icon">
                         <i class="fas fa-print"></i>
                     </div>
-                    <h3>Professional Print Design Services</h3>
-                    <p>High-quality print materials including professional brochures, eye-catching flyers, business cards, and comprehensive marketing collateral for your business needs.</p>
+                    <h3 data-i18n="services.s4t">Professional Print Design Services</h3>
+                    <p data-i18n="services.s4d">High-quality print materials including professional brochures, eye-catching flyers, business cards, and comprehensive marketing collateral for your business needs.</p>
                     <ul class="service-features">
                         <li>Professional Business Cards</li>
                         <li>Marketing Brochures & Flyers</li>
@@ -394,13 +395,13 @@
     <section id="portfolio" class="portfolio">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <span class="section-subtitle">My recent work</span>
-                <h2 class="section-title">Digital Marketing & Design Portfolio</h2>
+                <span class="section-subtitle" data-i18n="portfolio.sub">My recent work</span>
+                <h2 class="section-title" data-i18n="portfolio.title">Digital Marketing & Design Portfolio</h2>
             </div>
             <div class="portfolio-filters" data-aos="fade-up" data-aos-delay="100">
-                <button class="filter-btn active" data-filter="all" aria-label="Show all projects">All Projects</button>
-                <button class="filter-btn" data-filter="branding">Logo & Branding</button>
-                <button class="filter-btn" data-filter="print">Poster & Print</button>
+                <button class="filter-btn active" data-filter="all" aria-label="Show all projects" data-i18n="portfolio.all">All Projects</button>
+                <button class="filter-btn" data-filter="branding" data-i18n="portfolio.branding">Logo & Branding</button>
+                <button class="filter-btn" data-filter="print" data-i18n="portfolio.print">Poster & Print</button>
                 <a href="https://www.behance.net/mdmarufhossen71" target="_blank" rel="noopener noreferrer" class="filter-btn" style="text-decoration:none;">View Behance ↗</a>
             </div>
             <div class="portfolio-grid">
@@ -481,8 +482,8 @@
     <section id="experience" class="experience">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <span class="section-subtitle">My journey</span>
-                <h2 class="section-title">Professional Experience & Technical Skills</h2>
+                <span class="section-subtitle" data-i18n="exp.sub">My journey</span>
+                <h2 class="section-title" data-i18n="exp.title">Professional Experience & Technical Skills</h2>
             </div>
             <div class="experience-content">
                 <div class="skills-section" data-aos="fade-right">
@@ -576,8 +577,8 @@
     <section class="testimonials" role="complementary">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <span class="section-subtitle">What clients say</span>
-                <h2 class="section-title">Client Testimonials & Reviews</h2>
+                <span class="section-subtitle" data-i18n="testi.sub">What clients say</span>
+                <h2 class="section-title" data-i18n="testi.title">Client Testimonials & Reviews</h2>
             </div>
             <div class="testimonials-grid">
                 <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
@@ -647,8 +648,8 @@
     <section id="roi-calculator" class="roi-calculator" role="region" aria-label="Campaign ROI Calculator">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <span class="section-subtitle">Plan Your Growth</span>
-                <h2 class="section-title">Strategic Marketing ROI & Campaign Planner</h2>
+                <span class="section-subtitle" data-i18n="roi.sub">Plan Your Growth</span>
+                <h2 class="section-title" data-i18n="roi.title">Strategic Marketing ROI & Campaign Planner</h2>
             </div>
             
             <div class="calculator-grid" data-aos="fade-up" data-aos-delay="100">
@@ -738,7 +739,7 @@
 
                     <button type="button" class="btn btn-primary btn-calc-cta" id="calc-cta">
                         <i class="fas fa-rocket"></i>
-                        Claim This Customized Plan
+                        <span data-i18n="roi.cta">Claim This Customized Plan</span>
                     </button>
                 </div>
             </div>
@@ -749,13 +750,13 @@
     <section id="contact" class="contact">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <span class="section-subtitle">Get in touch</span>
-                <h2 class="section-title">Contact Md Maruf Hossen - Let's Work Together</h2>
+                <span class="section-subtitle" data-i18n="contact.sub">Get in touch</span>
+                <h2 class="section-title" data-i18n="contact.title">Contact Md Maruf Hossen - Let's Work Together</h2>
             </div>
             <div class="contact-content">
                 <div class="contact-info" data-aos="fade-right">
-                    <h3>Ready to start your digital marketing project?</h3>
-                    <p>I'm always excited to work on new digital marketing and design projects. Let's help your business grow through strategic social media marketing, SEO optimization, and compelling visual design solutions.</p>
+                    <h3 data-i18n="contact.h">Ready to start your digital marketing project?</h3>
+                    <p data-i18n="contact.p">I'm always excited to work on new digital marketing and design projects. Let's help your business grow through strategic social media marketing, SEO optimization, and compelling visual design solutions.</p>
                     
                     <div class="contact-methods">
                         <div class="contact-method">
@@ -763,7 +764,7 @@
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <div class="method-info">
-                                <h4>Email for Business Inquiries</h4>
+                                <h4 data-i18n="contact.email">Email for Business Inquiries</h4>
                                 <a href="mailto:maruf.112005@gmail.com">maruf.112005@gmail.com</a>
                             </div>
                         </div>
@@ -773,7 +774,7 @@
                                 <i class="fas fa-phone"></i>
                             </div>
                             <div class="method-info">
-                                <h4>Phone Number</h4>
+                                <h4 data-i18n="contact.phone">Phone Number</h4>
                                 <a href="tel:+8801606096409">+880 160 609 6409</a>
                             </div>
                         </div>
@@ -783,7 +784,7 @@
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div class="method-info">
-                                <h4>Business Location</h4>
+                                <h4 data-i18n="contact.loc">Business Location</h4>
                                 <span>Gazipur, Dhaka, Bangladesh - Serving Clients Worldwide</span>
                             </div>
                         </div>
@@ -852,10 +853,10 @@
                     </div>
 
                     <div class="hire-box" style="margin-top:1.25rem;padding:1rem 1.25rem;border:1px solid var(--border-color);border-radius:12px;background:var(--bg-secondary);">
-                        <h4 style="margin:0 0 .5rem;"><i class="fas fa-briefcase"></i> Prefer marketplaces?</h4>
-                        <p style="margin:0 0 .75rem;color:var(--text-secondary);font-size:.95rem;">Hire securely with reviews & escrow:</p>
+                        <h4 style="margin:0 0 .5rem;" data-i18n="hire.t"><i class="fas fa-briefcase"></i> Prefer marketplaces?</h4>
+                        <p style="margin:0 0 .75rem;color:var(--text-secondary);font-size:.95rem;" data-i18n="hire.p">Hire securely with reviews & escrow:</p>
                         <div style="display:flex;flex-wrap:wrap;gap:.6rem;">
-                            <a href="https://calendly.com/maruf-112005/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:.55rem 1rem;">📅 Book 30-min Call ↗</a>
+                            <a href="https://calendly.com/maruf-112005/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:.55rem 1rem;" data-i18n="contact.book">📅 Book 30-min Call ↗</a>
                             <a href="https://www.fiverr.com/mdmarufhossen71" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding:.55rem 1rem;">Fiverr ↗</a>
                             <a href="https://www.freelancer.com/MdMarufHossen71" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding:.55rem 1rem;">Freelancer ↗</a>
                             <a href="https://www.behance.net/mdmarufhossen71" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding:.55rem 1rem;">Behance ↗</a>
@@ -868,12 +869,12 @@
                     <form class="contact-form" id="contact-form" action="https://formspree.io/f/mgvlwddr" method="POST" aria-label="Contact form for design services">
                         <div class="form-group">
                             <input type="text" id="name" name="name" required placeholder=" " aria-describedby="name-label">
-                            <label for="name">Your Name</label>
+                            <label for="name" data-i18n-label="contact.name">Your Name</label>
                         </div>
                         
                         <div class="form-group">
                             <input type="email" id="email" name="_replyto" required placeholder=" " aria-describedby="email-label">
-                            <label for="email">Your Email</label>
+                            <label for="email" data-i18n-label="contact.emailPh">Your Email</label>
                         </div>
                         
                         <div class="form-group">
@@ -886,12 +887,12 @@
                                 <option value="ui-ux-design">UI/UX Design Services</option>
                                 <option value="consultation">Design Consultation</option>
                             </select>
-                            <label for="service">Service Needed</label>
+                            <label for="service" data-i18n-label="contact.service">Service Needed</label>
                         </div>
                         
                         <div class="form-group">
                             <textarea id="message" name="message" rows="5" required placeholder=" " aria-describedby="message-label"></textarea>
-                            <label for="message">Project Details</label>
+                            <label for="message" data-i18n-label="contact.msg">Project Details</label>
                         </div>
                         
                         <!-- Hidden fields for better email formatting -->
@@ -900,7 +901,7 @@
                         
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-paper-plane"></i>
-                            Send Message
+                            <span data-i18n="contact.send">Send Message</span>
                         </button>
                     </form>
                 </div>
@@ -919,9 +920,9 @@
                         <span class="logo-text">Maruf</span>
                         <span class="logo-dot">.</span>
                     </a>
-                    <p>Professional Digital Marketer & Graphic Designer in Bangladesh helping businesses grow through strategic social media marketing, SEO optimization, and compelling visual design solutions.</p>
+                    <p data-i18n="footer.tag">Professional Digital Marketer & Graphic Designer in Bangladesh helping businesses grow through strategic social media marketing, SEO optimization, and compelling visual design solutions.</p>
                     <form id="newsletter-form" style="margin-top:1rem;display:flex;gap:.5rem;max-width:340px;" aria-label="Newsletter signup">
-                        <input type="email" id="newsletter-email" required placeholder="Your email for monthly tips" aria-label="Email for newsletter" style="flex:1;padding:.6rem .8rem;border-radius:8px;border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-primary);">
+                        <input type="email" id="newsletter-email" required placeholder="Your email for monthly tips" data-i18n-ph="footer.nlPh" aria-label="Email for newsletter" style="flex:1;padding:.6rem .8rem;border-radius:8px;border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-primary);">
                         <button type="submit" class="btn btn-secondary" style="padding:.6rem 1rem;white-space:nowrap;">Join</button>
                     </form>
                     <p id="newsletter-msg" style="font-size:.85rem;margin:.4rem 0 0;min-height:1.2em;" role="status"></p>
@@ -1001,7 +1002,7 @@
        title="Chat with Maruf on WhatsApp">
         <div class="whatsapp-badge">1</div>
         <i class="fab fa-whatsapp"></i>
-        <span class="whatsapp-tooltip">Chat with Maruf!</span>
+        <span class="whatsapp-tooltip" data-i18n="float.chat">Chat with Maruf!</span>
     </a>
 
     <!-- Scripts -->
@@ -1010,6 +1011,7 @@
     <script defer src="JavaScript/floating-bubbles.js"></script>
     <script defer src="assets/js/smart-navbar.js"></script>
     <script defer src="assets/js/supabase-client.js"></script>
+    <script defer src="assets/js/i18n.js"></script>
     <script defer src="JavaScript/script.js"></script>
     <script>
       // PWA: register service worker (safe on http://localhost + https)

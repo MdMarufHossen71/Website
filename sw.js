@@ -10,7 +10,8 @@ const CORE = [
   'android-chrome-192x192.png',
   'Design/style.css',
   'JavaScript/script.js',
-  'assets/js/supabase-client.js'
+  'assets/js/supabase-client.js',
+  'assets/js/i18n.js'
 ];
 
 self.addEventListener('install', (e) => {
