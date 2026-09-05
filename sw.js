@@ -11,7 +11,9 @@ const CORE = [
   'Design/style.css',
   'JavaScript/script.js',
   'assets/js/supabase-client.js',
-  'assets/js/i18n.js'
+  'assets/js/i18n.js',
+  'assets/js/faq-bot.js',
+  'assets/css/faq-bot.css'
 ];
 
 self.addEventListener('install', (e) => {
