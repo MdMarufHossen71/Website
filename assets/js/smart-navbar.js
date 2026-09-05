@@ -1,11 +1,9 @@
 // ==========================================================================
-// SMART NAVBAR — Global reusable auto-hide header module
+// SMART NAVBAR — auto-hide header + scroll progress, mobile & desktop
 // ==========================================================================
-// Usage: Include this script on any page. It auto-detects and attaches to
-// the element with id="navbar". No configuration needed.
-//
-// Desktop: hide on scroll-down, show on scroll-up or scroll-stop
-// Mobile (<992px): always visible, never hides, gets compact style on scroll
+// Behavior: hide on scroll-down, reveal on scroll-up / scroll-stop / top.
+// Mobile hides too (needs screen space) with gentler thresholds.
+// Includes a thin gradient scroll-progress hairline inside the navbar.
 // ==========================================================================
 
 (function initSmartNavbar() {
@@ -16,74 +14,87 @@
   window.__smartNavbarInitialized = true;
 
   // --- CONFIG ---
-  const SCROLL_DOWN_THRESHOLD = 12;   // px delta to trigger hide
-  const SCROLL_UP_THRESHOLD   = 8;    // px delta to trigger show
-  const TOP_SAFE_ZONE          = 80;   // always show when within this px from top
-  const SCROLL_STOP_DELAY      = 150;  // ms after last scroll event to re-show
-  const SCROLLED_CLASS_OFFSET  = 50;   // px to add the compact "scrolled" class
-  const MOBILE_BREAKPOINT      = 992;  // px
+  const DOWN_DESKTOP = 12;   // px down-scroll to hide (desktop)
+  const UP_DESKTOP   = 8;    // px up-scroll to show (desktop)
+  const DOWN_MOBILE  = 26;   // px down-scroll to hide (mobile, gentler)
+  const UP_MOBILE    = 6;    // px up-scroll to show (mobile)
+  const TOP_SAFE     = 80;   // always show within this px from top
+  const MOBILE_START = 220;  // mobile hides only after scrolling this far
+  const STOP_DELAY   = 160;  // ms after last scroll event to re-show
+  const COMPACT_AT   = 50;   // px to add the compact "scrolled" class
+  const MOBILE_BP    = 992;  // px breakpoint
 
   // --- STATE ---
-  let lastScrollY      = 0;
-  let scrollStopTimer  = null;
-  let ticking          = false;
-  let isHidden         = false;
+  let lastScrollY     = 0;
+  let scrollStopTimer = null;
+  let ticking         = false;
+  let isHidden        = false;
+  let progressBar     = null;
 
-  // Wait for DOM to be ready, then attach
   const attach = () => {
-    const navbar  = document.getElementById('navbar');
+    const navbar = document.getElementById('navbar');
     if (!navbar) return;
 
     const navMenu = document.getElementById('nav-menu');
 
-    // --- CORE SCROLL HANDLER (called inside rAF) ---
+    // Inject scroll-progress hairline once
+    if (!navbar.querySelector('.nav-progress')) {
+      progressBar = document.createElement('div');
+      progressBar.className = 'nav-progress';
+      progressBar.setAttribute('aria-hidden', 'true');
+      progressBar.innerHTML = '<span></span>';
+      navbar.appendChild(progressBar);
+    } else {
+      progressBar = navbar.querySelector('.nav-progress');
+    }
+    const progressFill = progressBar ? progressBar.firstElementChild : null;
+
+    const updateProgress = () => {
+      if (!progressFill) return;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+      progressFill.style.width = pct.toFixed(1) + '%';
+    };
+
     const handleScroll = () => {
-      // Never hide when mobile menu is open
+      // Never hide while the mobile menu is open
       if (navMenu && navMenu.classList.contains('active')) {
         show();
+        updateProgress();
         return;
       }
 
       const currentY = window.scrollY;
-
-      // Bail if position hasn't actually changed (prevents duplicate work)
-      if (currentY === lastScrollY) return;
-
-      const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
-
-      // --- MOBILE: never hide, only toggle compact class ---
-      if (isMobile) {
-        show();
-        toggleCompact(currentY > 30);
-        lastScrollY = Math.max(0, currentY);
+      if (currentY === lastScrollY) {
+        updateProgress();
         return;
       }
 
-      // --- DESKTOP ---
-      toggleCompact(currentY > SCROLLED_CLASS_OFFSET);
+      const isMobile = window.innerWidth < MOBILE_BP;
+      const downT = isMobile ? DOWN_MOBILE : DOWN_DESKTOP;
+      const upT = isMobile ? UP_MOBILE : UP_DESKTOP;
 
-      // Reset scroll-stop timer
+      toggleCompact(currentY > COMPACT_AT);
+
+      // Re-show shortly after scrolling stops (feels alive, never lost)
       if (scrollStopTimer) clearTimeout(scrollStopTimer);
-      scrollStopTimer = setTimeout(() => show(), SCROLL_STOP_DELAY);
+      scrollStopTimer = setTimeout(show, STOP_DELAY);
 
-      // Direction + threshold logic
       const delta = currentY - lastScrollY;
 
-      if (currentY <= TOP_SAFE_ZONE) {
-        // Near the very top — always visible
+      if (currentY <= TOP_SAFE) {
         show();
-      } else if (delta > SCROLL_DOWN_THRESHOLD) {
-        // Scrolling DOWN past threshold → hide
-        hide();
-      } else if (delta < -SCROLL_UP_THRESHOLD) {
-        // Scrolling UP past threshold → show immediately
+      } else if (delta > downT) {
+        // Don't hide on mobile until the user is really into the page
+        if (!isMobile || currentY > MOBILE_START) hide();
+      } else if (delta < -upT) {
         show();
       }
 
       lastScrollY = Math.max(0, currentY);
+      updateProgress();
     };
 
-    // --- HELPERS ---
     function show() {
       if (!isHidden) return;
       isHidden = false;
@@ -97,14 +108,9 @@
     }
 
     function toggleCompact(on) {
-      if (on) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
+      navbar.classList.toggle('scrolled', on);
     }
 
-    // --- OPTIMIZED SCROLL LISTENER (rAF throttled, passive) ---
     const onScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
@@ -116,26 +122,21 @@
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', () => {
-      // Re-evaluate on resize (e.g. switching from mobile to desktop)
-      handleScroll();
-    });
+    window.addEventListener('resize', handleScroll);
 
-    // Initial evaluation
+    // Initial state
+    lastScrollY = Math.max(0, window.scrollY);
     handleScroll();
   };
 
-  // Attach immediately if DOM is ready, otherwise wait
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', attach);
   } else {
     attach();
   }
 
-  // Also expose a manual re-attach for dynamically injected navbars
-  // (used by tools-games-layout.js which injects the navbar async)
+  // Manual re-attach for dynamically injected navbars
   window.__smartNavbarAttach = () => {
-    // Reset state so it re-binds to the newly injected navbar
     window.__smartNavbarInitialized = false;
     ticking = false;
     isHidden = false;

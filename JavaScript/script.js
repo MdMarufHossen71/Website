@@ -226,61 +226,84 @@ function showPopup({ title, text, type = 'success', button = 'Awesome!' }) {
     if (ok) setTimeout(close, 7000);
 }
 
-// Newsletter signup (footer) — Supabase if configured, else mailto fallback
-document.addEventListener('DOMContentLoaded', () => {
-    const nlForm = document.getElementById('newsletter-form');
-    if (!nlForm) return;
-    const nlEmail = document.getElementById('newsletter-email');
-    const nlMsg = document.getElementById('newsletter-msg');
-    nlForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = (nlEmail.value || '').trim();
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            nlMsg.textContent = 'Please enter a valid email.';
-            return;
+// Newsletter signup (footer) — Supabase if configured, else mailto fallback.
+// Uses document-level delegation so it works even if DOM order shifts.
+async function handleNewsletterSubmit(form) {
+    if (!form || form.dataset.nlBusy === '1') return;
+    const nlEmail = form.querySelector('#newsletter-email');
+    const nlMsg = form.querySelector('#newsletter-msg');
+    const btn = form.querySelector('button[type="submit"]');
+    const email = (nlEmail && nlEmail.value || '').trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (nlMsg) nlMsg.textContent = 'Please enter a valid email.';
+        return;
+    }
+    form.dataset.nlBusy = '1';
+    const btnOrig = btn ? btn.innerHTML : '';
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '...';
+    }
+    if (nlMsg) nlMsg.textContent = 'Joining...';
+    const done = () => {
+        form.dataset.nlBusy = '';
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = btnOrig;
         }
-        nlMsg.textContent = 'Joining...';
-        try {
-            if (window.PortfolioDB && typeof window.PortfolioDB.subscribeNewsletter === 'function') {
-                const res = await window.PortfolioDB.subscribeNewsletter(email);
-                if (res && res.ok) {
-                    nlMsg.textContent = '';
-                    nlForm.reset();
-                    showPopup({
-                        title: "You're on the list! 🎉",
-                        text: 'Welcome aboard! You will get one useful marketing & design tip every month. No spam, unsubscribe anytime.'
-                    });
-                    return;
-                }
-                if (res && res.reason === 'duplicate') {
-                    nlMsg.textContent = '';
-                    showPopup({
-                        title: 'Already subscribed ✅',
-                        text: 'This email is already on the list. Watch your inbox for the next tip!'
-                    });
-                    return;
-                }
-                if (res && res.reason === 'no-supabase') {
-                    nlMsg.textContent = 'Opening your mail app to confirm...';
-                    return;
-                }
+    };
+    try {
+        if (window.PortfolioDB && typeof window.PortfolioDB.subscribeNewsletter === 'function') {
+            const res = await window.PortfolioDB.subscribeNewsletter(email);
+            if (res && res.ok) {
+                if (nlMsg) nlMsg.textContent = '';
+                form.reset();
+                done();
+                showPopup({
+                    title: "You're on the list! 🎉",
+                    text: 'Welcome aboard! You will get one useful marketing & design tip every month. No spam, unsubscribe anytime.'
+                });
+                return;
             }
-            nlMsg.textContent = '';
-            showPopup({
-                type: 'error',
-                title: 'Oops, something failed',
-                text: 'Please try again — or message directly on <a href="https://wa.me/8801606096409" style="color:#9aa7ff;">WhatsApp</a>.'
-            });
-        } catch (err) {
-            console.warn('Newsletter failed.', err);
-            nlMsg.textContent = '';
-            showPopup({
-                type: 'error',
-                title: 'Oops, something failed',
-                text: 'Please try again — or message directly on <a href="https://wa.me/8801606096409" style="color:#9aa7ff;">WhatsApp</a>.'
-            });
+            if (res && res.reason === 'duplicate') {
+                if (nlMsg) nlMsg.textContent = '';
+                done();
+                showPopup({
+                    title: 'Already subscribed ✅',
+                    text: 'This email is already on the list. Watch your inbox for the next tip!'
+                });
+                return;
+            }
+            if (res && res.reason === 'no-supabase') {
+                if (nlMsg) nlMsg.textContent = 'Opening your mail app to confirm...';
+                done();
+                return;
+            }
         }
-    });
+        done();
+        if (nlMsg) nlMsg.textContent = '';
+        showPopup({
+            type: 'error',
+            title: 'Oops, something failed',
+            text: 'Please try again — or message directly on <a href="https://wa.me/8801606096409" style="color:#9aa7ff;">WhatsApp</a>.'
+        });
+    } catch (err) {
+        console.warn('Newsletter failed.', err);
+        done();
+        if (nlMsg) nlMsg.textContent = '';
+        showPopup({
+            type: 'error',
+            title: 'Oops, something failed',
+            text: 'Please try again — or message directly on <a href="https://wa.me/8801606096409" style="color:#9aa7ff;">WhatsApp</a>.'
+        });
+    }
+}
+
+document.addEventListener('submit', (e) => {
+    const form = e.target && e.target.closest ? e.target.closest('#newsletter-form') : null;
+    if (!form) return;
+    e.preventDefault();
+    handleNewsletterSubmit(form);
 });
         } else if (targetId.includes('#')) {
             // Handle cross-page navigation with hash

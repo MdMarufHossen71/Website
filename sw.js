@@ -1,6 +1,6 @@
 /* Portfolio Service Worker — offline-first for static assets, network-first for HTML.
    Version: v1 — bump on deploy to force update. */
-const CACHE = 'maruf-portfolio-v1';
+const CACHE = 'maruf-portfolio-v2';
 const CORE = [
   './',
   'index.html',

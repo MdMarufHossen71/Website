@@ -254,7 +254,8 @@ p {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--glass-border);
-    transition: transform 250ms ease-in-out, top 250ms ease-in-out, background 250ms ease-in-out, border 250ms ease-in-out, box-shadow 250ms ease-in-out;
+    transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1), top 380ms cubic-bezier(0.22, 1, 0.36, 1), background 250ms ease-in-out, border 250ms ease-in-out, box-shadow 250ms ease-in-out;
+    will-change: transform;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
     min-height: 80px;
     display: flex;
@@ -303,7 +304,32 @@ p {
 }
 
 .navbar.hidden {
-    transform: translateY(-150%) !important;
+    transform: translateY(-130%) !important;
+}
+
+/* Scroll-progress hairline injected by smart-navbar.js */
+.navbar .nav-progress {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    bottom: 6px;
+    height: 2px;
+    border-radius: 2px;
+    overflow: hidden;
+    pointer-events: none;
+}
+.navbar .nav-progress > span {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6, #10b981);
+}
+@media (min-width: 992px) {
+    .navbar .nav-progress {
+        left: 38px;
+        right: 38px;
+    }
 }
 
 .nav-container {
