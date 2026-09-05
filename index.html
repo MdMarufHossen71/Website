@@ -49,11 +49,15 @@
     <meta name="ICBM" content="23.8103, 90.4125">
     
     <!-- Favicon and Icons -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <!-- Analytics: GA4 only on homepage for speed (Ads + GTM kept on blog pages) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-52XK1Y68N8"></script>
@@ -236,7 +240,7 @@
             </div>
             <div class="hero-visual" data-aos="fade-left" data-aos-delay="200">
                 <div class="hero-image-container">
-                    <img src="images/my-photo.png" alt="Md Maruf Hossen - Professional Digital Marketer and Graphic Designer from Bangladesh" class="hero-image" loading="eager">
+                    <img src="images/my-photo.png" alt="Md Maruf Hossen - Professional Digital Marketer and Graphic Designer from Bangladesh" class="hero-image" loading="eager" fetchpriority="high" decoding="async" width="1024" height="1024">
                     <div class="floating-elements" id="floating-elements">
                     </div>
                 </div>
@@ -402,7 +406,7 @@
             <div class="portfolio-grid">
                 <div class="portfolio-item branding print" data-aos="fade-up" data-aos-delay="100">
                     <div class="portfolio-image">
-                        <img src="https://mir-s3-cdn-cf.behance.net/projects/404/2d1f74251324249.Y3JvcCwxMzA5LDEwMjQsMTEzLDA.png" alt="Bangladesh Premium Typography Poster Design by Md Maruf Hossen - Bengali lettering" loading="lazy">
+                        <img src="https://mir-s3-cdn-cf.behance.net/projects/404/2d1f74251324249.Y3JvcCwxMzA5LDEwMjQsMTEzLDA.png" alt="Bangladesh Premium Typography Poster Design by Md Maruf Hossen - Bengali lettering" loading="lazy" decoding="async">
                         <div class="portfolio-overlay">
                             <div class="portfolio-content">
                                 <h3>Bangladesh Premium Typography Poster</h3>
@@ -419,7 +423,7 @@
                 
                 <div class="portfolio-item branding" data-aos="fade-up" data-aos-delay="200">
                     <div class="portfolio-image">
-                        <img src="https://mir-s3-cdn-cf.behance.net/projects/404/a0f36c249038509.Y3JvcCwyMDQ4LDE2MDEsMCwyMjM.png" alt="Squid Cove Pottery Logo Design by Md Maruf Hossen" loading="lazy">
+                        <img src="https://mir-s3-cdn-cf.behance.net/projects/404/a0f36c249038509.Y3JvcCwyMDQ4LDE2MDEsMCwyMjM.png" alt="Squid Cove Pottery Logo Design by Md Maruf Hossen" loading="lazy" decoding="async">
                         <div class="portfolio-overlay">
                             <div class="portfolio-content">
                                 <h3>Squid Cove Pottery Logo Design</h3>
@@ -436,7 +440,7 @@
                 
                 <div class="portfolio-item print branding" data-aos="fade-up" data-aos-delay="300">
                     <div class="portfolio-image">
-                        <img src="https://mir-s3-cdn-cf.behance.net/projects/404/ad7143249038405.Y3JvcCwxMDI0LDgwMCwwLDExMQ.png" alt="T-Shirt Design by Md Maruf Hossen - apparel graphics" loading="lazy">
+                        <img src="https://mir-s3-cdn-cf.behance.net/projects/404/ad7143249038405.Y3JvcCwxMDI0LDgwMCwwLDExMQ.png" alt="T-Shirt Design by Md Maruf Hossen - apparel graphics" loading="lazy" decoding="async">
                         <div class="portfolio-overlay">
                             <div class="portfolio-content">
                                 <h3>Custom T-Shirt Design</h3>
@@ -1007,5 +1011,13 @@
     <script defer src="assets/js/smart-navbar.js"></script>
     <script defer src="assets/js/supabase-client.js"></script>
     <script defer src="JavaScript/script.js"></script>
+    <script>
+      // PWA: register service worker (safe on http://localhost + https)
+      if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js').catch((e) => console.warn('SW failed', e));
+        });
+      }
+    </script>
 </body>
 </html>
