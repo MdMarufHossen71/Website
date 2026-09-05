@@ -46,7 +46,7 @@ async function subscribeNewsletter(email) {
   const sb = await getSupabase();
   if (!sb) {
     // No Supabase configured yet — open mail client as fallback.
-    location.href = "mailto:official@mdmarufhossen71.site?subject=Newsletter%20Subscribe&body=Please%20add%20me:%20" + encodeURIComponent(email);
+    location.href = "mailto:maruf.112005@gmail.com?subject=Newsletter%20Subscribe&body=Please%20add%20me:%20" + encodeURIComponent(email);
     return { ok: false, reason: "no-supabase" };
   }
   const { error } = await sb.from("newsletter_subscribers").insert([{

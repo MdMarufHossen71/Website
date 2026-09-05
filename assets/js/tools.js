@@ -218,7 +218,7 @@
     const updateQr = () => {
       const padding = parseInt(paddingSlider.value, 10);
       qr.set({
-        value: valueInput.value || 'https://mdmarufhossen71.site',
+        value: valueInput.value || 'https://mdmarufhossen71.vercel.app',
         foreground: fgColorInput.value,
         background: bgColorInput.value,
         size: parseInt(sizeSelect.value, 10),

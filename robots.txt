@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mdmarufhossen71.site/sitemap.xml
+Sitemap: https://mdmarufhossen71.vercel.app/sitemap.xml

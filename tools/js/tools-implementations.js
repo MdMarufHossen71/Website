@@ -1392,7 +1392,7 @@ window.DEV_TOOLS_LIST.push({
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-col gap-1.5 w-full">
                         <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">QR Code Text/URL</label>
-                        <input type="text" id="qr-text" value="https://mdmarufhossen71.site" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-darkborder rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary-500/20 transition-all">
+                        <input type="text" id="qr-text" value="https://mdmarufhossen71.vercel.app" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-darkborder rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary-500/20 transition-all">
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="flex flex-col gap-1.5 w-full">
@@ -1468,7 +1468,7 @@ window.DEV_TOOLS_LIST.push({
         });
 
         const reset = () => {
-            text.value = 'https://mdmarufhossen71.site';
+            text.value = 'https://mdmarufhossen71.vercel.app';
             dark.value = '#000000';
             light.value = '#ffffff';
             generateQR();
@@ -3031,7 +3031,7 @@ window.DEV_TOOLS_LIST.push({
                 <div class="flex flex-col gap-2">
                     <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Google Search Snippet Preview</span>
                     <div class="p-4 bg-white dark:bg-[#1a1a1a] border border-slate-200 dark:border-darkborder rounded-2xl flex flex-col gap-1 leading-normal font-sans">
-                        <span class="text-[11px] text-[#4d5156] dark:text-[#bdc1c6] truncate">https://mdmarufhossen71.site</span>
+                        <span class="text-[11px] text-[#4d5156] dark:text-[#bdc1c6] truncate">https://mdmarufhossen71.vercel.app</span>
                         <h3 id="prev-meta-title" class="text-lg font-semibold text-[#1a0dab] dark:text-[#8ab4f8] hover:underline cursor-pointer truncate">Title</h3>
                         <p id="prev-meta-desc" class="text-[12px] text-[#4d5156] dark:text-[#bdc1c6] leading-relaxed line-clamp-2">Description snippet...</p>
                     </div>
@@ -3127,7 +3127,7 @@ window.DEV_TOOLS_LIST.push({
                     </div>
                     <div class="flex flex-col gap-1.5 w-full">
                         <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Sitemap URL Link</label>
-                        <input type="text" id="robot-sitemap" value="https://mdmarufhossen71.site/sitemap.xml" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-darkborder rounded-xl px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-primary-500/20 transition-all font-mono text-slate-500">
+                        <input type="text" id="robot-sitemap" value="https://mdmarufhossen71.vercel.app/sitemap.xml" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-darkborder rounded-xl px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-primary-500/20 transition-all font-mono text-slate-500">
                     </div>
                 </div>
                 ${UI.createActionRow('robot-reset', null, `
@@ -3183,7 +3183,7 @@ window.DEV_TOOLS_LIST.push({
         const reset = () => {
             ua.value = '*';
             disallow.value = '/admin/\n/private/';
-            sitemap.value = 'https://mdmarufhossen71.site/sitemap.xml';
+            sitemap.value = 'https://mdmarufhossen71.vercel.app/sitemap.xml';
             generateRobots();
         };
 
