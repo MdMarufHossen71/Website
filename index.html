@@ -334,7 +334,7 @@
                         <li>Paid Campaign Management</li>
                         <li>Analytics & Reporting</li>
                     </ul>
-                    <div class="service-price">Starting at $299</div>
+                    <div class="service-price">Starting at $299 <span style="opacity:.7;">• ৳35,000</span></div>
                 </div>
                 
                 <div class="service-card featured" data-aos="fade-up" data-aos-delay="200">
@@ -350,7 +350,7 @@
                         <li>Professional Color Palette</li>
                         <li>Typography Selection</li>
                     </ul>
-                    <div class="service-price">Starting at $499</div>
+                    <div class="service-price">Starting at $499 <span style="opacity:.7;">• ৳58,000</span></div>
                 </div>
                 
                 <div class="service-card" data-aos="fade-up" data-aos-delay="300">
@@ -365,7 +365,7 @@
                         <li>High-Converting Landing Pages</li>
                         <li>E-commerce Design</li>
                     </ul>
-                    <div class="service-price">Starting at $799</div>
+                    <div class="service-price">Starting at $799 <span style="opacity:.7;">• ৳93,000</span></div>
                 </div>
                 
                 <div class="service-card" data-aos="fade-up" data-aos-delay="400">
@@ -380,7 +380,7 @@
                         <li>Custom Posters & Banners</li>
                         <li>Product Packaging Design</li>
                     </ul>
-                    <div class="service-price">Starting at $199</div>
+                    <div class="service-price">Starting at $199 <span style="opacity:.7;">• ৳23,000</span></div>
                 </div>
             </div>
         </div>
@@ -846,6 +846,18 @@
                             <i class="fab fa-quora"></i>
                         </a>
                     </div>
+
+                    <div class="hire-box" style="margin-top:1.25rem;padding:1rem 1.25rem;border:1px solid var(--border-color);border-radius:12px;background:var(--bg-secondary);">
+                        <h4 style="margin:0 0 .5rem;"><i class="fas fa-briefcase"></i> Prefer marketplaces?</h4>
+                        <p style="margin:0 0 .75rem;color:var(--text-secondary);font-size:.95rem;">Hire securely with reviews & escrow:</p>
+                        <div style="display:flex;flex-wrap:wrap;gap:.6rem;">
+                            <a href="https://calendly.com/maruf-112005/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:.55rem 1rem;">📅 Book 30-min Call ↗</a>
+                            <a href="https://www.fiverr.com/mdmarufhossen71" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding:.55rem 1rem;">Fiverr ↗</a>
+                            <a href="https://www.freelancer.com/MdMarufHossen71" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding:.55rem 1rem;">Freelancer ↗</a>
+                            <a href="https://www.behance.net/mdmarufhossen71" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding:.55rem 1rem;">Behance ↗</a>
+                        </div>
+                        <p style="margin:.75rem 0 0;font-size:.9rem;color:var(--text-secondary);">Fastest reply: <a href="https://wa.me/8801606096409?text=Hi%20Maruf%2C%20I%20want%20a%20quote%20for%20my%20project!">WhatsApp</a> • Video call via <a href="https://calendly.com/maruf-112005/30min" target="_blank" rel="noopener noreferrer">Calendly</a>.</p>
+                    </div>
                 </div>
                 
                 <div class="contact-form-container" data-aos="fade-left" data-aos-delay="200">
@@ -904,6 +916,11 @@
                         <span class="logo-dot">.</span>
                     </a>
                     <p>Professional Digital Marketer & Graphic Designer in Bangladesh helping businesses grow through strategic social media marketing, SEO optimization, and compelling visual design solutions.</p>
+                    <form id="newsletter-form" style="margin-top:1rem;display:flex;gap:.5rem;max-width:340px;" aria-label="Newsletter signup">
+                        <input type="email" id="newsletter-email" required placeholder="Your email for monthly tips" aria-label="Email for newsletter" style="flex:1;padding:.6rem .8rem;border-radius:8px;border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-primary);">
+                        <button type="submit" class="btn btn-secondary" style="padding:.6rem 1rem;white-space:nowrap;">Join</button>
+                    </form>
+                    <p id="newsletter-msg" style="font-size:.85rem;margin:.4rem 0 0;min-height:1.2em;" role="status"></p>
                 </div>
                 
                 <div class="footer-links">
@@ -988,6 +1005,7 @@
     <script defer src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script defer src="JavaScript/floating-bubbles.js"></script>
     <script defer src="assets/js/smart-navbar.js"></script>
+    <script defer src="assets/js/supabase-client.js"></script>
     <script defer src="JavaScript/script.js"></script>
 </body>
 </html>

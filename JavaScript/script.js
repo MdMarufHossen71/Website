@@ -185,8 +185,47 @@ navLinks.forEach(link => {
                     top: offsetTop,
                     behavior: 'smooth',
                     block: 'start'
-                });
+    });
+}
+
+// Newsletter signup (footer) — Supabase if configured, else mailto fallback
+document.addEventListener('DOMContentLoaded', () => {
+    const nlForm = document.getElementById('newsletter-form');
+    if (!nlForm) return;
+    const nlEmail = document.getElementById('newsletter-email');
+    const nlMsg = document.getElementById('newsletter-msg');
+    nlForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = (nlEmail.value || '').trim();
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            nlMsg.textContent = 'Please enter a valid email.';
+            return;
+        }
+        nlMsg.textContent = 'Joining...';
+        try {
+            if (window.PortfolioDB && typeof window.PortfolioDB.subscribeNewsletter === 'function') {
+                const res = await window.PortfolioDB.subscribeNewsletter(email);
+                if (res && res.ok) {
+                    nlMsg.textContent = '✅ You are in! Check your inbox soon.';
+                    nlForm.reset();
+                    return;
+                }
+                if (res && res.reason === 'duplicate') {
+                    nlMsg.textContent = 'You are already subscribed. ✅';
+                    return;
+                }
+                if (res && res.reason === 'no-supabase') {
+                    nlMsg.textContent = 'Opening your mail app to confirm...';
+                    return;
+                }
             }
+            nlMsg.textContent = 'Something went wrong, please WhatsApp me instead.';
+        } catch (err) {
+            console.warn('Newsletter failed.', err);
+            nlMsg.textContent = 'Something went wrong, please try again.';
+        }
+    });
+});
         } else if (targetId.includes('#')) {
             // Handle cross-page navigation with hash
             const [page, hash] = targetId.split('#');
@@ -328,7 +367,22 @@ if (contactForm) {
         
         // Create FormData object
         const formData = new FormData(this);
-        
+
+        // Backup to Supabase (fire-and-forget, never blocks Formspree)
+        try {
+            const fd = {
+                name: (formData.get('name') || '').toString(),
+                email: (formData.get('_replyto') || formData.get('email') || '').toString(),
+                service: (formData.get('service') || '').toString(),
+                message: (formData.get('message') || '').toString()
+            };
+            if (window.PortfolioDB && typeof window.PortfolioDB.saveLeadBackup === 'function') {
+                window.PortfolioDB.saveLeadBackup(fd);
+            }
+        } catch (backupErr) {
+            console.warn('Lead backup skipped.', backupErr);
+        }
+
         // Submit form to Formspree
         fetch(this.action, {
             method: 'POST',
