@@ -1,0 +1,29 @@
+# Netlify mirror config — same trailing-slash canonicalization as vercel.json
+[[redirects]]
+  from = "/blog"
+  to = "/blog/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tools"
+  to = "/tools/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/games"
+  to = "/games/"
+  status = 301
+  force = true
+
+# Never cache the service worker or manifest
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/site.webmanifest"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

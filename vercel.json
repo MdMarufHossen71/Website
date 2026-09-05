@@ -2,6 +2,11 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/blog", "destination": "/blog/", "permanent": true },
+    { "source": "/tools", "destination": "/tools/", "permanent": true },
+    { "source": "/games", "destination": "/games/", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/sw.js",
